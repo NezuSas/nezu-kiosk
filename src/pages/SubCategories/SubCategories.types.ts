@@ -1,7 +1,7 @@
 export interface SubCategory {
     id: string;
     title: string;
-    imageUrl: string;
+    imageUrl: string[];
     parentId: string;
 }
 

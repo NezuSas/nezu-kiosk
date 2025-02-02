@@ -1,0 +1,104 @@
+.cartItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 200px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease-in-out;
+}
+
+.cartItem:hover {
+    transform: scale(1.02);
+}
+
+.itemImage {
+    width: 300px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid #D9542B;
+    box-shadow: 0px 4px 10px rgba(217, 84, 43, 0.5);
+}
+
+.itemDetails {
+    flex: 1;
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.itemName {
+    font-size: 22px;
+    font-weight: bold;
+    color: #1A1A1A;
+    margin: 0;
+}
+
+.itemPrice {
+    font-size: 20px;
+    color: #666;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.quantityControls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+}
+
+.decreaseButton,
+.increaseButton {
+    width: 35px;
+    height: 35px;
+    border: none;
+    background-color: #C9DF38;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 25px;
+    color: #1A1A1A;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.decreaseButton:hover,
+.increaseButton:hover {
+    background-color: #A8C924;
+}
+
+.removeButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.removeButton:hover {
+    transform: scale(1.1);
+}
+
+.trashIcon {
+    width: 40px;
+    height: 40px;
+    filter: drop-shadow(0px 6px 10px rgba(217, 84, 43, 0.3));
+    box-shadow: 0px 4px 10px rgba(217, 84, 43, 0.8);
+    border-radius: 50%;
+    background-color: white;
+    padding: 5px;
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.trashIcon:hover {
+    transform: scale(1.1) translateY(-3px);
+    filter: drop-shadow(0px 8px 14px rgba(217, 84, 43, 0.2));
+    box-shadow: 0px 6px 14px rgba(217, 84, 43, 0.3);
+}
