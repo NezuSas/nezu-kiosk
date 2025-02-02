@@ -1,0 +1,69 @@
+.receipt {
+    width: 280px; /* Ancho típico de recibo */
+    font-family: "Courier New", monospace;
+    text-align: center;
+    padding: 10px;
+    background: white;
+    border: 1px solid #ddd;
+  }
+  
+  .logoContainer {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  
+  .logo {
+    width: 150px; /* Ajusta el tamaño del logo */
+  }
+  
+  .customerName,
+  .customerCompany {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .qrContainer {
+    text-align: center;
+    margin: 10px 0;
+  }
+  
+  .qrCode {
+    width: 100px; /* Ajusta el tamaño del QR */
+  }
+  
+  .orderNumber {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 5px 0;
+  }
+  
+  .separator {
+    border: none;
+    border-top: 1px dashed black;
+    margin: 5px 0;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    font-size: 12px;
+    padding: 2px;
+  }
+  
+  .total {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    background: black;
+    color: white;
+    padding: 5px;
+  }
+  
+  .thankYou {
+    font-size: 12px;
+    font-style: italic;
+    margin-top: 10px;
+  }

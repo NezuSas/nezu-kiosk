@@ -1,0 +1,81 @@
+/* Contenedor principal */
+.container {
+    text-align: center;
+    padding: 30px;
+    background-image: url('/src/assets/images/background_white.jpg');
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Contenedor de detalles */
+.detailContainer {
+    width: 90%;
+    max-width: 1200px;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título principal */
+.title {
+    font-size: 75px;
+    font-weight: bold;
+    color: #D9542B;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: 0px 4px 20px rgba(217, 84, 43, 0.8);
+}
+
+/* Subtítulos */
+.sectionTitle {
+    text-align: left;
+    font-size: 45px;
+    font-weight: bold;
+    color: #D9542B;
+    width: 100%;
+    margin-top: 50px;
+    border-bottom: 3px solid #D9542B;
+    padding-bottom: 5px;
+    margin-bottom: 50px;
+}
+
+/* Carrusel de imágenes */
+.carouselContainer {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Botón de ir al carrito */
+.cartButton {
+    margin-top: 100px;
+    padding: 15px 25px;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    background-color: #D9542B;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.cartButton:hover {
+    background-color: #A8C924;
+    transform: scale(1.05);
+}
+
+/* Error */
+.error {
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+    margin-top: 50px;
+}

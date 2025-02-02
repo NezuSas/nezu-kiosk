@@ -4,20 +4,31 @@ export const SUB_CATEGORIES: SubCategory[] = [
   {
     id: 'lumina',
     title: 'Lumina',
-    imageUrl: '/src/assets/images/subcategories/lumina.jpg',
+    imageUrl: [
+      '/src/assets/images/subcategories/Living/Lumina/lumina1.jpg',
+      '/src/assets/images/subcategories/Living/Lumina/lumina2.jpg',
+      '/src/assets/images/subcategories/Living/Lumina/lumina3.webp'
+    ],
     parentId: 'living'
   },
   {
     id: 'climate',
     title: 'Climate',
-    imageUrl: '/src/assets/images/subcategories/climate.jpg',
+    imageUrl: [
+      '/src/assets/images/subcategories/climate1.jpg',
+      '/src/assets/images/subcategories/climate2.jpg',
+      '/src/assets/images/subcategories/climate3.jpg'
+    ],
     parentId: 'living'
   },
   {
     id: 'guardian',
     title: 'Guardian',
-    imageUrl: '/src/assets/images/subcategories/guardian.jpg',
+    imageUrl: [
+      '/src/assets/images/subcategories/Living/Guardian/guardian1.webp',
+      '/src/assets/images/subcategories/Living/Guardian/guardian2.jpg',
+      '/src/assets/images/subcategories/Living/Guardian/guardian3.jpg'
+    ],
     parentId: 'living'
   }
-  // Puedes agregar más subcategorías para 'elevate' y 'academia' cuando las tengas
 ];

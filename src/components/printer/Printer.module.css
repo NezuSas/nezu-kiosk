@@ -1,0 +1,19 @@
+.printButton {
+    background-color: #D9542B;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+  
+.printButton:hover {
+    background-color: #D9542B;
+}
+  
+.printButton:active {
+    background-color: #D9542B;
+}

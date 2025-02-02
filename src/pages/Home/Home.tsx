@@ -24,7 +24,7 @@ export const Home = () => {
     <div className={styles.container}>
       <img
         src="/src/assets/images/logo.png"
-        alt="Ledia"
+        alt="Nezu"
         className={styles.logo}
       />
       <div className={styles.buttonContainer}>
