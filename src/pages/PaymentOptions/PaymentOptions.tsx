@@ -70,7 +70,7 @@ export const PaymentOptions: React.FC = () => {
               }}
             >
               <img
-                src="/src/assets/images/logo_color.png"
+                src="/src/assets/images/logo_negro.png"
                 alt="Logo de Nezu"
                 style={{ width: "80%", height: "80%" }}
               />

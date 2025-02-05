@@ -1,50 +1,114 @@
-# React + TypeScript + Vite
+# 🚀 Nezu Kiosk
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Nezu Kiosk es una aplicación de kiosko empresarial desarrollada con **React**, **Vite** y **TypeScript**, diseñada para gestionar pedidos, generar códigos QR y conectarse con impresoras térmicas.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📖 Características Principales
+- 🛒 **Carrito de Compras** con actualización en tiempo real.
+- 📲 **Generación de Códigos QR** para pagos.
+- 🖨 **Conexión con Impresoras Térmicas** utilizando `escpos` y `escpos-usb`.
+- 🔗 **Integración con APIs** para pagos y gestión de pedidos.
+- ⚡ **Rendimiento optimizado** con **Vite** y **Zustand** para manejo de estado.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 📂 Estructura del Proyecto
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+📦 nezu-kiosk
+├── 📂 public/              # Archivos estáticos
+├── 📂 server/              # Backend con Express
+├── 📂 src/                 # Código fuente principal
+│   ├── 📂 assets/          # Imágenes y recursos estáticos
+│   ├── 📂 components/      # Componentes reutilizables
+│   ├── 📂 config/         # Configuración del proyecto
+│   ├── 📂 integrations/    # Integraciones externas (ej. impresoras)
+│   ├── 📂 pages/          # Vistas principales (Cart, Home, PaymentOptions, etc.)
+│   ├── 📂 routes/         # Definición de rutas con react-router-dom
+│   ├── 📂 store/          # Manejo de estado con Zustand
+│   ├── 📂 styles/         # Archivos de estilos globales y modulares
+│   ├── 📂 utils/          # Funciones auxiliares
+│   ├── App.tsx           # Componente raíz
+│   ├── main.tsx          # Punto de entrada de la aplicación
+└── ...
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## 🔧 Instalación y Configuración
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### 1️⃣ **Clonar el Repositorio**
+```sh
+git clone https://github.com/NezuSas/nezu-kiosk.git
+cd nezu-kiosk
 ```
+
+### 2️⃣ **Instalar Dependencias**
+```sh
+npm install
+```
+
+### 3️⃣ **Configurar Variables de Entorno**
+Crear un archivo `.env.development` o `.env.production` con las siguientes variables:
+```env
+VITE_API_URL=https://api.nezu.com
+VITE_PAYMENT_GATEWAY=https://payments.nezu.com
+```
+
+### 4️⃣ **Ejecutar en Desarrollo**
+```sh
+npm run dev
+```
+
+### 5️⃣ **Construir para Producción**
+```sh
+npm run build
+```
+
+---
+
+## 🛠 Tecnologías Utilizadas
+- ⚛ **React + Vite** - Framework y Bundler rápido.
+- 📦 **Zustand** - Manejo eficiente de estado global.
+- 📡 **Express** - Backend ligero.
+- 🖨 **escpos + escpos-usb** - Impresión térmica.
+- 🎨 **CSS Modules** - Estilos modulares.
+- 🛒 **react-router-dom** - Navegación entre páginas.
+
+---
+
+## 🚀 Rutas Disponibles
+
+| Ruta | Página |
+|------------|----------------|
+| `/` | Inicio |
+| `/categories` | Categorías |
+| `/categories/:category` | Subcategorías |
+| `/categories/:category/:subCategory` | Detalles del producto |
+| `/cart` | Carrito de compras |
+| `/form` | Formulario de usuario |
+| `/payment-options` | Opciones de pago |
+| `/datafast-instructions` | Instrucciones de pago con Datafast |
+
+---
+
+## 🤝 Contribuciones
+¡Las contribuciones son bienvenidas! Para colaborar:
+1. Haz un **fork** del repositorio.
+2. Crea una **rama** (`git checkout -b feature-nueva`).
+3. Haz un **commit** (`git commit -m 'Agrega nueva funcionalidad'`).
+4. Haz un **push** (`git push origin feature-nueva`).
+5. Abre un **Pull Request**.
+
+---
+
+## 📜 Licencia
+Este proyecto está bajo la licencia **MIT**.
+
+---
+
+🚀 **Desarrollado por NezuSas con tecnología de vanguardia.**
+
+NezuSas está comprometido con la innovación y el desarrollo de soluciones tecnológicas para optimizar procesos empresariales. Con un enfoque en eficiencia y facilidad de uso, **Nezu Kiosk** ha sido diseñado para brindar una experiencia fluida, segura y adaptada a las necesidades del negocio moderno. Gracias a nuestra experiencia en software y hardware, aseguramos una integración confiable con sistemas de pago y dispositivos de impresión. ¡Optimiza tu flujo de trabajo con Nezu Kiosk!
+
