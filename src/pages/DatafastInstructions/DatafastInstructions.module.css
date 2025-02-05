@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #F5F5F5;
+    text-align: center;
+    position: relative;
+}
+
+.logo {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.message {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Contenedor de la flecha */
+.arrowContainer {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo de la flecha con animación */
+.arrow {
+    font-size: 200px;
+    color: #D9542B;
+    animation: bounce 1.5s infinite;
+}
+
+/* Efecto de subir y bajar */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}

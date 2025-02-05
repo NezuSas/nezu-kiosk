@@ -1,35 +1,61 @@
-import React, { useState } from 'react';
-import type { FormProps, FormData } from './Form.types';
-import { PAYMENT_METHODS } from './Form.constants';
-import styles from './Form.module.css';
+import React, { useEffect, useState } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import type { FormProps, FormData } from "./Form.types";
+import { PAYMENT_METHODS } from "./Form.constants";
+import styles from "./Form.module.css";
+import io from "socket.io-client";
 
-export const Form: React.FC<FormProps> = ({ className = '' }) => {
+const socket = io("/");
+
+export const Form: React.FC<FormProps> = ({ className = "" }) => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const sessionId = searchParams.get("session");
   const [formData, setFormData] = useState<FormData>({
-    businessName: '',
-    ruc: '',
-    address: '',
-    email: '',
-    paymentMethod: 'DE UNA'
+    businessName: "",
+    ruc: "",
+    address: "",
+    email: "",
+    paymentMethod: "QR",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const [receivedData, setReceivedData] = useState<FormData | null>(null);
+
+  React.useEffect(() => {
+    if (!sessionId) {
+      navigate("/");
+    }
+  }, [sessionId, navigate]);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Aquí puedes agregar la lógica para enviar los datos
+    if (sessionId) {
+      socket.emit("message", { sessionId, ...formData });
+      console.log("📤 Datos enviados:", { sessionId, ...formData });
+      alert("Datos enviados correctamente. Por favor, vuelva al kiosko.");
+    }
   };
+
+  if (!sessionId) return null;
 
   return (
     <div className={`${styles.container} ${className}`}>
       <div className={styles.logoContainer}>
-        <img src="/src/assets/images/logo_color.png" alt="Nezu Logo" className={styles.logo} />
+        <img
+          src="/src/assets/images/logo_color.png"
+          alt="Nezu Logo"
+          className={styles.logo}
+        />
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -105,7 +131,7 @@ export const Form: React.FC<FormProps> = ({ className = '' }) => {
             className={styles.select}
             required
           >
-            {PAYMENT_METHODS.map(method => (
+            {PAYMENT_METHODS.map((method) => (
               <option key={method.value} value={method.value}>
                 {method.label}
               </option>
@@ -117,6 +143,16 @@ export const Form: React.FC<FormProps> = ({ className = '' }) => {
           CONFIRMAR
         </button>
       </form>
+      {receivedData && (
+        <div className={styles.receivedDataContainer}>
+          <h3>📩 Datos Recibidos:</h3>
+          <p><strong>Razón Social:</strong> {receivedData.businessName}</p>
+          <p><strong>RUC:</strong> {receivedData.ruc}</p>
+          <p><strong>Dirección:</strong> {receivedData.address}</p>
+          <p><strong>Correo:</strong> {receivedData.email}</p>
+          <p><strong>Método de pago:</strong> {receivedData.paymentMethod}</p>
+        </div>
+      )}
     </div>
   );
 };

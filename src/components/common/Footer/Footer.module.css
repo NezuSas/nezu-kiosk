@@ -3,7 +3,12 @@
     width: 100%;
     padding: 15px 1rem;
     color: gray;
-    height: 10vh;
+    height: auto; /* Cambiado de 10vh a auto para evitar que se deforme */
+    min-height: 80px; /* Se asegura un tamaño mínimo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .container {
