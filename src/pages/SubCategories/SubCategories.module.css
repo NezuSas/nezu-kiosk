@@ -3,7 +3,7 @@
   padding: 30px;
   background-image: url('/src/assets/images/background_white.jpg');
   background-size: cover;
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;

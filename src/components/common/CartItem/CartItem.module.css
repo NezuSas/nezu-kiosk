@@ -36,6 +36,7 @@
     font-weight: bold;
     color: #1A1A1A;
     margin: 0;
+    text-align: left;
 }
 
 .itemPrice {
@@ -43,6 +44,7 @@
     color: #666;
     font-weight: bold;
     margin: 5px 0;
+    text-align: left;
 }
 
 .quantityControls {

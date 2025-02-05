@@ -32,6 +32,15 @@
     box-shadow: 0px 4px 20px rgba(217, 84, 43, 0.8);
 }
 
+/* 📌 Título con mayor visibilidad */
+.totalTitle {
+    font-size: 50px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
 /* 📌 Mensaje cuando el carrito está vacío */
 .emptyCart {
     font-size: 22px;
@@ -59,19 +68,21 @@
 
 /* 📌 Botón de Confirmar Pedido */
 .confirmButton {
-    padding: 15px 30px;
-    font-size: 24px;
-    background-color: #D9542B;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
+    margin-top: 100px;
+    padding: 15px 25px;
+    font-size: 28px;
     font-weight: bold;
+    color: white;
+    background-color: #D9542B;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
     transition: background 0.3s ease-in-out;
 }
 
 .confirmButton:hover {
-    background-color: #B14223;
+    background-color: #A8C924;
+    transform: scale(1.05);
 }
 
 .hiddenReceipt {

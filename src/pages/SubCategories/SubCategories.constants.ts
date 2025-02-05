@@ -15,9 +15,9 @@ export const SUB_CATEGORIES: SubCategory[] = [
     id: 'climate',
     title: 'Climate',
     imageUrl: [
-      '/src/assets/images/subcategories/climate1.jpg',
-      '/src/assets/images/subcategories/climate2.jpg',
-      '/src/assets/images/subcategories/climate3.jpg'
+      '/src/assets/images/subcategories/Living/Climate/climate1.jpg',
+      '/src/assets/images/subcategories/Living/Climate/climate2.jpg',
+      '/src/assets/images/subcategories/Living/Climate/climate3.jpg'
     ],
     parentId: 'living'
   },

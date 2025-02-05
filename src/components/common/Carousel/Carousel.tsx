@@ -9,11 +9,9 @@ export const Carousel: React.FC<CarouselProps> = ({ images }) => {
   const startX = useRef<number | null>(null);
   const isDragging = useRef(false);
 
-  // Para gestos táctiles
   const touchStartX = useRef<number | null>(null);
   const touchMoveX = useRef<number | null>(null);
 
-  // Cambio automático cada 5s si no hay interacción
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
@@ -34,7 +32,6 @@ export const Carousel: React.FC<CarouselProps> = ({ images }) => {
     return () => clearInterval(interval);
   }, [isPaused, currentIndex, images.length]);
 
-  // Mover el carrusel con el mouse (drag)
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!sliderRef.current) return;
     isDragging.current = true;
@@ -68,7 +65,6 @@ export const Carousel: React.FC<CarouselProps> = ({ images }) => {
     setIsPaused(false);
   };
 
-  // 🔹 Manejo táctil (Touch events)
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   };
@@ -97,7 +93,6 @@ export const Carousel: React.FC<CarouselProps> = ({ images }) => {
       }
     }
 
-    // Reset touch variables
     touchStartX.current = null;
     touchMoveX.current = null;
   };
@@ -111,7 +106,7 @@ export const Carousel: React.FC<CarouselProps> = ({ images }) => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
-        onTouchStart={handleTouchStart} // Soporte táctil
+        onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
@@ -125,7 +120,6 @@ export const Carousel: React.FC<CarouselProps> = ({ images }) => {
         ))}
       </div>
 
-      {/* Indicadores */}
       <div className={styles.indicators}>
         {images.map((_, index) => (
           <span

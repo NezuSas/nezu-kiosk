@@ -7,5 +7,5 @@ export interface FormData {
     ruc: string;
     address: string;
     email: string;
-    paymentMethod: 'DE UNA' | 'CREDITO' | 'DATAFAST';
+    paymentMethod: 'QR' | 'TARJETA';
 }
