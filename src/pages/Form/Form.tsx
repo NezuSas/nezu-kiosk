@@ -5,8 +5,6 @@ import { PAYMENT_METHODS } from "./Form.constants";
 import styles from "./Form.module.css";
 import io from "socket.io-client";
 
-const socket = io("/");
-
 export const Form: React.FC<FormProps> = ({ className = "" }) => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -20,16 +18,32 @@ export const Form: React.FC<FormProps> = ({ className = "" }) => {
   });
 
   const [receivedData, setReceivedData] = useState<FormData | null>(null);
+  const [socket, setSocket] = useState<any>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!sessionId) {
       navigate("/");
+      return;
     }
+
+    // Establecer conexión WebSocket
+    const newSocket = io("/");
+    setSocket(newSocket);
+
+    console.log("🔗 Conectado al WebSocket en /form con sesión:", sessionId);
+
+    newSocket.on("message", (message) => {
+      console.log("📩 Datos recibidos en /form:", message);
+      setReceivedData(message);
+    });
+
+    return () => {
+      console.log("🔌 Cerrando conexión WebSocket en /form");
+      newSocket.disconnect();
+    };
   }, [sessionId, navigate]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -39,9 +53,9 @@ export const Form: React.FC<FormProps> = ({ className = "" }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (sessionId) {
+    if (sessionId && socket) {
       socket.emit("message", { sessionId, ...formData });
-      console.log("📤 Datos enviados:", { sessionId, ...formData });
+      console.log("📤 Datos enviados al servidor:", { sessionId, ...formData });
       alert("Datos enviados correctamente. Por favor, vuelva al kiosko.");
     }
   };
@@ -52,7 +66,7 @@ export const Form: React.FC<FormProps> = ({ className = "" }) => {
     <div className={`${styles.container} ${className}`}>
       <div className={styles.logoContainer}>
         <img
-          src="/src/assets/images/logo_color.png"
+          src="/images/logo_color.png"
           alt="Nezu Logo"
           className={styles.logo}
         />
@@ -143,6 +157,7 @@ export const Form: React.FC<FormProps> = ({ className = "" }) => {
           CONFIRMAR
         </button>
       </form>
+
       {receivedData && (
         <div className={styles.receivedDataContainer}>
           <h3>📩 Datos Recibidos:</h3>
@@ -156,3 +171,5 @@ export const Form: React.FC<FormProps> = ({ className = "" }) => {
     </div>
   );
 };
+
+export default Form;

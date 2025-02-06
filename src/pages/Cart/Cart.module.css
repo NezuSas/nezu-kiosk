@@ -2,7 +2,7 @@
 .container {
     text-align: center;
     padding: 30px;
-    background-image: url('/src/assets/images/background_white.jpg');
+    background-image: url('/images/background_white.avif');
     background-size: cover;
     min-height: 90vh;
     display: flex;
@@ -83,15 +83,6 @@
 .confirmButton:hover {
     background-color: #A8C924;
     transform: scale(1.05);
-}
-
-.hiddenReceipt {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    overflow: hidden;
-    pointer-events: none;
 }
 
 /* 📌 Optimización para pantallas táctiles */

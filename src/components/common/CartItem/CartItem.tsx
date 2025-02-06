@@ -27,11 +27,9 @@ export const CartItem: React.FC<CartItemProps> = ({
           </button>
         </div>
       </div>
-      {/* <button className={styles.removeButton} onClick={onRemove}></button> */}
       <button className={styles.removeButton} onClick={onRemove}>
-        {/* <img src={image} alt={id} className={styles.trashIcon} /> */}
         <img
-          src="/src/assets/images/trash.png"
+          src="/images/trash.avif"
           alt="Trash"
           className={styles.trashIcon}
         />

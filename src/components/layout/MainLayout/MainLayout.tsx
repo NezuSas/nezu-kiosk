@@ -53,7 +53,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
       onTouchStart={handleInteraction}
     >
       {isIdle && (
-        <div className={styles.videoContainer}>
+        <div className={styles.videoContainer} style={{ display: isIdle ? "flex" : "none" }}>
           <video
             ref={videoRef}
             className={styles.video}
@@ -61,8 +61,9 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
             loop
             muted={false}
             playsInline
+            preload="none"
           >
-            <source src="/src/assets/videos/inactivity.mp4" type="video/mp4" />
+            <source src="/videos/inactivity.mp4" type="video/mp4" />
             Tu navegador no soporta videos HTML5.
           </video>
         </div>
@@ -73,7 +74,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
       {!isHome && !isIdle && (
         <Footer
           className={styles.footer}
-          logo="/src/assets/images/logo_color.png"
+          logo="/images/logo_color.avif"
           slogan="Tu empresa, tu futuro"
           contact="nezu.ec@nezuecuador.com"
           location="123 Calle Principal, Ciudad"

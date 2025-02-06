@@ -125,7 +125,7 @@ export const InteractiveCarousel: React.FC<InteractiveCarouselProps> = ({
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {services.map((service, index) => (
+        {services.map((service) => (
           <div key={service.id} className={styles.imageWrapper}>
             {/* Imagen */}
             <span

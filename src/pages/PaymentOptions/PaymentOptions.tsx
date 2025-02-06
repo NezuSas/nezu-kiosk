@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import styles from "./PaymentOptions.module.css";
 import { usePaymentStore } from "../../store/usePaymentStore";
 import { QRCodeSVG } from "qrcode.react";
 
 export const PaymentOptions: React.FC = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const sessionId = searchParams.get("session");
 
   const { userData, setUserData, qrCodes } = usePaymentStore();
@@ -22,6 +23,10 @@ export const PaymentOptions: React.FC = () => {
   if (!userData) {
     return <p className={styles.error}>No se encontró una sesión activa.</p>;
   }
+
+  const handleContinue = () => {
+    navigate(`/thankyou?session=${sessionId}`);
+  };
 
   return (
     <div className={styles.container}>
@@ -70,7 +75,7 @@ export const PaymentOptions: React.FC = () => {
               }}
             >
               <img
-                src="/src/assets/images/logo_negro.png"
+                src="/images/logo_negro.avif"
                 alt="Logo de Nezu"
                 style={{ width: "80%", height: "80%" }}
               />
@@ -79,6 +84,11 @@ export const PaymentOptions: React.FC = () => {
           </div>
         ))}
       </div>
+      <button className={styles.continueButton} onClick={handleContinue}>
+        Continuar
+      </button>
     </div>
   );
 };
+
+export default PaymentOptions;

@@ -4,7 +4,7 @@ import { CATEGORIES } from "@/pages/Categories";
 import styles from "./SubCategories.module.css";
 import { MosaicoCard } from "@/components/common/MosaicoCard";
 
-export const SubCategories = () => {
+const SubCategories = () => {
   const navigate = useNavigate();
   const { category } = useParams<{ category: string }>();
 
@@ -39,3 +39,5 @@ export const SubCategories = () => {
     </div>
   );
 };
+
+export default SubCategories;

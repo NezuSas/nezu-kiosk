@@ -29,7 +29,7 @@ interface ProductStore {
 
 export const useProductStore = create<ProductStore>()(
   persist(
-    (set, get) => ({
+    (set, _get) => ({
       products: [],
       cart: [],
       total: 0,

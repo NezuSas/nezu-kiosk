@@ -1,29 +1,126 @@
 import express from "express";
 import http from "http";
 import { Server as SocketServer } from "socket.io";
+import compression from "compression";
+import cors from "cors";
 
 const app = express();
 const server = http.createServer(app);
 const io = new SocketServer(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "http://localhost:4173",
+    methods: ["GET", "POST"],
   },
+  // Agregar configuraciones de reconexión
+  connectTimeout: 10000,
+  pingTimeout: 5000,
+  pingInterval: 10000,
 });
 
-const sessions = new Map();
+// Optimizar la compresión
+app.use(compression({
+  level: 6,
+  threshold: 0,
+  filter: (req, res) => {
+    if (req.headers['x-no-compression']) {
+      return false;
+    }
+    return compression.filter(req, res);
+  }
+}));
+
+// Optimizar static files
+const staticOptions = {
+  maxAge: '1y',
+  etag: true,
+  lastModified: true,
+  cacheControl: true,
+  immutable: true,
+  headers: {
+    'Cache-Control': 'public, max-age=31536000, immutable'
+  }
+};
+
+app.use(express.static("public", staticOptions));
+
+app.use(cors({
+  origin: "http://localhost:4173",
+  methods: ["GET", "POST"],
+  credentials: true
+}));
+
+// Mejorar el manejo de archivos comprimidos
+app.use(express.static("public", {
+  setHeaders: (res, path) => {
+    // Agregar headers de cache
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    
+    if (path.endsWith(".br")) {
+      res.setHeader("Content-Encoding", "br");
+      res.setHeader("Content-Type", "application/javascript");
+    }
+    if (path.endsWith(".gz")) {
+      res.setHeader("Content-Encoding", "gzip");
+      res.setHeader("Content-Type", "application/javascript");
+    }
+  },
+}));
+
+// Usar WeakMap para mejor manejo de memoria
+const sessions = new WeakMap();
+
+// Mejorar el manejo de sesiones
+class SessionManager {
+  constructor() {
+    this.sessions = new Map();
+    this.cleanupInterval = setInterval(() => this.cleanup(), 1800000); // 30 minutos
+  }
+
+  addSession(sessionId, socketId) {
+    this.sessions.set(sessionId, {
+      socketId,
+      timestamp: Date.now()
+    });
+  }
+
+  getSocketId(sessionId) {
+    const session = this.sessions.get(sessionId);
+    return session?.socketId;
+  }
+
+  removeSession(sessionId) {
+    this.sessions.delete(sessionId);
+  }
+
+  cleanup() {
+    const now = Date.now();
+    for (const [sessionId, session] of this.sessions.entries()) {
+      if (now - session.timestamp > 3600000) { // 1 hora
+        this.sessions.delete(sessionId);
+      }
+    }
+  }
+}
+
+const sessionManager = new SessionManager();
 
 io.on("connection", (socket) => {
   console.log("Client connected");
 
+  // Manejar reconexiones
+  socket.on("reconnect_attempt", () => {
+    console.log("Cliente intentando reconectar");
+  });
+
   socket.on("register_session", (sessionId) => {
     console.log("✅ Sesión registrada:", sessionId);
-    sessions.set(sessionId, socket.id);
+    sessionManager.addSession(sessionId, socket.id);
   });
 
   socket.on("message", (data) => {
     console.log("📩 Datos recibidos del formulario:", data);
-    
-    const kioskSocketId = sessions.get(data.sessionId);
+
+    const kioskSocketId = sessionManager.getSocketId(data.sessionId);
 
     if (kioskSocketId) {
       io.to(kioskSocketId).emit("message", data);
@@ -33,9 +130,29 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("disconnect", () => {
-    console.log("Cliente desconectado");
+  socket.on("disconnect", (reason) => {
+    console.log("Cliente desconectado:", reason);
+    for (const [sessionId, session] of sessionManager.sessions.entries()) {
+      if (session.socketId === socket.id) {
+        sessionManager.removeSession(sessionId);
+        break;
+      }
+    }
   });
+
+  // Manejar errores
+  socket.on("error", (error) => {
+    console.error("Error de socket:", error);
+  });
+});
+
+// Manejo de errores del servidor
+server.on('error', (error) => {
+  console.error('Error del servidor:', error);
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('Error no capturado:', error);
 });
 
 server.listen(4000, () => console.log("Server on port 4000"));

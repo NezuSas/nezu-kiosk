@@ -53,3 +53,19 @@
     margin: 5px 0;
     font-size: 25px;
 }
+
+.continueButton {
+    margin-top: 20px;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    background-color: #D9542B;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.continueButton:hover {
+    background-color: #A83E1F;
+}
