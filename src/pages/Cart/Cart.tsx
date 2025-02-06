@@ -3,21 +3,20 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Cart.module.css";
 import { CartItem } from "@/components/common/CartItem";
 import { useProductStore } from "@/store";
-import PrintButton from "@/components/printer/PrintButton";
-import Receipt from "@/components/printer/Receipt";
 import { QrButton } from "@/components/common/QrButton";
 import io from "socket.io-client";
 
-const socket = io("/");
 
 export const Cart: React.FC = () => {
   const { cart, updateQuantity, removeFromCart, total } = useProductStore();
   const [sessionId, setSessionId] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     if (!sessionId) return;
-
+    
+    const socket = io("/");
     console.log("🔗 Registrando sesión en /cart...", sessionId);
     socket.emit("register_session", sessionId);
 
@@ -32,6 +31,13 @@ export const Cart: React.FC = () => {
         navigate(`/datafast-instructions?session=${sessionId}`);
       }
     });
+
+    const handlePageHide = () => {
+      console.log("🔌 Cerrando conexión WebSocket...");
+      socket.disconnect();
+    };
+
+    window.addEventListener("pagehide", handlePageHide);
 
     return () => {
       console.log("❌ Eliminando listener en /cart...");
@@ -73,25 +79,10 @@ export const Cart: React.FC = () => {
         )}
 
         {/* Botón de Confirmar Pedido */}
-        {cart.length > 0 && (
-          <>
-            <div className={styles.hiddenReceipt}>
-              <Receipt
-                orderNumber="0"
-                customerName="Nelson Patiño"
-                items={cart.map((item) => ({
-                  name: item.id,
-                  quantity: item.quantity,
-                  unitPrice: item.price,
-                }))}
-                total={total}
-              />
-            </div>
-            {/* <PrintButton /> */}
-            <QrButton setSessionId={setSessionId} />
-          </>
-        )}
+        {cart.length > 0 && <QrButton setSessionId={setSessionId} />}
       </div>
     </div>
   );
 };
+
+export default Cart;

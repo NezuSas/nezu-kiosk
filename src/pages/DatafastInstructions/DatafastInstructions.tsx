@@ -20,7 +20,7 @@ export const DatafastInstructions: React.FC = () => {
   return (
     <div className={styles.container}>
       <img
-        src="/src/assets/images/logo_color.png"
+        src="/images/logo_color.avif"
         alt="Nezu Logo"
         className={styles.logo}
       />
@@ -31,3 +31,5 @@ export const DatafastInstructions: React.FC = () => {
     </div>
   );
 };
+
+export default DatafastInstructions;

@@ -5,9 +5,9 @@ export const SUB_CATEGORIES: SubCategory[] = [
     id: 'lumina',
     title: 'Lumina',
     imageUrl: [
-      '/src/assets/images/subcategories/Living/Lumina/lumina1.jpg',
-      '/src/assets/images/subcategories/Living/Lumina/lumina2.jpg',
-      '/src/assets/images/subcategories/Living/Lumina/lumina3.webp'
+      '/images/Subcategories/Living/Lumina/lumina1.avif',
+      '/images/Subcategories/Living/Lumina/lumina2.avif',
+      '/images/Subcategories/Living/Lumina/lumina3.avif'
     ],
     parentId: 'living'
   },
@@ -15,9 +15,9 @@ export const SUB_CATEGORIES: SubCategory[] = [
     id: 'climate',
     title: 'Climate',
     imageUrl: [
-      '/src/assets/images/subcategories/Living/Climate/climate1.jpg',
-      '/src/assets/images/subcategories/Living/Climate/climate2.jpg',
-      '/src/assets/images/subcategories/Living/Climate/climate3.jpg'
+      '/images/Subcategories/Living/Climate/climate1.avif',
+      '/images/Subcategories/Living/Climate/climate2.avif',
+      '/images/Subcategories/Living/Climate/climate3.avif'
     ],
     parentId: 'living'
   },
@@ -25,9 +25,9 @@ export const SUB_CATEGORIES: SubCategory[] = [
     id: 'guardian',
     title: 'Guardian',
     imageUrl: [
-      '/src/assets/images/subcategories/Living/Guardian/guardian1.webp',
-      '/src/assets/images/subcategories/Living/Guardian/guardian2.jpg',
-      '/src/assets/images/subcategories/Living/Guardian/guardian3.jpg'
+      '/images/Subcategories/Living/Guardian/guardian1.avif',
+      '/images/Subcategories/Living/Guardian/guardian2.avif',
+      '/images/Subcategories/Living/Guardian/guardian3.avif'
     ],
     parentId: 'living'
   }

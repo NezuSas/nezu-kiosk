@@ -1,0 +1,51 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    background: linear-gradient(to bottom, #A8C924, #6E9522);
+    color: white;
+    padding: 2rem;
+}
+
+.logo {
+    width: 150px;
+    margin-bottom: 1rem;
+}
+
+.message {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.subMessage {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+.thankYouIcon {
+    font-size: 4rem;
+    margin-top: 1rem;
+    animation: bounce 1.5s infinite;
+    margin-bottom: 100px;
+}
+
+.hiddenReceipt {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}

@@ -10,13 +10,13 @@ const Receipt: React.FC<ReceiptProps> = ({
   items,
   total,
 }) => {
-  const [qrLoaded, setQrLoaded] = useState(false);
+  const [_qrLoaded, setQrLoaded] = useState(false);
   return (
     <div id="receipt" className={styles.receipt}>
       {/* Logo Nezu */}
       <div className={styles.logoContainer}>
         <img
-          src="/src/assets/images/logo.jpg"
+          src="/images/logo_negro.avif"
           alt="Nezu"
           className={styles.logo}
         />

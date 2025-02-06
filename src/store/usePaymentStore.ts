@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, PersistOptions } from "zustand/middleware";
+import LZString from "lz-string";
 
 interface UserData {
   businessName: string;
@@ -17,10 +18,26 @@ interface QRCodeOption {
 interface PaymentStore {
   userData: UserData | null;
   qrCodes: QRCodeOption[];
-  
+
   setUserData: (data: UserData) => void;
   clearUserData: () => void;
 }
+
+const storageWithCompression = {
+  getItem: (name: string) => {
+    const compressed = localStorage.getItem(name);
+    if (!compressed) return null;
+    const decompressed = LZString.decompressFromUTF16(compressed);
+    return decompressed ? JSON.parse(decompressed) : null;
+  },
+  setItem: (name: string, value: any) => {
+    const compressed = LZString.compressToUTF16(JSON.stringify(value));
+    localStorage.setItem(name, compressed);
+  },
+  removeItem: (name: string) => {
+    localStorage.removeItem(name);
+  },
+};
 
 export const usePaymentStore = create<PaymentStore>()(
   persist(
@@ -37,6 +54,7 @@ export const usePaymentStore = create<PaymentStore>()(
     }),
     {
       name: "payment-storage",
-    }
+      storage: storageWithCompression,
+    } as PersistOptions<PaymentStore>
   )
 );

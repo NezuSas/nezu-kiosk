@@ -4,8 +4,8 @@ import styles from "./Details.module.css";
 import { Carousel } from "@/components/common/Carousel";
 import { InteractiveCarousel } from "@/components/common/InteractiveCarousel";
 
-export const Details = () => {
-  const { category, subCategory } = useParams<{
+const Details = () => {
+  const { subCategory } = useParams<{
     category: string;
     subCategory: string;
   }>();
@@ -47,3 +47,5 @@ export const Details = () => {
     </div>
   );
 };
+
+export default Details;

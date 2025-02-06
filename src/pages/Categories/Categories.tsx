@@ -3,7 +3,7 @@ import { Card } from "@/components/common/Card/Card";
 import { CATEGORIES } from "./Categories.constants";
 import styles from "./Categories.module.css";
 
-export const Categories = () => {
+const Categories = () => {
   const navigate = useNavigate();
 
   return (
@@ -22,3 +22,5 @@ export const Categories = () => {
     </div>
   );
 };
+
+export default Categories;

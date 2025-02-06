@@ -55,7 +55,7 @@ const QrModal = ({
               }}
             >
               <img
-                src="/src/assets/images/logo_negro.png"
+                src="/images/logo_negro.avif"
                 alt="Logo de Nezu"
                 style={{ width: "80%", height: "80%" }}
               />
@@ -105,7 +105,7 @@ export const QrButton: React.FC<
     if (!state.sessionId) return "";
 
     // Construir la URL con el sessionId como query parameter
-    const baseUrl = "https://4a67-190-123-34-99.ngrok-free.app/form";
+    const baseUrl = "https://ab59-190-123-34-99.ngrok-free.app/form";
     const url = new URL(baseUrl);
     url.searchParams.append("session", state.sessionId);
 

@@ -4,16 +4,16 @@ export const CATEGORIES: Category[] = [
   {
     id: 'living',
     title: 'Living',
-    imageUrl: '/src/assets/images/categories/living/living.jpg'
+    imageUrl: '/images/categories/living/living.avif'
   },
   {
     id: 'elevate',
     title: 'Elevate',
-    imageUrl: '/src/assets/images/categories/elevate/elevate.jpg'
+    imageUrl: '/images/categories/elevate/elevate.avif'
   },
   {
     id: 'academia',
     title: 'Academia',
-    imageUrl: '/src/assets/images/categories/academia/academia.jpg'
+    imageUrl: '/images/categories/academia/academia.avif'
   }
 ];
