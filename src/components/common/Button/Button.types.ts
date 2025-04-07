@@ -1,7 +1,6 @@
-import { type ReactNode } from 'react';
+type Variant = 'primary' | 'secondary' | 'danger';
 
-export interface ButtonProps {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   width?: string;
-  onClick?: () => void;
-  children: ReactNode;
+  variant?: Variant;
 }

@@ -66,7 +66,7 @@ export const Form: React.FC<FormProps> = ({ className = "" }) => {
     <div className={`${styles.container} ${className}`}>
       <div className={styles.logoContainer}>
         <img
-          src="/images/logo_color.png"
+          src="/images/logo_color.avif"
           alt="Nezu Logo"
           className={styles.logo}
         />

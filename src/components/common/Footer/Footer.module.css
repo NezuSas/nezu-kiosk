@@ -1,10 +1,11 @@
+/* --- Base --- */
 .footer {
     background: linear-gradient(to top, #6E9522 0%, #A8C924 50%, #D6E75F 100%);
     width: 100%;
     padding: 15px 1rem;
     color: gray;
-    height: auto; /* Cambiado de 10vh a auto para evitar que se deforme */
-    min-height: 80px; /* Se asegura un tamaño mínimo */
+    height: auto;
+    min-height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,24 +23,7 @@
     gap: 1.5rem;
 }
 
-@media (min-width: 768px) {
-    .grid {
-        grid-template-columns: repeat(3, 1fr);
-        align-items: start;
-        position: relative;
-    }
-    .grid > *:not(:last-child)::after {
-        content: '';
-        position: absolute;
-        right: -0.75rem;
-        top: 0;
-        height: 100%;
-        width: 2px;
-        background-color: #D9542B;
-        opacity: 0.3;
-    }
-}
-
+/* --- Logo Section --- */
 .logoSection {
     display: flex;
     flex-direction: row;
@@ -48,28 +32,10 @@
     position: relative;
 }
 
-@media (min-width: 768px) {
-    .logoSection {
-        align-items: flex-start;
-    }
-}
-
 .logo {
     width: 120px;
     height: auto;
     object-fit: contain;
-}
-
-.slogan {
-    font-size: 1.125rem;
-    font-weight: 600;
-    text-align: center;
-}
-
-@media (min-width: 768px) {
-    .slogan {
-        text-align: left;
-    }
 }
 
 .sucursal {
@@ -80,22 +46,23 @@
     align-items: center;
 }
 
+.slogan {
+    font-size: 1.125rem;
+    font-weight: 600;
+    text-align: center;
+}
+
 .branchName {
     font-size: 0.875rem;
     opacity: 0.9;
 }
 
+/* --- Section Common --- */
 .section {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-}
-
-@media (min-width: 768px) {
-    .section {
-        align-items: flex-start;
-    }
 }
 
 .sectionTitle {
@@ -104,18 +71,18 @@
     margin-bottom: 0.75rem;
 }
 
-.infoContainer {
+.infoContainer,
+.locationContainer {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
 .locationContainer {
-    display: flex;
     align-items: flex-start;
-    gap: 0.5rem;
 }
 
+/* --- Icons --- */
 .icon {
     width: 0.8rem;
     height: 1.2rem;
@@ -123,9 +90,77 @@
     filter: brightness(0) saturate(100%) invert(40%) sepia(0%) saturate(0%) hue-rotate(0deg);
 }
 
-.icon_email {
+.iconEmail {
     width: 1rem;
     height: 0.8rem;
     flex-shrink: 0;
     filter: brightness(0) saturate(100%) invert(40%) sepia(0%) saturate(0%) hue-rotate(0deg);
+}
+
+/* --- Responsive (Tablet) --- */
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+        align-items: start;
+        position: relative;
+    }
+
+    .grid > *:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: -0.75rem;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background-color: #D9542B;
+        opacity: 0.3;
+    }
+
+    .logoSection {
+        align-items: flex-start;
+    }
+
+    .slogan {
+        text-align: left;
+    }
+
+    .section {
+        align-items: flex-start;
+    }
+}
+
+/* --- Kiosko (Pantallas grandes) --- */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1280px;
+        padding: 0 2rem;
+    }
+
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+    }
+
+    .slogan {
+        font-size: 1.5rem;
+    }
+
+    .branchName {
+        font-size: 1rem;
+    }
+
+    .sectionTitle {
+        font-size: 1.5rem;
+    }
+
+    .icon,
+    .iconEmail {
+        width: 1rem;
+        height: auto;
+    }
+
+    .infoContainer span,
+    .locationContainer span {
+        font-size: 1.125rem;
+    }
 }

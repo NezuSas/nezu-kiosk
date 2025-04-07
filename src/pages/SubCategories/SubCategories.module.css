@@ -1,7 +1,6 @@
 .container {
   text-align: center;
   padding: 30px;
-  background-image: url('/images/background_white.avif');
   background-size: cover;
   min-height: 90vh;
   display: flex;

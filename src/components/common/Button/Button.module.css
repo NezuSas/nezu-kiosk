@@ -2,25 +2,23 @@
     padding: 1rem 2rem;
     background-color: black;
     color: white;
-    border: none;
+    border: 2px double white;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1.2rem;
-    height: 80px;
-    border-width: 2px;
-    border-color: white;
-    border-style: double;
-    transition: background-color 0.3s;
+    min-height: 80px;
+    transition: background-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: auto;
+}
+
+.button.fullWidth {
+    width: 100%;
 }
 
 .button:hover {
     background-color: #D9542B;
-}
-
-.fullWidth {
-    width: 100%;
-}
-
-.autoWidth {
-    width: auto;
 }

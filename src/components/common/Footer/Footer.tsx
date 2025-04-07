@@ -1,15 +1,14 @@
-import React from "react";
-import type { FooterProps } from "./Footer.types";
+import { type FooterProps } from "./Footer.types";
 import styles from "./Footer.module.css";
 
-export const Footer: React.FC<FooterProps> = ({
+export const Footer = ({
   logo,
   slogan,
   contact,
   location,
   branchName,
   className = "",
-}) => {
+}: FooterProps) => {
   return (
     <footer className={`${styles.footer} ${className}`}>
       <div className={styles.container}>
@@ -31,8 +30,8 @@ export const Footer: React.FC<FooterProps> = ({
             <div className={styles.infoContainer}>
               <img
                 src="/images/icons/email.avif"
-                alt="Direccion"
-                className={styles.icon_email}
+                alt="Correo electrónico"
+                className={styles.iconEmail}
                 width={20}
                 height={20}
               />
@@ -49,7 +48,7 @@ export const Footer: React.FC<FooterProps> = ({
                 alt="Ubicación"
                 className={styles.icon}
                 width={20}
-                height={20}
+                height={30}
               />
               <span>{location}</span>
             </div>

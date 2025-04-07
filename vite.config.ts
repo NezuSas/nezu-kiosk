@@ -83,6 +83,11 @@ export default defineConfig(({ mode }) => {
         }
       }
     },
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: './jest.setup.ts',
+    },
     plugins: [
       react(),
       imagetools({
