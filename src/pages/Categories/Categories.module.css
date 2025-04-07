@@ -1,9 +1,9 @@
 .container {
-    text-align: center;
+    width: 100%;
+    padding: 2rem;
     padding: 30px;
-    background-image: url('/images/background_white.avif');
-    background-size: cover;
-    min-height: 100vh;
+    text-align: center;
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;

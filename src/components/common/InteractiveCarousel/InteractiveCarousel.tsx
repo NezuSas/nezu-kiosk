@@ -166,8 +166,6 @@ export const InteractiveCarousel: React.FC<InteractiveCarouselProps> = ({
                       subCategory: subCategory ?? "Unknown",
                       serviceType: type,
                     };
-
-                    console.log("Producto agregado al carrito:", cartItem);
                     addToCart(cartItem);
 
                     setShowText(false);

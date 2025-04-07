@@ -1,5 +1,4 @@
-export interface CardProps {
+export interface CardProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     title: string;
     imageUrl: string;
-    onClick?: () => void;
-}
+  }

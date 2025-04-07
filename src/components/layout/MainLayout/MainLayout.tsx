@@ -12,30 +12,30 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   let idleTimer: NodeJS.Timeout;
 
-  useEffect(() => {
-    const resetIdleTimer = () => {
-      clearTimeout(idleTimer);
-      setIsIdle(false);
-      idleTimer = setTimeout(() => {
-        setIsIdle(true);
-      }, 300000);
-    };
+  // useEffect(() => {
+  //   const resetIdleTimer = () => {
+  //     clearTimeout(idleTimer);
+  //     setIsIdle(false);
+  //     idleTimer = setTimeout(() => {
+  //       setIsIdle(true);
+  //     }, 300000);
+  //   };
 
-    window.addEventListener("mousemove", resetIdleTimer);
-    window.addEventListener("keydown", resetIdleTimer);
-    window.addEventListener("touchstart", resetIdleTimer);
-    window.addEventListener("click", resetIdleTimer);
+  //   window.addEventListener("mousemove", resetIdleTimer);
+  //   window.addEventListener("keydown", resetIdleTimer);
+  //   window.addEventListener("touchstart", resetIdleTimer);
+  //   window.addEventListener("click", resetIdleTimer);
 
-    resetIdleTimer();
+  //   resetIdleTimer();
 
-    return () => {
-      clearTimeout(idleTimer);
-      window.removeEventListener("mousemove", resetIdleTimer);
-      window.removeEventListener("keydown", resetIdleTimer);
-      window.removeEventListener("touchstart", resetIdleTimer);
-      window.removeEventListener("click", resetIdleTimer);
-    };
-  }, [navigate]);
+  //   return () => {
+  //     clearTimeout(idleTimer);
+  //     window.removeEventListener("mousemove", resetIdleTimer);
+  //     window.removeEventListener("keydown", resetIdleTimer);
+  //     window.removeEventListener("touchstart", resetIdleTimer);
+  //     window.removeEventListener("click", resetIdleTimer);
+  //   };
+  // }, [navigate]);
 
   useEffect(() => {
     if (isIdle && videoRef.current) {

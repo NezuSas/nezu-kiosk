@@ -34,11 +34,7 @@ const QrModal = ({
         <div className={styles.qrContainer}>
           <h2 className={styles.qrTitle}>Escanea el código QR</h2>
           <div className={styles.qrCode}>
-            <QRCodeSVG
-              value={qrUrl}
-              size={500}
-              level="H"
-            />
+            <QRCodeSVG value={qrUrl} size={500} level="H" />
             <div
               style={{
                 position: "absolute",
@@ -83,7 +79,6 @@ export const QrButton: React.FC<
 
   const handleClick = React.useCallback(() => {
     const newSessionId = uuidv4();
-    console.log("Nueva sesión iniciada:", newSessionId);
 
     setState((prev) => ({
       ...prev,
@@ -103,9 +98,7 @@ export const QrButton: React.FC<
 
   const qrUrl = React.useMemo(() => {
     if (!state.sessionId) return "";
-
-    // Construir la URL con el sessionId como query parameter
-    const baseUrl = "https://ab59-190-123-34-99.ngrok-free.app/form";
+    const baseUrl = "https://5fd4-190-123-34-99.ngrok-free.app/form";
     const url = new URL(baseUrl);
     url.searchParams.append("session", state.sessionId);
 
