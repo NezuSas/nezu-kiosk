@@ -1,41 +1,39 @@
 import io, { Socket } from "socket.io-client";
 
-class SocketService {
+export class SocketService {
   private socket: Socket | null = null;
-  private path: string;
+  private readonly path: string;
 
   constructor(path: string) {
     this.path = path;
   }
 
-  connect() {
+  connect(): Socket {
     if (!this.socket) {
       this.socket = io(this.path);
-      
-      // Manejar reconexión
-      this.socket.on("connect", () => {
-        console.log("🔗 Socket conectado");
+
+      this.socket.once("connect", () => {
+        console.log(`✅ Connected to ${this.path}`);
       });
 
-      this.socket.on("disconnect", () => {
-        console.log("🔌 Socket desconectado");
+      this.socket.once("disconnect", () => {
+        console.log(`⚠️ Disconnected from ${this.path}`);
       });
     }
+
     return this.socket;
   }
 
-  disconnect() {
+  disconnect(): void {
     if (this.socket) {
       this.socket.disconnect();
       this.socket = null;
+      console.log(`❌ Socket disconnected from ${this.path}`);
     }
   }
 
-  getSocket() {
-    if (!this.socket) {
-      return this.connect();
-    }
-    return this.socket;
+  getSocket(): Socket {
+    return this.socket ?? this.connect();
   }
 }
 
