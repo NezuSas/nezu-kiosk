@@ -6,29 +6,29 @@
     margin: 30px 0;
     padding: 0;
     width: 100%;
-    border: 6px groove gray;
+    border: 6px solid rgba(44, 62, 80, 0.2); /* Borde en azul marino con transparencia */
     border-radius: 12px;
     background-color: transparent;
     cursor: pointer;
     overflow: hidden;
-    box-shadow: 0 4px 25px rgba(168, 201, 36, 0.5);
+    box-shadow: 0 4px 25px rgba(52, 152, 219, 0.3); /* Sombra en azul eléctrico */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .container:hover {
     transform: translateY(-4px);
-    box-shadow: 0 6px 30px rgba(168, 201, 36, 0.6);
+    box-shadow: 0 6px 30px rgba(52, 152, 219, 0.5); /* Sombra más intensa al pasar el cursor */
 }
 
 .container:focus-visible {
-    outline: 3px solid #aac829;
+    outline: 3px solid #3498DB; /* Azul eléctrico para el contorno de foco */
     outline-offset: 2px;
 }
 
 .image {
     width: 100%;
     height: 400px;
-    object-fit: cover;
+    object-fit: fill;
     display: block;
 }
 
@@ -36,11 +36,13 @@
     position: absolute;
     bottom: 10px;
     left: 10px;
-    padding: 6px 10px;
+    padding: 8px 12px;
     font-size: 1.875rem;
     font-weight: bold;
     color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(44, 62, 80, 0.8); /* Fondo azul marino con alta opacidad */
     border-radius: 5px;
     width: auto;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil para el título */
 }

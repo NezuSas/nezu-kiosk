@@ -15,8 +15,8 @@
     -ms-overflow-style: none;
     cursor: grab;
     border-radius: 20px;
-    border: 2px solid #D9542B;
-    box-shadow: 0px 4px 10px rgba(217, 84, 43, 0.8);
+    border: 2px solid #3498DB; /* Cambiado a azul eléctrico */
+    box-shadow: 0px 4px 20px rgba(52, 152, 219, 0.4); /* Sombra azul más sutil */
 }
 
 .carousel::-webkit-scrollbar {
@@ -27,7 +27,7 @@
     width: 100%;
     height: 100%;
     flex: 0 0 100%;
-    object-fit: fill;
+    object-fit: cover; /* Cambiado de fill a cover para mejor aspecto */
     scroll-snap-align: center;
 }
 
@@ -35,18 +35,27 @@
 .indicators {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 15px; /* Ligeramente más espacio */
 }
 
 .indicator {
     width: 15px;
     height: 15px;
-    background-color: gray;
+    background-color: #BDC3C7; /* Gris claro */
     border-radius: 50%;
     margin: 0 5px;
     cursor: pointer;
+    transition: all 0.2s ease; /* Transición suave */
+    border: 2px solid transparent; /* Borde preparado para estado activo */
 }
 
 .active {
-    background-color: black;
+    background-color: #3498DB; /* Azul eléctrico para el indicador activo */
+    transform: scale(1.1); /* Ligero aumento de tamaño */
+    border-color: #2C3E50; /* Borde azul marino para resaltar */
+}
+
+/* Efecto hover para los indicadores */
+.indicator:hover {
+    background-color: #95A5A6; /* Gris medio al pasar el cursor */
 }

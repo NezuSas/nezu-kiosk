@@ -2,7 +2,7 @@
     width: 100%;
     padding: 2rem;
     text-align: center;
-    background-color: #EDEDED;
+    background-color: #ECF0F1; /* Fondo gris claro consistente */
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -12,28 +12,35 @@
 .title {
     font-size: 40px;
     font-weight: bold;
-    color: #D9542B;
+    color: #2C3E50; /* Azul marino oscuro */
     margin-bottom: 60px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .subtitle {
     font-size: 30px;
     font-weight: bold;
     margin-top: 60px;
+    color: #34495E; /* Azul marino medio */
+    font-family: 'Montserrat', sans-serif;
 }
 
 .userData {
-    background: rgba(168, 201, 36, 0.2);
+    background: rgba(52, 152, 219, 0.1); /* Azul eléctrico con transparencia */
     padding: 20px;
     border-radius: 10px;
     width: 80%;
     max-width: 400px;
     text-align: left;
+    box-shadow: 0px 3px 15px rgba(44, 62, 80, 0.1);
+    border: 1px solid rgba(52, 152, 219, 0.2);
 }
 
 .userData p {
     margin: 5px 0;
     font-size: 20px;
+    color: #2C3E50; /* Azul marino oscuro */
+    font-family: 'Open Sans', sans-serif;
 }
 
 .qrContainer {
@@ -48,25 +55,35 @@
     text-align: center;
     position: relative;
     border-radius: 8px;
+    background-color: white;
+    padding: 15px;
+    box-shadow: 0px 3px 15px rgba(44, 62, 80, 0.1);
 }
 
 .qrLabel {
     margin: 5px 0;
     font-size: 25px;
+    color: #2C3E50; /* Azul marino oscuro */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
 }
 
 .continueButton {
     margin-top: 20px;
     padding: 12px 20px;
     font-size: 1.2rem;
-    background-color: #D9542B;
+    background-color: #3498DB; /* Azul eléctrico */
     color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    box-shadow: 0px 3px 10px rgba(52, 152, 219, 0.3);
 }
 
 .continueButton:hover {
-    background-color: #A83E1F;
+    background-color: #E74C3C; /* Rojo anaranjado */
+    transform: scale(1.05);
 }
