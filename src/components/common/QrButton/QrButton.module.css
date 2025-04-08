@@ -81,6 +81,20 @@ button {
     max-width: 100%;
 }
 
+.qrStyle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .qrTitle {
     font-size: 40px;
     color: #2C3E50; /* Azul marino oscuro */
@@ -106,4 +120,87 @@ button {
     font-size: 30px;
     line-height: 1.5;
     font-family: 'Open Sans', sans-serif;
+}
+
+@media screen and (max-width: 1024px) {
+    .modalContent {
+        width: 90%;
+        height: 65vh;
+        padding: 2rem;
+    }
+
+    .qrTitle {
+        font-size: 32px;
+    }
+
+    .qrDescription {
+        font-size: 24px;
+    }
+
+    button {
+        font-size: 24px;
+        padding: 12px 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .modalContent {
+        width: 100%;
+        height: auto;
+        padding: 1.5rem;
+    }
+
+    .qrTitle {
+        font-size: 26px;
+    }
+
+    .qrDescription {
+        font-size: 20px;
+        max-width: 100%;
+    }
+
+    .qrCode {
+        padding: 1rem;
+    }
+
+    button {
+        font-size: 20px;
+        padding: 10px 16px;
+        margin-top: 40px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .qrTitle {
+        font-size: 22px;
+    }
+
+    .qrDescription {
+        font-size: 18px;
+    }
+
+    .closeButton {
+        font-size: 2rem;
+        width: 28px;
+        height: 28px;
+    }
+
+    button {
+        font-size: 18px;
+        padding: 10px 14px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .qrStyle {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .qrStyle {
+        width: 60px;
+        height: 60px;
+    }
 }

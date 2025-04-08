@@ -59,3 +59,45 @@
 .indicator:hover {
     background-color: #95A5A6; /* Gris medio al pasar el cursor */
 }
+
+/* 📱 Responsivo para el carrusel */
+@media screen and (max-width: 768px) {
+    .carouselContainer {
+        width: 100%;
+        height: 300px;
+        padding: 0 10px;
+    }
+
+    .carousel {
+        border-radius: 12px;
+        border-width: 1px;
+    }
+
+    .projectImage {
+        height: 300px;
+    }
+
+    .indicator {
+        width: 12px;
+        height: 12px;
+    }
+
+    .active {
+        transform: scale(1.05);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .carouselContainer {
+        height: 220px;
+    }
+
+    .projectImage {
+        height: 220px;
+    }
+
+    .indicator {
+        width: 10px;
+        height: 10px;
+    }
+}

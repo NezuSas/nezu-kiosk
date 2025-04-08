@@ -125,3 +125,96 @@
     filter: drop-shadow(0px 4px 8px rgba(231, 76, 60, 0.4)); /* Sombra roja más intensa */
     box-shadow: 0px 4px 8px rgba(231, 76, 60, 0.4); /* Sombra roja más intensa */
 }
+
+/* 📱 Ajustes para pantallas pequeñas */
+@media screen and (max-width: 768px) {
+    .cartItem {
+        flex-direction: column;
+        align-items: center;
+        height: 27rem;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .itemImage {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+    }
+
+    .itemDetails {
+        margin-left: 0;
+        align-items: center;
+        text-align: center;
+    }
+
+    .itemName {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .itemPrice {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .quantityControls {
+        justify-content: center;
+        gap: 8px;
+        font-size: 18px;
+    }
+
+    .decreaseButton,
+    .increaseButton {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+    }
+
+    .quantity {
+        min-width: 26px;
+        height: 30px;
+        font-size: 16px;
+    }
+
+    .trashIcon {
+        width: 40px;
+        height: 40px;
+        padding: 4px;
+    }
+
+    .removeButton {
+        margin: auto;
+    }
+}
+
+/* 📱 Ajustes adicionales para móviles pequeños */
+@media screen and (max-width: 480px) {
+    .itemName {
+        font-size: 18px;
+    }
+
+    .itemPrice {
+        font-size: 16px;
+    }
+
+    .quantityControls {
+        font-size: 16px;
+    }
+
+    .decreaseButton,
+    .increaseButton {
+        width: 28px;
+        height: 28px;
+        font-size: 18px;
+    }
+
+    .trashIcon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .removeButton {
+        margin: auto;
+    }
+}
