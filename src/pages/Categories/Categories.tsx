@@ -6,8 +6,15 @@ import styles from "./Categories.module.css";
 const Categories = () => {
   const navigate = useNavigate();
 
+  const handleGoBack = () => {
+    navigate(`/`);
+  };
+
   return (
     <div className={styles.container}>
+      <button className={styles.backButton} onClick={handleGoBack}>
+        ← Regresar
+      </button>
       <div className={styles.categoryContainer}>
         <h1 className={styles.title}>Categorias</h1>
         {CATEGORIES.map((category) => (

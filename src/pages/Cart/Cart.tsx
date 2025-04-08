@@ -45,8 +45,15 @@ export const Cart: React.FC = () => {
     };
   }, [sessionId]);
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className={styles.container}>
+      <button className={styles.backButton} onClick={handleGoBack}>
+        ← Regresar
+      </button>
       <div className={styles.cartContainer}>
         {/* Título con icono */}
         <h1 className={styles.title}>🛒 Carrito de Compras</h1>

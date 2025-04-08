@@ -1,6 +1,5 @@
 .receipt {
     width: 280px; /* Ancho típico de recibo */
-    font-family: "Courier New", monospace;
     text-align: center;
     padding: 10px;
     background: white;
