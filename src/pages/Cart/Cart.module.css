@@ -131,3 +131,68 @@
         padding: 12px 25px;
     }
 }
+
+/* ✅ Mejoras adicionales para móviles */
+@media screen and (max-width: 768px) {
+    .cartContainer {
+        width: 100%;
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: 0px 3px 12px rgba(44, 62, 80, 0.08);
+    }
+
+    .title,
+    .totalTitle {
+        font-size: 28px;
+        margin-bottom: 25px;
+        box-shadow: none;
+    }
+
+    .emptyCart {
+        font-size: 18px;
+    }
+
+    .confirmButton {
+        font-size: 20px;
+        padding: 12px 20px;
+        margin-top: 50px;
+    }
+
+    .backButton {
+        top: 10px;
+        left: 10px;
+        padding: 12px 18px;
+        font-size: 20px;
+    }
+
+    .cartList {
+        gap: 15px;
+        margin-bottom: 50px;
+    }
+}
+
+/* 📱 Ajustes adicionales para teléfonos pequeños */
+@media screen and (max-width: 480px) {
+    .title,
+    .totalTitle {
+        font-size: 22px;
+    }
+
+    .confirmButton,
+    .backButton {
+        font-size: 16px;
+        padding: 10px 14px;
+    }
+
+    .emptyCart {
+        font-size: 16px;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    .cartList {
+        margin-bottom: 40px;
+    }
+}

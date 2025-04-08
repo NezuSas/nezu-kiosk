@@ -21,3 +21,11 @@
     background-color: #2980B9; /* Azul más oscuro para efecto de presión */
     transform: scale(0.98); /* Ligera reducción cuando se presiona */
 }
+
+@media screen and (max-width: 768px) {
+    .printButton {
+        font-size: 20px;
+        padding: 10px 16px;
+        border-radius: 8px;
+    }
+}

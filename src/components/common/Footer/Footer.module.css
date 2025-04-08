@@ -174,3 +174,52 @@
         font-size: 1.125rem;
     }
 }
+
+/* --- Responsive para Móviles --- */
+@media screen and (max-width: 767px) {
+    .footer {
+        padding: 20px 1rem;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .logo {
+        width: 90px;
+    }
+
+    .slogan {
+        font-size: 1rem;
+    }
+
+    .branchName {
+        font-size: 0.75rem;
+    }
+
+    .sectionTitle {
+        font-size: 1rem;
+    }
+
+    .infoContainer span,
+    .locationContainer span {
+        font-size: 0.9rem;
+    }
+
+    .icon,
+    .iconEmail {
+        width: 0.75rem;
+        height: auto;
+    }
+
+    .section {
+        align-items: center;
+    }
+
+    .locationContainer {
+        align-items: center;
+    }
+}

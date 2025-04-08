@@ -3,6 +3,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { v4 as uuidv4 } from "uuid";
 import type { QrButtonProps } from "./QrButton.types";
 import styles from "./QrButton.module.css";
+import { useMediaQuery } from 'react-responsive';
 
 const QrModal = ({
   isOpen,
@@ -13,7 +14,17 @@ const QrModal = ({
   onClose: () => void;
   qrUrl: string;
 }) => {
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const isSmallMobile = useMediaQuery({ query: "(max-width: 480px)" });
+
+  let qrSize = 500;
+  if (isSmallMobile) {
+    qrSize = 200;
+  } else if (isTabletOrMobile) {
+    qrSize = 300;
+  }
   if (!isOpen) return null;
+
 
   return (
     <div
@@ -34,22 +45,8 @@ const QrModal = ({
         <div className={styles.qrContainer}>
           <h2 className={styles.qrTitle}>Escanea el código QR</h2>
           <div className={styles.qrCode}>
-            <QRCodeSVG value={qrUrl} size={500} level="H" />
-            <div
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: "100px",
-                height: "100px",
-                borderRadius: "100px",
-                backgroundColor: "white",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
+            <QRCodeSVG value={qrUrl} size={qrSize} level="H" />
+            <div className={styles.qrStyle}>
               <img
                 src="/images/logo_negro.avif"
                 alt="Logo de Nezu"
