@@ -3,8 +3,9 @@
     margin: 2rem auto;
     padding: 2rem;
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(44, 62, 80, 0.1);
+    border: 1px solid rgba(52, 152, 219, 0.1);
 }
 
 .logoContainer {
@@ -26,52 +27,63 @@
     display: block;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #1A1A1A;
+    color: #2C3E50; /* Azul marino oscuro */
+    font-family: 'Montserrat', sans-serif;
 }
 
 .input {
     width: 100%;
     padding: 0.75rem;
-    border: 2px solid #C9DF38;
-    border-radius: 4px;
+    border: 2px solid #3498DB; /* Azul eléctrico */
+    border-radius: 6px;
     font-size: 1rem;
-    transition: border-color 0.2s;
+    transition: all 0.2s ease;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .input:focus {
     outline: none;
-    border-color: #D9542B;
+    border-color: #2C3E50; /* Azul marino oscuro */
+    box-shadow: 0 2px 10px rgba(52, 152, 219, 0.2);
 }
 
 .select {
     width: 100%;
     padding: 0.75rem;
-    border: 2px solid #C9DF38;
-    border-radius: 4px;
+    border: 2px solid #3498DB; /* Azul eléctrico */
+    border-radius: 6px;
     font-size: 1rem;
     background-color: white;
     cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .select:focus {
     outline: none;
-    border-color: #D9542B;
+    border-color: #2C3E50; /* Azul marino oscuro */
+    box-shadow: 0 2px 10px rgba(52, 152, 219, 0.2);
 }
 
 .button {
     width: 100%;
     padding: 1rem;
-    background-color: #C9DF38;
-    color: #1A1A1A;
+    background-color: #3498DB; /* Azul eléctrico */
+    color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3);
 }
 
 .button:hover {
-    background-color: #D9542B;
-    color: white;
+    background-color: #E74C3C; /* Rojo anaranjado */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
 }
