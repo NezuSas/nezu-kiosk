@@ -16,8 +16,15 @@ const SubCategories = () => {
     (subCat) => subCat.parentId === category
   );
 
+  const handleGoBack = () => {
+    navigate(`/categories`);
+  };
+
   return (
     <div className={styles.container}>
+      <button className={styles.backButton} onClick={handleGoBack}>
+        ← Regresar
+      </button>
       <div className={styles.subCategoryContainer}>
         <h1 className={styles.title}>{parentCategory?.title}</h1>
         {filteredSubCategories.map((subCategory, index) => (

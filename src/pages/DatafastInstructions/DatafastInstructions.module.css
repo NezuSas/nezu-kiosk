@@ -37,6 +37,29 @@
     animation: bounce 1.5s infinite;
 }
 
+/* Botón de regreso */
+.backButton {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 15px 25px;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    background-color: #D9542B;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    z-index: 100;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.backButton:hover {
+    background-color: #A8C924;
+    transform: scale(1.05);
+}
+
 /* Efecto de subir y bajar */
 @keyframes bounce {
     0%, 100% {

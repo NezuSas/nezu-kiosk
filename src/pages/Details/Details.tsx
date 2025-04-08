@@ -5,7 +5,7 @@ import { Carousel } from "@/components/common/Carousel";
 import { InteractiveCarousel } from "@/components/common/InteractiveCarousel";
 
 const Details = () => {
-  const { subCategory } = useParams<{
+  const { category, subCategory } = useParams<{
     category: string;
     subCategory: string;
   }>();
@@ -19,8 +19,15 @@ const Details = () => {
     return <p className={styles.error}>❌ No se encontraron detalles.</p>;
   }
 
+  const handleGoBack = () => {
+    navigate(`/categories/${category}`);
+  };
+
   return (
     <div className={styles.container}>
+      <button className={styles.backButton} onClick={handleGoBack}>
+        ← Regresar
+      </button>
       <div className={styles.detailContainer}>
         {/* Título principal */}
         <h1 className={styles.title}>{detailData.title}</h1>
