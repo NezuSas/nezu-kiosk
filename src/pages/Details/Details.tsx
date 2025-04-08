@@ -3,6 +3,7 @@ import { DETAILS } from "./Details.constants";
 import styles from "./Details.module.css";
 import { Carousel } from "@/components/common/Carousel";
 import { InteractiveCarousel } from "@/components/common/InteractiveCarousel";
+import { useImagePreloader } from "@/hooks/useImagePreloader";
 
 const Details = () => {
   const { category, subCategory } = useParams<{
@@ -18,6 +19,10 @@ const Details = () => {
   if (!detailData) {
     return <p className={styles.error}>❌ No se encontraron detalles.</p>;
   }
+
+  const projectImages = detailData.projects || [];
+  const serviceImages = detailData.services.design.map((s) => s.image);
+  useImagePreloader([...projectImages, ...serviceImages]);
 
   const handleGoBack = () => {
     navigate(`/categories/${category}`);

@@ -2,9 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/common/Card/Card";
 import { CATEGORIES } from "./Categories.constants";
 import styles from "./Categories.module.css";
+import { useImagePreloader } from "@/hooks/useImagePreloader";
 
 const Categories = () => {
   const navigate = useNavigate();
+
+  useImagePreloader(CATEGORIES.map((cat) => cat.imageUrl));
 
   const handleGoBack = () => {
     navigate(`/`);
