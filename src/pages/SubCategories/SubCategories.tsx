@@ -3,6 +3,7 @@ import { SUB_CATEGORIES } from "./SubCategories.constants";
 import { CATEGORIES } from "@/pages/Categories";
 import styles from "./SubCategories.module.css";
 import { MosaicoCard } from "@/components/common/MosaicoCard";
+import { useImagePreloader } from "@/hooks/useImagePreloader";
 
 const SubCategories = () => {
   const navigate = useNavigate();
@@ -15,6 +16,9 @@ const SubCategories = () => {
   const filteredSubCategories = SUB_CATEGORIES.filter(
     (subCat) => subCat.parentId === category
   );
+
+  const allSubImages = filteredSubCategories.flatMap((sub) => sub.imageUrl);
+  useImagePreloader(allSubImages);
 
   const handleGoBack = () => {
     navigate(`/categories`);
