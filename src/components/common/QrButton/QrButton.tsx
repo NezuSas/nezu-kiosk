@@ -98,7 +98,7 @@ export const QrButton: React.FC<
 
   const qrUrl = React.useMemo(() => {
     if (!state.sessionId) return "";
-    const baseUrl = "https://5fd4-190-123-34-99.ngrok-free.app/form";
+    const baseUrl = "https://d32f-190-123-34-99.ngrok-free.app/form";
     const url = new URL(baseUrl);
     url.searchParams.append("session", state.sessionId);
 

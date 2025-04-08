@@ -1,24 +1,22 @@
-.button:hover {
-    background-color: #D9542B;
-    color: white;
-}
-
-.button {
+button {
     margin-top: 100px;
     padding: 15px 25px;
     font-size: 28px;
     font-weight: bold;
     color: white;
-    background-color: #D9542B;
+    background-color: #3498DB; /* Azul eléctrico */
     border: none;
     border-radius: 12px;
     cursor: pointer;
-    transition: background 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0px 4px 10px rgba(52, 152, 219, 0.3);
 }
 
 .button:hover {
-    background-color: #A8C924;
+    background-color: #E74C3C; /* Rojo anaranjado */
     transform: scale(1.05);
+    box-shadow: 0px 6px 15px rgba(231, 76, 60, 0.4);
 }
 
 .modalOverlay {
@@ -27,27 +25,28 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(44, 62, 80, 0.85); /* Azul marino con alta opacidad */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
     padding: 1rem;
+    backdrop-filter: blur(3px); /* Efecto de desenfoque sutil */
 }
 
 .modalContent {
     background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
+    padding: 2.5rem;
+    border-radius: 12px;
     width: 80%;
-    /* max-width: 500px; */
     height: 70vh;
-    /* max-height: 600px; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
+    box-shadow: 0px 10px 30px rgba(44, 62, 80, 0.3); /* Sombra profunda */
+    border: 1px solid rgba(52, 152, 219, 0.1); /* Borde sutil */
 }
 
 .closeButton {
@@ -58,18 +57,20 @@
     border: none;
     font-size: 2.5rem;
     cursor: pointer;
-    color: #1A1A1A;
+    color: #34495E; /* Azul marino medio */
     width: 32px;
     height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    transition: background-color 0.2s;
+    transition: all 0.2s ease;
 }
 
 .closeButton:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(231, 76, 60, 0.15); /* Rojo anaranjado con baja opacidad */
+    color: #E74C3C; /* Rojo anaranjado */
+    transform: rotate(90deg); /* Efecto de rotación al cerrar */
 }
 
 .qrContainer {
@@ -82,24 +83,27 @@
 
 .qrTitle {
     font-size: 40px;
-    color: #1A1A1A;
+    color: #2C3E50; /* Azul marino oscuro */
     font-weight: 600;
     text-align: center;
     margin: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .qrCode {
-    padding: 1rem;
+    padding: 1.5rem;
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2); /* Sombra azul sutil */
+    border: 1px solid rgba(52, 152, 219, 0.1); /* Borde azul muy sutil */
 }
 
 .qrDescription {
-    color: #666;
+    color: #34495E; /* Azul marino medio */
     text-align: center;
     max-width: 80%;
     margin: 0;
     font-size: 30px;
     line-height: 1.5;
+    font-family: 'Open Sans', sans-serif;
 }

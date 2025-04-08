@@ -2,9 +2,11 @@
 .container {
     text-align: center;
     padding: 30px;
+    background-color: #ECF0F1; /* Fondo gris claro */
     background-size: cover;
     min-height: 90vh;
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
 }
@@ -13,9 +15,9 @@
     width: 90%;
     max-width: 1200px;
     padding: 30px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: white; /* Fondo blanco limpio */
     border-radius: 20px;
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5px 20px rgba(44, 62, 80, 0.1); /* Sombra sutil */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,27 +27,30 @@
 .title {
     font-size: 50px;
     font-weight: bold;
-    color: #D9542B;
+    color: #2C3E50; /* Azul marino oscuro */
     text-align: center;
     margin-bottom: 40px;
-    box-shadow: 0px 4px 20px rgba(217, 84, 43, 0.8);
+    box-shadow: 0px 4px 20px rgba(52, 152, 219, 0.3); /* Sombra azul sutil */
+    font-family: 'Montserrat', sans-serif;
 }
 
 /* 📌 Título con mayor visibilidad */
 .totalTitle {
     font-size: 50px;
     font-weight: bold;
-    color: black;
+    color: #2C3E50; /* Azul marino oscuro */
     text-align: center;
     margin-bottom: 40px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 /* 📌 Mensaje cuando el carrito está vacío */
 .emptyCart {
     font-size: 22px;
-    color: #D9542B;
+    color: #3498DB; /* Azul eléctrico */
     text-align: center;
     font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
 }
 
 /* 📌 Lista de productos */
@@ -72,15 +77,17 @@
     font-size: 28px;
     font-weight: bold;
     color: white;
-    background-color: #D9542B;
+    background-color: #E74C3C; /* Rojo anaranjado */
     border: none;
     border-radius: 12px;
     cursor: pointer;
-    transition: background 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0px 4px 10px rgba(231, 76, 60, 0.3);
 }
 
 .confirmButton:hover {
-    background-color: #A8C924;
+    background-color: #F1C40F; /* Amarillo dorado */
     transform: scale(1.05);
 }
 
@@ -93,17 +100,18 @@
     font-size: 28px;
     font-weight: bold;
     color: white;
-    background-color: #D9542B;
+    background-color: #3498DB; /* Azul eléctrico */
     border: none;
     border-radius: 12px;
     cursor: pointer;
-    transition: background 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     z-index: 100;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 10px rgba(44, 62, 80, 0.2);
+    font-family: 'Open Sans', sans-serif;
 }
 
 .backButton:hover {
-    background-color: #A8C924;
+    background-color: #E74C3C; /* Rojo anaranjado */
     transform: scale(1.05);
 }
 
