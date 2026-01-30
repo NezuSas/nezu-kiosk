@@ -1,13 +1,18 @@
 .container {
     width: 100%;
-    min-height: 100vh;
-    padding: 6rem 2rem 2rem;
+    height: 100vh;
+    height: 100dvh;
+    padding: 7rem 2rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    overflow-x: hidden;
+    overflow-y: auto;
     background-color: #000;
+}
+
+.container::-webkit-scrollbar {
+    display: none;
 }
 
 /* Background Animation */
