@@ -5,7 +5,10 @@
     font-family: 'Rubik-Variable', sans-serif;
 }
   
-body {
+html, body {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
     font-family: 'Rubik-Variable', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -13,4 +16,5 @@ body {
   
 #root {
     height: 100vh;
+    height: 100dvh;
 }
