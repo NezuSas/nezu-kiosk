@@ -24,7 +24,7 @@
 .imageGrid {
     display: flex;
     width: 100%;
-    height: 500px; /* Standardized height */
+    height: 400px; /* Reduced from 500px */
     transition: transform 1s ease-in-out;
 }
 
@@ -112,13 +112,13 @@
 
     .mainImage {
         width: 100%;
-        height: 250px;
+        height: 220px;
     }
 
     .sideImages {
         width: 100%;
         flex-direction: row;
-        height: 200px;
+        height: 180px;
     }
 
     .sideImage {
