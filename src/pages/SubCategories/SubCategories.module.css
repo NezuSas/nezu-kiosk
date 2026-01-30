@@ -2,7 +2,7 @@
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  padding: 3rem 2.5rem;
+  padding: 1.5rem 1.2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,10 +40,10 @@
 }
 
 .subCategoryContainer {
-  width: 98%;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1400px;
   height: 100%;
-  padding: 30px;
+  padding: 15px;
   background-color: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
@@ -53,7 +53,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly; /* Distribute cards vertically */
+  justify-content: space-between; /* Maximum fill */
   position: relative;
   z-index: 3;
   overflow: hidden;
