@@ -149,6 +149,10 @@ export const InteractiveCarousel: React.FC<InteractiveCarouselProps> = ({
               }`}
               onClick={() => setShowDescription(false)}
             >
+              <h2 className={styles.productTitle}>{service.id}</h2>
+              <span className={styles.priceTag}>${service.price}</span>
+              <p className={styles.productDescription}>{service.description}</p>
+              
               <button
                 className={`${styles.addButton} ${
                   addedToCart[service.id] ? styles.added : ""
@@ -168,13 +172,14 @@ export const InteractiveCarousel: React.FC<InteractiveCarouselProps> = ({
                     };
                     addToCart(cartItem);
 
+                    // Pequeña animación de feedback inmediato
                     setShowText(false);
-                    setTimeout(() => setShowText(true), 750);
+                    setTimeout(() => setShowText(true), 600);
                   }
                 }}
                 disabled={addedToCart[service.id]}
               >
-                <span className={styles.cartIcon}>🛒</span>
+                <span className={styles.cartIcon}>{addedToCart[service.id] ? "✅" : "🛒"}</span>
                 <span
                   className={`${styles.buttonText} ${
                     !showText ? styles.hiddenText : ""
@@ -182,14 +187,11 @@ export const InteractiveCarousel: React.FC<InteractiveCarouselProps> = ({
                 >
                   {showText
                     ? addedToCart[service.id]
-                      ? "Agregado"
+                      ? "¡Agregado!"
                       : "Adquirir"
                     : ""}
                 </span>
               </button>
-              <span className={styles.priceTag}>${service.price}</span>
-              <h2 className={styles.productTitle}>{service.id}</h2>
-              <p className={styles.productDescription}>{service.description}</p>
             </div>
           </div>
         ))}

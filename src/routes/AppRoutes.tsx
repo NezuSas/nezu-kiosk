@@ -24,7 +24,6 @@ export const AppRoutes = () => (
           element={<Details />}
         />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/form" element={<Form />} />
         <Route path="/payment-options" element={<PaymentOptions />} />
         <Route
           path="/datafast-instructions"
@@ -32,6 +31,8 @@ export const AppRoutes = () => (
         />
         <Route path="/thankyou" element={<ThankYouPage />} />
       </Route>
+      {/* Route without MainLayout (no footer) */}
+      <Route path="/form" element={<Form />} />
     </Routes>
   </Suspense>
 );

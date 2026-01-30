@@ -4,6 +4,8 @@ import styles from "./Details.module.css";
 import { Carousel } from "@/components/common/Carousel";
 import { InteractiveCarousel } from "@/components/common/InteractiveCarousel";
 import { useImagePreloader } from "@/hooks/useImagePreloader";
+import { useProductStore } from "@/store";
+import { type CartItem } from "@/store/useProductStore";
 
 const Details = () => {
   const { category, subCategory } = useParams<{
@@ -23,6 +25,9 @@ const Details = () => {
   const projectImages = detailData.projects || [];
   const serviceImages = detailData.services.design.map((s) => s.image);
   useImagePreloader([...projectImages, ...serviceImages]);
+
+  const { cart } = useProductStore();
+  const cartItemsCount = cart.reduce((sum: number, item: CartItem) => sum + item.quantity, 0);
 
   const handleGoBack = () => {
     navigate(`/categories/${category}`);
@@ -52,8 +57,16 @@ const Details = () => {
           type={"design"}
         />
 
-        <button className={styles.cartButton} onClick={() => navigate("/cart")}>
-          🛒 Ir al Carrito
+        <button 
+          className={`${styles.cartButton} pulse`} 
+          onClick={() => navigate("/cart")}
+        >
+          <div className={styles.cartContent}>
+            <span>🛒 Ir al Carrito</span>
+            {cartItemsCount > 0 && (
+              <span className={styles.cartBadge}>{cartItemsCount}</span>
+            )}
+          </div>
         </button>
       </div>
     </div>

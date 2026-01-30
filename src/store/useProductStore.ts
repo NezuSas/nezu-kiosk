@@ -7,7 +7,7 @@ interface Product {
   image?: string; // URL de imagen opcional
 }
 
-interface CartItem extends Product {
+export interface CartItem extends Product {
   quantity: number;
   category: string;
   subCategory: string;
@@ -70,7 +70,7 @@ export const useProductStore = create<ProductStore>()(
 
           return {
             cart: state.cart.filter((p) => p.id !== id),
-            total: state.total - item.price * item.quantity,
+            total: state.total - (item.price * item.quantity),
             addedToCart: { ...state.addedToCart, [id]: false },
           };
         }),
@@ -78,21 +78,29 @@ export const useProductStore = create<ProductStore>()(
       // Actualizar la cantidad de un producto en el carrito
       updateQuantity: (id, quantity) =>
         set((state) => {
+          const item = state.cart.find((i) => i.id === id);
+          if (!item) return state;
+
           if (quantity <= 0) {
             return {
-              cart: state.cart.filter((item) => item.id !== id),
-              total: state.total - state.cart.find((item) => item.id === id)!.price,
+              cart: state.cart.filter((i) => i.id !== id),
+              total: state.total - (item.price * item.quantity),
+              addedToCart: { ...state.addedToCart, [id]: false },
             };
           }
+
+          const newCart = state.cart.map((i) =>
+            i.id === id ? { ...i, quantity } : i
+          );
+
+          const newTotal = newCart.reduce(
+            (sum, i) => sum + i.price * i.quantity,
+            0
+          );
+
           return {
-            cart: state.cart.map((item) =>
-              item.id === id ? { ...item, quantity } : item
-            ),
-            total: state.cart.reduce(
-              (sum, item) =>
-                item.id === id ? sum + item.price * quantity : sum + item.price * item.quantity,
-              0
-            ),
+            cart: newCart,
+            total: newTotal,
           };
         }),
 

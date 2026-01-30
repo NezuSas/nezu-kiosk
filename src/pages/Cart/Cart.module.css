@@ -1,118 +1,178 @@
-/* 📌 Contenedor principal */
 .container {
-    text-align: center;
-    padding: 30px;
-    background-color: #ECF0F1; /* Fondo gris claro */
-    background-size: cover;
-    min-height: 90vh;
+    width: 100%;
+    min-height: 100vh;
+    padding: 6rem 2rem 2rem;
     display: flex;
-    flex: 1;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    overflow-x: hidden;
+    background-color: #000;
+}
+
+/* Reusing background animation for consistency */
+.container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/background.avif');
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    animation: zoomEffect 20s infinite alternate ease-in-out;
+    filter: blur(5px);
+}
+
+/* Dark overlay */
+.container::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
+    z-index: 2;
 }
 
 .cartContainer {
-    width: 90%;
+    width: 95%;
     max-width: 1200px;
-    padding: 30px;
-    background-color: white; /* Fondo blanco limpio */
-    border-radius: 20px;
-    box-shadow: 0px 5px 20px rgba(44, 62, 80, 0.1); /* Sombra sutil */
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    z-index: 3;
+    animation: fadeInScale 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* 📌 Título con mayor visibilidad */
 .title {
-    font-size: 50px;
-    font-weight: bold;
-    color: #2C3E50; /* Azul marino oscuro */
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
     text-align: center;
-    margin-bottom: 40px;
-    box-shadow: 0px 4px 20px rgba(52, 152, 219, 0.3); /* Sombra azul sutil */
-    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 3rem;
+    letter-spacing: 0.15em;
+    font-family: 'Rubik-Variable', sans-serif;
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* 📌 Título con mayor visibilidad */
 .totalTitle {
-    font-size: 50px;
-    font-weight: bold;
-    color: #2C3E50; /* Azul marino oscuro */
-    text-align: center;
-    margin-bottom: 40px;
-    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #fff;
+    text-align: right;
+    width: 100%;
+    margin: 2rem 0;
+    font-family: 'Rubik-Variable', sans-serif;
+    padding-right: 20px;
 }
 
-/* 📌 Mensaje cuando el carrito está vacío */
 .emptyCart {
-    font-size: 22px;
-    color: #3498DB; /* Azul eléctrico */
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.6);
     text-align: center;
-    font-weight: bold;
-    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    margin: 4rem 0;
+    font-family: 'Rubik-Variable', sans-serif;
 }
 
-/* 📌 Lista de productos */
 .cartList {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin-bottom: 100px;
+    gap: 1.5rem;
 }
 
-/* 📌 Pie de página con botón de confirmación */
-.footer {
-    margin-top: 30px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-/* 📌 Botón de Confirmar Pedido */
-.confirmButton {
-    margin-top: 100px;
-    padding: 15px 25px;
-    font-size: 28px;
-    font-weight: bold;
+.backButton {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
     color: white;
-    background-color: #E74C3C; /* Rojo anaranjado */
-    border: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    font-family: 'Open Sans', sans-serif;
-    box-shadow: 0px 4px 10px rgba(231, 76, 60, 0.3);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-transform: uppercase;
+    font-family: 'Rubik-Variable', sans-serif;
+}
+
+.totalContainer {
+    width: 100%;
+    margin-top: 2rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.confirmButton {
+    margin-top: 3rem;
+    padding: 1.5rem 4rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: white;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-family: 'Rubik-Variable', sans-serif;
+    text-transform: uppercase;
+    box-shadow: 0 10px 30px rgba(52, 152, 219, 0.4);
+    letter-spacing: 0.1em;
 }
 
 .confirmButton:hover {
-    background-color: #F1C40F; /* Amarillo dorado */
-    transform: scale(1.05);
-}
-
-/* Botón de regreso */
-.backButton {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    padding: 15px 25px;
-    font-size: 28px;
-    font-weight: bold;
-    color: white;
-    background-color: #3498DB; /* Azul eléctrico */
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    z-index: 100;
-    box-shadow: 0px 4px 10px rgba(44, 62, 80, 0.2);
-    font-family: 'Open Sans', sans-serif;
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 15px 40px rgba(52, 152, 219, 0.5);
+    background: linear-gradient(135deg, #3498db 0%, #3498db 100%);
 }
 
 .backButton:hover {
-    background-color: #E74C3C; /* Rojo anaranjado */
-    transform: scale(1.05);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateX(-5px);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+@keyframes zoomEffect {
+    0% { transform: scale(1.1); }
+    100% { transform: scale(1.2); }
+}
+
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 /* 📌 Optimización para pantallas táctiles */

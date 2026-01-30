@@ -77,8 +77,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
           logo="/images/logo_color.avif"
           slogan="Tu empresa, tu futuro"
           contact="nezu.ec@nezuecuador.com"
-          location="123 Calle Principal, Ciudad"
-          branchName="Sucursal Centro"
+          location="Cueva de los tallos y base sur, Cuenca, Ecuador"
         />
       )}
     </div>

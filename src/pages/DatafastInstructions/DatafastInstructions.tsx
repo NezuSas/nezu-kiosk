@@ -19,14 +19,16 @@ export const DatafastInstructions: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <img
-        src="/images/logo_color.avif"
-        alt="Nezu Logo"
-        className={styles.logo}
-      />
-      <h1 className={styles.message}>Por favor, siga las instrucciones del Datafast</h1>
-      <div className={styles.arrowContainer}>
-        <span className={styles.arrow}>↓</span>
+      <div className={styles.instructionCard}>
+        <img
+          src="/images/logo_color.avif"
+          alt="Nezu Logo"
+          className={styles.logo}
+        />
+        <h1 className={styles.message}>Por favor, siga las instrucciones del Datafast</h1>
+        <div className={styles.arrowContainer}>
+          <span className={styles.arrow}>↓</span>
+        </div>
       </div>
     </div>
   );

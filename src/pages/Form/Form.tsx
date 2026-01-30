@@ -64,110 +64,117 @@ export const Form: React.FC<FormProps> = ({ className = "" }) => {
 
   return (
     <div className={`${styles.container} ${className}`}>
-      <div className={styles.logoContainer}>
-        <img
-          src="/images/logo_color.avif"
-          alt="Nezu Logo"
-          className={styles.logo}
-        />
+      <div className={styles.formCard}>
+        <div className={styles.logoContainer}>
+          <img
+            src="/images/logo_color.avif"
+            alt="Nezu Logo"
+            className={styles.logo}
+          />
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <div className={styles.formGroup}>
+            <label htmlFor="businessName" className={styles.label}>
+              Razón Social
+            </label>
+            <input
+              type="text"
+              id="businessName"
+              name="businessName"
+              placeholder="Ej: Nezu Corp"
+              value={formData.businessName}
+              onChange={handleChange}
+              className={styles.input}
+              required
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="ruc" className={styles.label}>
+              RUC
+            </label>
+            <input
+              type="text"
+              id="ruc"
+              name="ruc"
+              placeholder="0000000000001"
+              value={formData.ruc}
+              onChange={handleChange}
+              className={styles.input}
+              required
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="address" className={styles.label}>
+              Dirección
+            </label>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              placeholder="Calle Principal #123"
+              value={formData.address}
+              onChange={handleChange}
+              className={styles.input}
+              required
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="email" className={styles.label}>
+              Correo Electrónico
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="correo@ejemplo.com"
+              value={formData.email}
+              onChange={handleChange}
+              className={styles.input}
+              required
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="paymentMethod" className={styles.label}>
+              Método de Pago
+            </label>
+            <select
+              id="paymentMethod"
+              name="paymentMethod"
+              value={formData.paymentMethod}
+              onChange={handleChange}
+              className={styles.select}
+              required
+            >
+              {PAYMENT_METHODS.map((method) => (
+                <option key={method.value} value={method.value}>
+                  {method.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <button type="submit" className={styles.button}>
+            PAGAR AHORA
+          </button>
+        </form>
+
+        {receivedData && (
+          <div className={styles.receivedDataContainer}>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>✓ Datos Enviados</h3>
+            <p><strong>Razón:</strong> {receivedData.businessName}</p>
+            <p><strong>RUC:</strong> {receivedData.ruc}</p>
+          </div>
+        )}
+
+        <div className={styles.mobileFooter}>
+          <p>© 2026 NEZU - Experiencia Digital</p>
+        </div>
       </div>
-
-      <form onSubmit={handleSubmit}>
-        <div className={styles.formGroup}>
-          <label htmlFor="businessName" className={styles.label}>
-            Razón Social
-          </label>
-          <input
-            type="text"
-            id="businessName"
-            name="businessName"
-            value={formData.businessName}
-            onChange={handleChange}
-            className={styles.input}
-            required
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="ruc" className={styles.label}>
-            RUC
-          </label>
-          <input
-            type="text"
-            id="ruc"
-            name="ruc"
-            value={formData.ruc}
-            onChange={handleChange}
-            className={styles.input}
-            required
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="address" className={styles.label}>
-            Dir.
-          </label>
-          <input
-            type="text"
-            id="address"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            className={styles.input}
-            required
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="email" className={styles.label}>
-            Correo
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className={styles.input}
-            required
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="paymentMethod" className={styles.label}>
-            Método
-          </label>
-          <select
-            id="paymentMethod"
-            name="paymentMethod"
-            value={formData.paymentMethod}
-            onChange={handleChange}
-            className={styles.select}
-            required
-          >
-            {PAYMENT_METHODS.map((method) => (
-              <option key={method.value} value={method.value}>
-                {method.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <button type="submit" className={styles.button}>
-          CONFIRMAR
-        </button>
-      </form>
-
-      {receivedData && (
-        <div className={styles.receivedDataContainer}>
-          <h3>📩 Datos Recibidos:</h3>
-          <p><strong>Razón Social:</strong> {receivedData.businessName}</p>
-          <p><strong>RUC:</strong> {receivedData.ruc}</p>
-          <p><strong>Dirección:</strong> {receivedData.address}</p>
-          <p><strong>Correo:</strong> {receivedData.email}</p>
-          <p><strong>Método de pago:</strong> {receivedData.paymentMethod}</p>
-        </div>
-      )}
     </div>
   );
 };

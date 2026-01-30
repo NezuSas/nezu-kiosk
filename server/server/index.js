@@ -8,13 +8,13 @@ const app = express();
 const server = http.createServer(app);
 const io = new SocketServer(server, {
   cors: {
-    origin: "http://localhost:4173",
+    origin: "*", // Permitir todos los orígenes para el túnel
     methods: ["GET", "POST"],
   },
-  // Agregar configuraciones de reconexión
-  connectTimeout: 10000,
-  pingTimeout: 5000,
-  pingInterval: 10000,
+  // Configuraciones de reconexión optimizadas para túneles
+  connectTimeout: 45000,
+  pingTimeout: 60000,
+  pingInterval: 25000,
 });
 
 // Optimizar la compresión
@@ -44,7 +44,7 @@ const staticOptions = {
 app.use(express.static("public", staticOptions));
 
 app.use(cors({
-  origin: "http://localhost:4173",
+  origin: "*",
   methods: ["GET", "POST"],
   credentials: true
 }));
@@ -54,7 +54,7 @@ app.use(express.static("public", {
   setHeaders: (res, path) => {
     // Agregar headers de cache
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    
+
     if (path.endsWith(".br")) {
       res.setHeader("Content-Encoding", "br");
       res.setHeader("Content-Type", "application/javascript");
