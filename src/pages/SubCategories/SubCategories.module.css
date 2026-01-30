@@ -2,7 +2,7 @@
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  padding: 1.5rem 1.2rem;
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,10 +40,11 @@
 }
 
 .subCategoryContainer {
-  width: 100%;
+  width: 98%;
   max-width: 1400px;
-  height: 100%;
-  padding: 15px;
+  height: calc(100% - 150px); /* Leave space for button and footer */
+  margin-top: 7rem; /* Push down to clear button */
+  padding: 30px;
   background-color: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
@@ -53,7 +54,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between; /* Maximum fill */
+  justify-content: flex-start; /* Group together */
+  gap: 30px; /* Controlled spacing */
   position: relative;
   z-index: 3;
   overflow: hidden;
