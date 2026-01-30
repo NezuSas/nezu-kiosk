@@ -19,7 +19,7 @@ const Categories = () => {
         ← Regresar
       </button>
       <div className={styles.categoryContainer}>
-        <h1 className={styles.title}>CATEGORIA 2</h1>
+        <h1 className={styles.title}>CATEGORIAS</h1>
         {CATEGORIES.map((category) => (
           <Card
             key={category.id}
