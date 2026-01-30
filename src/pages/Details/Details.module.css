@@ -1,171 +1,253 @@
 /* Contenedor principal */
 .container {
     width: 100%;
-    padding: 2rem;
-    text-align: center;
+    min-height: 100vh;
+    padding: 6rem 2rem 2rem;
     display: flex;
-    flex: 1;
     flex-direction: column;
     align-items: center;
-    background-color: #ECF0F1; /* Fondo gris claro */
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
 }
 
-/* Botón de regreso */
-.backButton {
+/* Background animation */
+.container::before {
+    content: '';
     position: fixed;
-    top: 20px;
-    left: 20px;
-    padding: 15px 25px;
-    font-size: 28px;
-    font-weight: bold;
-    color: white;
-    background-color: #3498DB; /* Azul eléctrico */
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    z-index: 100;
-    box-shadow: 0px 4px 10px rgba(44, 62, 80, 0.2);
-    font-family: 'Open Sans', sans-serif;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/background.avif');
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    animation: zoomEffect 20s infinite alternate ease-in-out;
+    filter: blur(10px); /* Deeper blur for detail focus */
 }
 
-.backButton:hover {
-    background-color: #E74C3C; /* Rojo anaranjado */
-    transform: scale(1.05);
+.container::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.95) 100%);
+    z-index: 2;
 }
 
 /* Contenedor de detalles */
 .detailContainer {
-    width: 90%;
-    max-width: 1200px;
-    padding: 30px;
-    background-color: white; /* Fondo blanco limpio */
-    border-radius: 20px;
-    box-shadow: 0px 5px 20px rgba(44, 62, 80, 0.1); /* Sombra sutil */
+    width: 95%;
+    max-width: 1100px;
+    padding: 50px;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    z-index: 3;
+    animation: fadeInSlide 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* Título principal */
 .title {
-    font-size: 75px;
-    font-weight: bold;
-    color: #2C3E50; /* Azul marino oscuro */
+    font-size: 4rem;
+    font-weight: 800;
+    color: #fff;
     text-transform: uppercase;
     text-align: center;
-    margin-bottom: 40px;
-    box-shadow: 0px 4px 20px rgba(52, 152, 219, 0.3); /* Sombra azul sutil */
-    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 3rem;
+    letter-spacing: 0.2em;
+    font-family: 'Rubik-Variable', sans-serif;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 /* Subtítulos */
 .sectionTitle {
     text-align: left;
-    font-size: 45px;
-    font-weight: bold;
-    color: #2C3E50; /* Azul marino oscuro */
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
     width: 100%;
-    margin-top: 50px;
-    border-bottom: 3px solid #3498DB; /* Azul eléctrico */
-    padding-bottom: 5px;
-    margin-bottom: 50px;
-    font-family: 'Montserrat', sans-serif;
+    margin-top: 4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+    margin-bottom: 3rem;
+    font-family: 'Rubik-Variable', sans-serif;
+    letter-spacing: 0.05em;
+    position: relative;
+}
+
+.sectionTitle::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, #fff, transparent);
+}
+
+/* Botón de regreso */
+.backButton {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-transform: uppercase;
+}
+
+.backButton:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateX(-5px);
+}
+
+.cartContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    position: relative;
+    width: 100%;
+}
+
+.cartBadge {
+    background-color: #ff3b30;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+    min-width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0); }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
 
 /* Carrusel de imágenes */
 .carouselContainer {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 2rem;
 }
 
 /* Botón de ir al carrito */
 .cartButton {
-    margin-top: 100px;
-    padding: 15px 25px;
-    font-size: 28px;
-    font-weight: bold;
+    position: fixed;
+    top: 40px; /* Movido a la parte superior */
+    right: 40px;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
     color: white;
-    background-color: #E74C3C; /* Rojo anaranjado */
+    padding: 1rem 2rem; /* Slighly more compact for the top position */
     border: none;
-    border-radius: 12px;
+    border-radius: 50px;
+    font-size: 1.1rem; /* Slightly smaller */
+    font-weight: 800;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    font-family: 'Open Sans', sans-serif;
-    box-shadow: 0px 4px 10px rgba(231, 76, 60, 0.3);
+    box-shadow: 0 10px 30px rgba(231, 76, 60, 0.5);
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-family: 'Rubik-Variable', sans-serif;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .cartButton:hover {
-    background-color: #F1C40F; /* Amarillo dorado */
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(241, 196, 15, 0.4);
+}
+
+.cartButton:active {
+    transform: scale(0.98);
+}
+
+/* Keyframes */
+@keyframes zoomEffect {
+    0% { transform: scale(1.2); }
+    100% { transform: scale(1.3); }
+}
+
+@keyframes fadeInSlide {
+    0% {
+        opacity: 0;
+        transform: scale(0.98) translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 /* Error */
 .error {
-    font-size: 20px;
-    font-weight: bold;
-    color: #E74C3C; /* Rojo anaranjado */
-    margin-top: 50px;
-    font-family: 'Open Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #E74C3C;
+    margin-top: 100px;
+    font-family: 'Rubik-Variable', sans-serif;
+    z-index: 10;
 }
 
-/* === RESPONSIVE STYLES === */
 @media (max-width: 768px) {
-    .container {
-        padding: 1rem;
-    }
-
     .detailContainer {
-        padding: 20px;
+        padding: 25px;
         width: 100%;
-        border-radius: 15px;
-        box-shadow: 0px 3px 12px rgba(44, 62, 80, 0.08);
     }
 
     .title {
-        font-size: 40px;
-        margin-bottom: 25px;
-        box-shadow: none;
+        font-size: 2.5rem;
     }
 
     .sectionTitle {
-        font-size: 28px;
-        margin-top: 30px;
-        margin-bottom: 30px;
+        font-size: 1.8rem;
     }
 
     .backButton {
-        top: 10px;
-        left: 10px;
-        padding: 12px 18px;
-        font-size: 20px;
-        border-radius: 10px;
+        padding: 0.8rem 1.2rem;
+        font-size: 1rem;
+        top: 1rem;
+        left: 1rem;
     }
 
     .cartButton {
-        font-size: 20px;
-        padding: 12px 20px;
-        margin-top: 60px;
-    }
-
-    .error {
-        font-size: 16px;
-        margin-top: 30px;
-    }
-}
-
-@media (max-width: 480px) {
-    .title {
-        font-size: 28px;
-    }
-
-    .sectionTitle {
-        font-size: 22px;
-    }
-
-    .backButton,
-    .cartButton {
-        font-size: 16px;
-        padding: 10px 14px;
+        font-size: 1.5rem;
+        padding: 1.2rem 2rem;
+        margin-top: 3rem;
     }
 }

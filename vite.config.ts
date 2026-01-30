@@ -3,6 +3,9 @@ import { imagetools } from 'vite-imagetools';
 import react from "@vitejs/plugin-react";
 import path from "path";
 import compression from "vite-plugin-compression";
+import dns from "node:dns";
+
+dns.setDefaultResultOrder('ipv4first');
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "VITE_");
@@ -117,14 +120,21 @@ export default defineConfig(({ mode }) => {
       }
     },
     server: {
+      host: '127.0.0.1', // Forzar explícitamente IPv4 localhost
+      port: 5173,
       proxy: {
         "/socket.io": {
-          target: process.env.NODE_ENV === "production" ? "http://localhost:4000" : "http://localhost:4000",
+          target: "http://127.0.0.1:4000",
           ws: true,
           changeOrigin: true
         }
       },
-      allowedHosts: [".ngrok-free.app"]
+      allowedHosts: [
+        "kiosk-pago.nezuecuador.com",
+        ".nezuecuador.com",
+        "localhost",
+        "127.0.0.1"
+      ]
     }
   };
 });

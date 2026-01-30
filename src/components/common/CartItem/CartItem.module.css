@@ -1,80 +1,88 @@
 .cartItem {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     width: 100%;
-    height: 200px;
-    padding: 15px;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0px 4px 15px rgba(44, 62, 80, 0.15); /* Sombra más sutil */
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-bottom: 0.5rem;
 }
 
 .cartItem:hover {
-    transform: scale(1.02);
-    box-shadow: 0px 6px 20px rgba(44, 62, 80, 0.2); /* Sombra más pronunciada al hover */
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .itemImage {
-    width: 300px;
-    height: 150px;
+    width: 250px;
+    height: 140px;
     object-fit: cover;
-    border-radius: 12px;
-    border: 2px solid #3498DB; /* Azul eléctrico */
-    box-shadow: 0px 4px 10px rgba(52, 152, 219, 0.3); /* Sombra azul */
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s ease;
+}
+
+.cartItem:hover .itemImage {
+    transform: scale(1.03);
 }
 
 .itemDetails {
     flex: 1;
-    margin-left: 15px;
+    margin: 0 2rem;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .itemName {
-    font-size: 22px;
-    font-weight: bold;
-    color: #2C3E50; /* Azul marino oscuro */
-    margin: 0;
-    text-align: left;
-    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    font-family: 'Rubik-Variable', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .itemPrice {
-    font-size: 20px;
-    color: #34495E; /* Azul marino medio */
-    font-weight: bold;
-    margin: 5px 0;
-    text-align: left;
-    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+    font-family: 'Rubik-Variable', sans-serif;
+    margin-bottom: 1.5rem;
 }
 
 .quantityControls {
     display: flex;
-    align-items: center; /* Esto es clave para alineación vertical */
-    gap: 10px;
-    font-size: 20px;
-    font-family: 'Open Sans', sans-serif;
-    /* margin-top: 10px; */
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 5px;
+    border-radius: 12px;
+    width: fit-content;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .quantity {
-    display: flex; /* Cambiamos a flex */
-    align-items: center; /* Alineación vertical */
-    justify-content: center; /* Centrado horizontal */
-    min-width: 30px;
-    height: 35px; /* Misma altura que los botones */
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #fff;
+    min-width: 40px;
     text-align: center;
-    font-weight: bold;
+    font-family: 'Rubik-Variable', sans-serif;
 }
 
 .decreaseButton,
 .increaseButton {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border: none;
-    background-color: #3498DB;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     cursor: pointer;
     color: white;
@@ -82,48 +90,40 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    font-size: 25px;
-    margin-top: auto;
+    font-size: 1.2rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .decreaseButton:hover,
 .increaseButton:hover {
-    background-color: #2980B9; /* Azul más oscuro */
-    transform: translateY(-2px);
-    box-shadow: 0px 4px 8px rgba(52, 152, 219, 0.4);
+    background: #3498db;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.4);
 }
 
 .removeButton {
-    background: none;
-    border: none;
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.2);
     cursor: pointer;
-    padding: 5px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease-in-out;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .removeButton:hover {
-    transform: scale(1.1);
+    background: #e74c3c;
+    transform: rotate(15deg) scale(1.1);
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.4);
 }
 
 .trashIcon {
-    width: 40px;
-    height: 40px;
-    filter: drop-shadow(0px 2px 5px rgba(231, 76, 60, 0.3)); /* Sombra roja */
-    box-shadow: 0px 2px 5px rgba(231, 76, 60, 0.3); /* Sombra roja */
-    border-radius: 50%;
-    background-color: white;
-    padding: 5px;
-    transition: all 0.2s ease-in-out;
-}
-
-.trashIcon:hover {
-    transform: scale(1.1) translateY(-3px);
-    filter: drop-shadow(0px 4px 8px rgba(231, 76, 60, 0.4)); /* Sombra roja más intensa */
-    box-shadow: 0px 4px 8px rgba(231, 76, 60, 0.4); /* Sombra roja más intensa */
+    width: 25px;
+    height: 25px;
+    filter: brightness(0) invert(1); /* Make it white */
 }
 
 /* 📱 Ajustes para pantallas pequeñas */

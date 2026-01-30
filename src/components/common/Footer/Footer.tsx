@@ -6,7 +6,6 @@ export const Footer = ({
   slogan,
   contact,
   location,
-  branchName,
   className = "",
 }: FooterProps) => {
   return (
@@ -18,9 +17,6 @@ export const Footer = ({
             <img src={logo} alt="Logo" className={styles.logo} />
             <div className={styles.sucursal}>
               <p className={styles.slogan}>{slogan}</p>
-              {branchName && (
-                <p className={styles.branchName}>Sucursal: {branchName}</p>
-              )}
             </div>
           </div>
 

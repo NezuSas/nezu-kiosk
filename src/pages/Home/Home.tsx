@@ -23,6 +23,7 @@ const Home = () => {
       <div className={styles.buttonContainer}>
         <Button
           width="100%"
+          className={styles.pulse}
           onClick={() => navigate("/categories")}
         >
           <PlayIcon />

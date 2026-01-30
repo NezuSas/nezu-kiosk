@@ -28,29 +28,31 @@ export const ThankYouPage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <img
-        src="/images/logo_color.avif"
-        alt="Nezu Logo"
-        className={styles.logo}
-      />
-      <h1 className={styles.message}>¡Gracias por tu compra!</h1>
-      <p className={styles.subMessage}>
-        Tu transacción ha sido procesada con éxito. Esperamos verte pronto.
-      </p>
-      <div className={styles.thankYouIcon}>🎉</div>
-      <div className={styles.hiddenReceipt}>
-        <Receipt
-          orderNumber="0"
-          customerName="Nelson Patiño"
-          items={cart.map((item) => ({
-            name: item.id,
-            quantity: item.quantity,
-            unitPrice: item.price,
-          }))}
-          total={total}
+      <div className={styles.thankYouCard}>
+        <img
+          src="/images/logo_color.avif"
+          alt="Nezu Logo"
+          className={styles.logo}
         />
+        <h1 className={styles.message}>¡Gracias por tu compra!</h1>
+        <p className={styles.subMessage}>
+          Tu transacción ha sido procesada con éxito. Esperamos verte pronto.
+        </p>
+        <div className={styles.thankYouIcon}>🎉</div>
+        <div className={styles.hiddenReceipt}>
+          <Receipt
+            orderNumber="0"
+            customerName="Nelson Patiño"
+            items={cart.map((item) => ({
+              name: item.id,
+              quantity: item.quantity,
+              unitPrice: item.price,
+            }))}
+            total={total}
+          />
+        </div>
+        <PrintButton />
       </div>
-      <PrintButton />
     </div>
   );
 };

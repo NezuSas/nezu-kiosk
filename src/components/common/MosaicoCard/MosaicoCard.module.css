@@ -4,25 +4,28 @@
     flex-direction: column;
     align-items: center;
     padding: 0;
-    margin: 30px 0;
-    border-radius: 12px;
+    margin: 24px 0;
+    border-radius: 20px;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     width: 100%;
-    border: 6px solid rgba(44, 62, 80, 0.2); /* Borde azul marino con transparencia */
-    box-shadow: 0px 4px 25px rgba(52, 152, 219, 0.3); /* Sombra azul eléctrico */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     overflow: hidden;
 }
 
 .container:hover {
-    transform: translateY(-4px);
-    box-shadow: 0px 6px 30px rgba(52, 152, 219, 0.5); /* Sombra más intensa al hover */
+    transform: scale(1.02);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6);
 }
 
 .imageGrid {
     display: flex;
     width: 100%;
-    height: 400px;
+    height: 500px; /* Standardized height */
+    transition: transform 1s ease-in-out;
 }
 
 /* Diseño con imagen grande a la izquierda */
@@ -35,57 +38,69 @@
 }
 
 .mainImage {
-    width: 40%;
+    width: 45%;
     height: 100%;
-    object-fit: fill; /* Cambiado de fill a cover para mejor aspecto */
-    border-radius: 8px 0 0 8px;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .sideImages {
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 55%;
     height: 100%;
 }
 
 .sideImage {
     width: 100%;
     height: 50%;
-    object-fit: fill; /* Cambiado de fill a cover para mejor aspecto */
-    border-radius: 0 8px 0 0;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.container:hover .mainImage,
+.container:hover .sideImage {
+    transform: scale(1.05);
 }
 
 .title {
     position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background: rgba(44, 62, 80, 0.8); /* Fondo azul marino con opacidad */
+    bottom: 24px;
+    left: 24px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     color: white;
-    padding: 8px 12px; /* Padding ligeramente aumentado */
-    font-size: 30px;
-    font-weight: bold;
-    border-radius: 5px;
+    padding: 12px 24px;
+    font-size: 2rem;
+    font-weight: 700;
+    border-radius: 12px;
     width: auto;
-    font-family: 'Montserrat', sans-serif;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil para el título */
+    font-family: 'Rubik-Variable', sans-serif;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    max-width: 85%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s ease;
+}
+
+.container:hover .title {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #000;
+    transform: translateY(-5px);
 }
 
 @media screen and (max-width: 1024px) {
     .imageGrid {
-        height: 300px;
-    }
-
-    .mainImage {
-        width: 45%;
-    }
-
-    .sideImages {
-        width: 55%;
+        height: 350px;
     }
 
     .title {
-        font-size: 24px;
-        padding: 6px 10px;
+        font-size: 1.5rem;
+        padding: 8px 16px;
     }
 }
 
@@ -97,8 +112,7 @@
 
     .mainImage {
         width: 100%;
-        height: 200px;
-        border-radius: 8px 8px 0 0;
+        height: 250px;
     }
 
     .sideImages {
@@ -110,28 +124,11 @@
     .sideImage {
         width: 50%;
         height: 100%;
-        border-radius: 0 0 0 0;
     }
 
     .title {
-        font-size: 20px;
-        padding: 6px 10px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .container {
-        margin: 20px 0;
-        border-width: 4px;
-    }
-
-    .mainImage,
-    .sideImage {
-        height: 150px;
-    }
-
-    .title {
-        font-size: 18px;
-        padding: 5px 8px;
+        font-size: 1.2rem;
+        bottom: 12px;
+        left: 12px;
     }
 }

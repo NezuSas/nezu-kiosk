@@ -1,88 +1,145 @@
 .container {
     width: 100%;
+    min-height: 100vh;
     padding: 2rem;
-    text-align: center;
-    background: linear-gradient(to bottom, #2C3E50, #34495E); /* Gradiente azul marino */
-    color: white;
-    box-sizing: border-box;
-    justify-content: center;
-    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow-x: hidden;
+    background-color: #000;
+}
+
+/* Background Animation */
+.container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/background.avif');
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    animation: zoomEffect 20s infinite alternate ease-in-out;
+    filter: blur(5px);
+}
+
+/* Dark Overlay */
+.container::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
+    z-index: 2;
+}
+
+.thankYouCard {
+    width: 90%;
+    max-width: 600px;
+    padding: 4rem 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+    animation: fadeInScale 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .logo {
-    width: 150px;
-    margin-bottom: 1rem;
-    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2)); /* Sombra sutil para el logo */
+    width: 180px;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
 }
 
 .message {
-    font-size: 2rem;
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-    margin-bottom: 1rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra de texto */
+    font-size: 3rem;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1em;
+    font-family: 'Rubik-Variable', sans-serif;
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .subMessage {
-    font-size: 1.2rem;
-    margin-top: 0.5rem;
-    font-family: 'Open Sans', sans-serif;
-    opacity: 0.9;
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    line-height: 1.6;
+    max-width: 450px;
+    margin-bottom: 3rem;
+    font-family: 'Rubik-Variable', sans-serif;
 }
 
 .thankYouIcon {
-    font-size: 4rem;
-    margin-top: 1rem;
-    animation: bounce 1.5s infinite;
-    margin-bottom: 100px;
-    color: #F1C40F; /* Color dorado para el ícono */
-    text-shadow: 0 2px 10px rgba(241, 196, 15, 0.5); /* Resplandor dorado */
+    font-size: 6rem;
+    margin-bottom: 3rem;
+    animation: bounce 2s infinite ease-in-out;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
 }
 
 .hiddenReceipt {
     position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    overflow: hidden;
+    left: -999px;
+    top: 0;
+    opacity: 1;
     pointer-events: none;
 }
 
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
+@keyframes zoomEffect {
+    0% { transform: scale(1.1); }
+    100% { transform: scale(1.2); }
+}
+
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(30px);
     }
-    50% {
-        transform: translateY(-10px);
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
     }
 }
 
+@keyframes bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.1); }
+}
+
 @media screen and (max-width: 768px) {
-    .logo {
-        width: 100px;
-        margin-bottom: 0.8rem;
+    .thankYouCard {
+        padding: 3rem 1.5rem;
+        border-radius: 30px;
     }
 
     .message {
-        font-size: 1.5rem;
-        margin-bottom: 0.8rem;
-        text-align: center;
+        font-size: 2rem;
     }
 
     .subMessage {
-        font-size: 1rem;
-        text-align: center;
+        font-size: 1.1rem;
     }
 
     .thankYouIcon {
-        font-size: 2.5rem;
-        margin-bottom: 60px;
+        font-size: 4rem;
     }
 
-    .container {
-        padding: 1.5rem;
+    .logo {
+        width: 140px;
     }
 }
