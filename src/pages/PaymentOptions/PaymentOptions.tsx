@@ -28,6 +28,10 @@ export const PaymentOptions: React.FC = () => {
     navigate(-1);
   };
 
+  const handleContinue = () => {
+    navigate(`/thankyou?session=${sessionId}`);
+  };
+
   return (
     <div className={styles.container}>
       <button className={styles.backButton} onClick={handleGoBack}>
