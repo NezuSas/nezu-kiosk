@@ -2,13 +2,13 @@
     width: 100%;
     height: 100vh;
     height: 100dvh;
-    padding: 2rem;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     position: relative;
-    overflow-y: auto;
+    overflow: hidden;
     background-color: #000;
 }
 
@@ -45,8 +45,10 @@
 }
 
 .thankYouCard {
-    width: 90%;
-    max-width: 600px;
+    width: 98%;
+    max-width: 800px;
+    height: calc(100% - 150px);
+    margin-top: 7rem;
     padding: 4rem 2rem;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(25px);
@@ -57,6 +59,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     position: relative;
     z-index: 3;
     animation: fadeInScale 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
