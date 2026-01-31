@@ -17,8 +17,15 @@ export const DatafastInstructions: React.FC = () => {
     return null;
   }
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className={styles.container}>
+      <button className={styles.backButton} onClick={handleGoBack}>
+        ← Regresar
+      </button>
       <div className={styles.instructionCard}>
         <img
           src="/images/logo_color.avif"

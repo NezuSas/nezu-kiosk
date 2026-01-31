@@ -24,12 +24,15 @@ export const PaymentOptions: React.FC = () => {
     return <p className={styles.error}>No se encontró una sesión activa.</p>;
   }
 
-  const handleContinue = () => {
-    navigate(`/thankyou?session=${sessionId}`);
+  const handleGoBack = () => {
+    navigate(-1);
   };
 
   return (
     <div className={styles.container}>
+      <button className={styles.backButton} onClick={handleGoBack}>
+        ← Regresar
+      </button>
       <h1 className={styles.title}>Opciones de Pago</h1>
 
       <div className={styles.userData}>
