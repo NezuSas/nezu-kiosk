@@ -42,20 +42,21 @@
 .categoryContainer {
     width: 98%;
     max-width: 1400px;
-    height: calc(100% - 150px); /* Leave space for button and footer */
-    margin-top: 7rem; /* Push down to clear button */
-    padding: 30px;
+    height: auto; /* Dynamic height based on content */
+    max-height: calc(100% - 150px);
+    margin-top: 7rem;
+    padding: 40px;
     background-color: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 30px;
+    border-radius: 40px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Group together */
-    gap: 30px; /* Controlled spacing */
+    justify-content: center; /* Group in the middle */
+    gap: 40px; /* Generous gap */
     position: relative;
     z-index: 3;
     overflow: hidden;

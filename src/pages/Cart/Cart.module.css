@@ -42,20 +42,21 @@
 .cartContainer {
     width: 98%;
     max-width: 1400px;
-    height: calc(100% - 150px);
+    height: auto;
+    max-height: calc(100% - 150px);
     margin-top: 7rem;
-    padding: 30px;
+    padding: 40px;
     background-color: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 30px;
+    border-radius: 40px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    gap: 30px;
+    gap: 40px;
     position: relative;
     z-index: 3;
     overflow-y: auto;
