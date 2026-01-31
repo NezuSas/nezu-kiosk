@@ -1,8 +1,14 @@
 .carouselContainer {
     width: 100%;
-    height: 420px; /* Reduced from 500px */
+    height: 400px; /* Base height for landscape/office monitors */
     margin: 0 auto;
     position: relative;
+}
+
+@media (orientation: portrait) {
+    .carouselContainer {
+        height: 460px; /* Standard Kiosk height */
+    }
 }
 
 .carousel {
