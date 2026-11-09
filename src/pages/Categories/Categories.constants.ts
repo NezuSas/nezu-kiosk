@@ -1,19 +1,21 @@
 import { type Category } from './Categories.types';
 
+import { asset } from "../../utils/asset";
+
 export const CATEGORIES: Category[] = [
   {
     id: 'living',
     title: 'Living',
-    imageUrl: '/images/categories/living/living.avif'
+    imageUrl: asset("/images/categories/living/living.avif")
   },
   {
     id: 'elevate',
     title: 'Elevate',
-    imageUrl: '/images/categories/elevate/elevate.avif'
+    imageUrl: asset("/images/categories/elevate/elevate.avif")
   },
   {
     id: 'academia',
     title: 'Academia',
-    imageUrl: '/images/categories/academia/academia.avif'
+    imageUrl: asset("/images/categories/academia/academia.avif")
   }
 ];

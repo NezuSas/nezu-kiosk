@@ -4,6 +4,8 @@ import styles from "./PaymentOptions.module.css";
 import { usePaymentStore } from "../../store/usePaymentStore";
 import { QRCodeSVG } from "qrcode.react";
 
+import { asset } from "../../utils/asset";
+
 export const PaymentOptions: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -83,7 +85,7 @@ export const PaymentOptions: React.FC = () => {
                 }}
               >
                 <img
-                  src="/images/logo_negro.avif"
+                  src={asset("/images/logo_negro.avif")}
                   alt="Nezu"
                   style={{ width: "70%", height: "auto" }}
                 />

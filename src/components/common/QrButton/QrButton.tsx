@@ -5,6 +5,8 @@ import type { QrButtonProps } from "./QrButton.types";
 import styles from "./QrButton.module.css";
 import { useMediaQuery } from 'react-responsive';
 
+import { asset } from "../../../utils/asset";
+
 const QrModal = ({
   isOpen,
   onClose,
@@ -48,7 +50,7 @@ const QrModal = ({
             <QRCodeSVG value={qrUrl} size={qrSize} level="H" />
             <div className={styles.qrStyle}>
               <img
-                src="/images/logo_negro.avif"
+                src={asset("/images/logo_negro.avif")}
                 alt="Logo de Nezu"
                 style={{ width: "80%", height: "80%" }}
               />

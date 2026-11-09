@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "./Receipt.module.css";
 import { ReceiptData } from "../../pages/Printer/Printer.types";
 
+import { asset } from "../../utils/asset";
+
 interface ReceiptProps extends ReceiptData {}
 
 const Receipt: React.FC<ReceiptProps> = ({
@@ -16,7 +18,7 @@ const Receipt: React.FC<ReceiptProps> = ({
       {/* Logo Nezu */}
       <div className={styles.logoContainer}>
         <img
-          src="/images/logo_negro.avif"
+          src={asset("/images/logo_negro.avif")}
           alt="Nezu"
           className={styles.logo}
         />

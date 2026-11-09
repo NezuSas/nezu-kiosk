@@ -5,6 +5,8 @@ import { useProductStore } from "@/store";
 import PrintButton from "@/components/printer/PrintButton";
 import Receipt from "@/components/printer/Receipt";
 
+import { asset } from "../../utils/asset";
+
 export const ThankYouPage: React.FC = () => {
   const { cart, total } = useProductStore();
   const [searchParams] = useSearchParams();
@@ -30,7 +32,7 @@ export const ThankYouPage: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.thankYouCard}>
         <img
-          src="/images/logo_color.avif"
+          src={asset("/images/logo_color.avif")}
           alt="Nezu Logo"
           className={styles.logo}
         />

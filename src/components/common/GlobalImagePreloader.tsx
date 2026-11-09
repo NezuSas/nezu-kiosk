@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { CATEGORIES } from "@/pages/Categories/Categories.constants";
 import { SUB_CATEGORIES } from "@/pages/SubCategories/SubCategories.constants";
 
+import { asset } from "../../utils/asset";
+
 const GlobalImagePreloader = () => {
   const [loaded, setLoaded] = useState(false);
 
@@ -10,8 +12,8 @@ const GlobalImagePreloader = () => {
 
     // Recopilar todas las imágenes críticas
     const imagesToPreload = [
-      "/images/background.avif",
-      "/images/logo_color.avif",
+      asset("/images/background.avif"),
+      asset("/images/logo_color.avif"),
       ...CATEGORIES.map((cat) => cat.imageUrl),
       ...SUB_CATEGORIES.flatMap((sub) => sub.imageUrl),
     ];

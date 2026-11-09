@@ -1,6 +1,8 @@
 import { type FooterProps } from "./Footer.types";
 import styles from "./Footer.module.css";
 
+import { asset } from "../../../utils/asset";
+
 export const Footer = ({
   logo,
   slogan,
@@ -25,7 +27,7 @@ export const Footer = ({
             <h3 className={styles.sectionTitle}>Contáctanos</h3>
             <div className={styles.infoContainer}>
               <img
-                src="/images/icons/email.avif"
+                src={asset("/images/icons/email.avif")}
                 alt="Correo electrónico"
                 className={styles.iconEmail}
                 width={20}
@@ -40,7 +42,7 @@ export const Footer = ({
             <h3 className={styles.sectionTitle}>Ubicación</h3>
             <div className={styles.locationContainer}>
               <img
-                src="/images/icons/ubication.avif"
+                src={asset("/images/icons/ubication.avif")}
                 alt="Ubicación"
                 className={styles.icon}
                 width={20}

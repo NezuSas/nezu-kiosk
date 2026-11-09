@@ -5,6 +5,8 @@ import { PAYMENT_METHODS } from "./Form.constants";
 import styles from "./Form.module.css";
 import io from "socket.io-client";
 
+import { asset } from "../../utils/asset";
+
 export const Form: React.FC<FormProps> = ({ className = "" }) => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -67,7 +69,7 @@ export const Form: React.FC<FormProps> = ({ className = "" }) => {
       <div className={styles.formCard}>
         <div className={styles.logoContainer}>
           <img
-            src="/images/logo_color.avif"
+            src={asset("/images/logo_color.avif")}
             alt="Nezu Logo"
             className={styles.logo}
           />

@@ -18,12 +18,11 @@ describe("Footer component", () => {
     expect(logoImg).toHaveAttribute("src", mockProps.logo);
   });
 
-  it("renders slogan and branch name", () => {
+  // The footer stopped printing the branch name on screen; it stays in the props for the receipt.
+  it("renders the slogan", () => {
     render(<Footer {...mockProps} />);
     expect(screen.getByText(mockProps.slogan)).toBeInTheDocument();
-    expect(
-      screen.getByText(`Sucursal: ${mockProps.branchName}`)
-    ).toBeInTheDocument();
+    expect(screen.queryByText(/Sucursal:/)).not.toBeInTheDocument();
   });
 
   it("renders contact information", () => {

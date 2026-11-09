@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./CartItem.module.css";
 import { CartItemProps } from "./CartItem.types";
 
+import { asset } from "../../../utils/asset";
+
 export const CartItem: React.FC<CartItemProps> = ({
   id,
   price,
@@ -29,7 +31,7 @@ export const CartItem: React.FC<CartItemProps> = ({
       </div>
       <button className={styles.removeButton} onClick={onRemove}>
         <img
-          src="/images/trash.avif"
+          src={asset("/images/trash.avif")}
           alt="Trash"
           className={styles.trashIcon}
         />

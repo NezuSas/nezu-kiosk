@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useSearchParams, useNavigate  } from "react-router-dom";
 import styles from "./DatafastInstructions.module.css";
 
+import { asset } from "../../utils/asset";
+
 export const DatafastInstructions: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -28,7 +30,7 @@ export const DatafastInstructions: React.FC = () => {
       </button>
       <div className={styles.instructionCard}>
         <img
-          src="/images/logo_color.avif"
+          src={asset("/images/logo_color.avif")}
           alt="Nezu Logo"
           className={styles.logo}
         />

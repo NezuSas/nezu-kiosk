@@ -3,7 +3,9 @@ import { Button } from "@/components/common/Button";
 import { PlayIcon } from "@/components/common/PlayIcon";
 import styles from "./Home.module.css";
 
-const LOGO_PATH = "/images/logo.avif";
+import { asset } from "../../utils/asset";
+
+const LOGO_PATH = asset("/images/logo.avif");
 
 const Home = () => {
   const navigate = useNavigate();
