@@ -27,6 +27,10 @@ Dos modos, una sola línea de configuración:
 |---|---|---|---|
 | ![Mi solicitud](.github/screenshots/solicitud.jpg) | ![Código QR](.github/screenshots/qr.jpg) | ![Página del teléfono](.github/screenshots/telefono.jpg) | ![Confirmación](.github/screenshots/gracias.jpg) |
 
+Administración (`/admin`, en el PC de caja): clientes a la espera de cobro y el panel de la última semana.
+
+![Administración: caja y panel](.github/screenshots/administracion.jpg)
+
 ## Hazlo tuyo en 10 minutos
 
 1. **Modo, marca y contacto** · [`src/config/kiosk.config.ts`](src/config/kiosk.config.ts): `mode`, `languages`, nombre, titular de portada, logotipos, WhatsApp, correo, dirección, horario, moneda, colores, tiempo de reposo, opciones del tótem (`kiosk`: identificador, pantalla completa, caché sin conexión, métricas) y la línea de crédito. Los seis colores de marca se vuelven variables CSS al arrancar; todo lo demás se deriva de ellos.
