@@ -3,6 +3,8 @@ import { persist } from "zustand/middleware";
 
 interface Product {
   id: string;
+  /** Name shown in the cart and on the receipt. */
+  name: string;
   price: number;
   image?: string; // URL de imagen opcional
 }
@@ -29,7 +31,7 @@ interface ProductStore {
 
 export const useProductStore = create<ProductStore>()(
   persist(
-    (set, _get) => ({
+    (set) => ({
       products: [],
       cart: [],
       total: 0,

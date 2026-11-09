@@ -20,7 +20,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('/images/background.avif');
+    background-image: var(--k-bg-image);
     background-size: cover;
     background-position: center;
     z-index: 1;
@@ -273,4 +273,15 @@
         padding: 1.2rem 2rem;
         margin-top: 3rem;
     }
+}
+
+/* One-line description of the service line, under its title */
+.lead {
+    margin: -1rem 0 1.5rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1.25rem;
+    line-height: 1.5;
+    text-align: center;
+    max-width: 60ch;
+    align-self: center;
 }

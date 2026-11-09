@@ -1,21 +1,10 @@
-import { type Category } from './Categories.types';
+import { catalog } from "@/content/catalog";
+import { asset } from "@/utils/asset";
+import { type Category } from "./Categories.types";
 
-import { asset } from "../../utils/asset";
-
-export const CATEGORIES: Category[] = [
-  {
-    id: 'living',
-    title: 'Living',
-    imageUrl: asset("/images/categories/living/living.avif")
-  },
-  {
-    id: 'elevate',
-    title: 'Elevate',
-    imageUrl: asset("/images/categories/elevate/elevate.avif")
-  },
-  {
-    id: 'academia',
-    title: 'Academia',
-    imageUrl: asset("/images/categories/academia/academia.avif")
-  }
-];
+/** The category cards of the catalog's first screen, derived from `src/content/catalog.ts`. */
+export const CATEGORIES: Category[] = catalog.map((category) => ({
+  id: category.id,
+  title: category.title,
+  imageUrl: asset(category.image),
+}));

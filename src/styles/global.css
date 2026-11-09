@@ -1,3 +1,15 @@
+:root {
+    /* Theme defaults; kiosk.config.ts overrides them at start-up (see src/main.tsx). */
+    --k-accent: #D9542B;
+    --k-accent-dark: #B5431F;
+    --k-on-accent: #FFFFFF;
+    --k-highlight: #C9DF38;
+    --k-bg: #0B0F0D;
+    --k-radius: 28px;
+    --k-bg-image: none;
+    --k-font: 'Rubik-Variable', sans-serif;
+}
+
 * {
     margin: 0;
     padding: 0;

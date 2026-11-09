@@ -1,11 +1,14 @@
 import React from "react";
+import { createPortal } from "react-dom";
 import { QRCodeSVG } from "qrcode.react";
 import { v4 as uuidv4 } from "uuid";
 import type { QrButtonProps } from "./QrButton.types";
 import styles from "./QrButton.module.css";
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from "react-responsive";
+import { asset } from "@/utils/asset";
+import { kioskConfig } from "@/kiosk.config";
 
-import { asset } from "../../../utils/asset";
+const { business, texts } = kioskConfig;
 
 const QrModal = ({
   isOpen,
@@ -25,15 +28,17 @@ const QrModal = ({
   } else if (isTabletOrMobile) {
     qrSize = 300;
   }
+
   if (!isOpen) return null;
 
-
-  return (
+  // Rendered on <body>: the glass panels use backdrop-filter, which would otherwise trap a fixed overlay inside them.
+  return createPortal(
     <div
       className={styles.modalOverlay}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
+      aria-labelledby="qr-title"
     >
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <button
@@ -45,24 +50,22 @@ const QrModal = ({
           ×
         </button>
         <div className={styles.qrContainer}>
-          <h2 className={styles.qrTitle}>Escanea el código QR</h2>
+          <h2 id="qr-title" className={styles.qrTitle}>{texts.scanQrTitle}</h2>
           <div className={styles.qrCode}>
             <QRCodeSVG value={qrUrl} size={qrSize} level="H" />
             <div className={styles.qrStyle}>
               <img
-                src={asset("/images/logo_negro.avif")}
-                alt="Logo de Nezu"
+                src={asset(business.logoDark)}
+                alt=""
                 style={{ width: "80%", height: "80%" }}
               />
             </div>
           </div>
-          <p className={styles.qrDescription}>
-            Escanee este código QR con su dispositivo móvil para continuar con
-            el proceso de pago
-          </p>
+          <p className={styles.qrDescription}>{texts.scanQrHelp}</p>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
@@ -71,36 +74,24 @@ export const QrButton: React.FC<
 > = ({ className = "", setSessionId }) => {
   const [state, setState] = React.useState({
     isModalOpen: false,
-    isDataModalOpen: false,
     sessionId: "",
-    formData: null,
   });
 
   const handleClick = React.useCallback(() => {
     const newSessionId = uuidv4();
-
-    setState((prev) => ({
-      ...prev,
-      isModalOpen: true,
-      sessionId: newSessionId,
-    }));
-
+    setState({ isModalOpen: true, sessionId: newSessionId });
     setSessionId(newSessionId);
   }, [setSessionId]);
 
   const handleCloseModal = React.useCallback(() => {
-    setState((prev) => ({
-      ...prev,
-      isModalOpen: false,
-    }));
+    setState((prev) => ({ ...prev, isModalOpen: false }));
   }, []);
 
   const qrUrl = React.useMemo(() => {
     if (!state.sessionId) return "";
-    const baseUrl = import.meta.env.VITE_QR_BASE_URL || "http://localhost:5173/form";
+    const baseUrl = import.meta.env.VITE_QR_BASE_URL || `${window.location.origin}${import.meta.env.BASE_URL}form`;
     const url = new URL(baseUrl);
     url.searchParams.append("session", state.sessionId);
-
     return url.toString();
   }, [state.sessionId]);
 
@@ -111,7 +102,7 @@ export const QrButton: React.FC<
         onClick={handleClick}
         className={`${styles.button} ${className}`}
       >
-        Continuar con el pago
+        {texts.continueToPayment}
       </button>
       <QrModal
         isOpen={state.isModalOpen}

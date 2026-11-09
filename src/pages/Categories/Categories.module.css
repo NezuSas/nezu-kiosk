@@ -19,7 +19,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('/images/background.avif');
+    background-image: var(--k-bg-image);
     background-size: cover;
     background-position: center;
     z-index: 1;

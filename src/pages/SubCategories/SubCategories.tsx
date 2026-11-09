@@ -4,6 +4,7 @@ import { CATEGORIES } from "@/pages/Categories";
 import styles from "./SubCategories.module.css";
 import { MosaicoCard } from "@/components/common/MosaicoCard";
 import { useImagePreloader } from "@/hooks/useImagePreloader";
+import { kioskConfig } from "@/kiosk.config";
 
 const SubCategories = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const SubCategories = () => {
   return (
     <div className={styles.container}>
       <button className={styles.backButton} onClick={handleGoBack}>
-        ← Regresar
+        ← {kioskConfig.texts.back}
       </button>
       <div className={styles.subCategoryContainer}>
         <h1 className={styles.title}>{parentCategory?.title}</h1>

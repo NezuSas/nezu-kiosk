@@ -30,7 +30,7 @@ export const DatafastInstructions: React.FC = () => {
       </button>
       <div className={styles.instructionCard}>
         <img
-          src={asset("/images/logo_color.avif")}
+          src={asset("/images/brand/logo_color.avif")}
           alt="Nezu Logo"
           className={styles.logo}
         />

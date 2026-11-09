@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./CartItem.module.css";
 import { CartItemProps } from "./CartItem.types";
-
-import { asset } from "../../../utils/asset";
+import { asset } from "@/utils/asset";
+import { formatPrice } from "@/kiosk.config";
 
 export const CartItem: React.FC<CartItemProps> = ({
-  id,
+  name,
   price,
   quantity,
   image,
@@ -15,24 +15,24 @@ export const CartItem: React.FC<CartItemProps> = ({
 }) => {
   return (
     <div className={styles.cartItem}>
-      <img src={image} alt={id} className={styles.itemImage} />
+      <img src={image} alt={name} className={styles.itemImage} />
       <div className={styles.itemDetails}>
-        <h3 className={styles.itemName}>{id}</h3>
-        <p className={styles.itemPrice}>${(price * quantity).toFixed(2)}</p>
+        <h3 className={styles.itemName}>{name}</h3>
+        <p className={styles.itemPrice}>{formatPrice(price * quantity)}</p>
         <div className={styles.quantityControls}>
-          <button className={styles.decreaseButton} onClick={onDecrease}>
+          <button className={styles.decreaseButton} onClick={onDecrease} aria-label="Quitar uno">
             -
           </button>
           <span className={styles.quantity}>{quantity}</span>
-          <button className={styles.increaseButton} onClick={onIncrease}>
+          <button className={styles.increaseButton} onClick={onIncrease} aria-label="Añadir uno">
             +
           </button>
         </div>
       </div>
-      <button className={styles.removeButton} onClick={onRemove}>
+      <button className={styles.removeButton} onClick={onRemove} aria-label="Quitar del carrito">
         <img
-          src={asset("/images/trash.avif")}
-          alt="Trash"
+          src={asset("/images/brand/trash.avif")}
+          alt=""
           className={styles.trashIcon}
         />
       </button>

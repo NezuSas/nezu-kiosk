@@ -4,7 +4,3 @@ export interface SubCategory {
     imageUrl: string[];
     parentId: string;
 }
-
-export interface SubCategoriesProps {
-    // Si necesitamos props en el futuro
-}

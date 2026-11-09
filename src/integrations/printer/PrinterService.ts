@@ -32,9 +32,9 @@ export const printReceipt = async () => {
             const colorProps = ['color', 'backgroundColor', 'borderColor', 'outlineColor', 'fill', 'stroke'];
             
             colorProps.forEach(prop => {
-              const value = (computedStyle as any)[prop];
+              const value = (computedStyle as unknown as Record<string, string>)[prop];
               if (value && (value.includes('oklch') || value.includes('oklaba'))) {
-                (style as any)[prop] = '#000000'; // Fallback a negro
+                (style as unknown as Record<string, string>)[prop] = '#000000'; // Fallback a negro
               }
             });
           }

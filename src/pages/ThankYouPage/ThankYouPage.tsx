@@ -32,7 +32,7 @@ export const ThankYouPage: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.thankYouCard}>
         <img
-          src={asset("/images/logo_color.avif")}
+          src={asset("/images/brand/logo_color.avif")}
           alt="Nezu Logo"
           className={styles.logo}
         />

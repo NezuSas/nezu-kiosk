@@ -1,7 +1,9 @@
 import { type FooterProps } from "./Footer.types";
 import styles from "./Footer.module.css";
+import { asset } from "@/utils/asset";
+import { kioskConfig } from "@/kiosk.config";
 
-import { asset } from "../../../utils/asset";
+const { texts, credit } = kioskConfig;
 
 export const Footer = ({
   logo,
@@ -11,10 +13,9 @@ export const Footer = ({
   className = "",
 }: FooterProps) => {
   return (
-    <footer className={`${styles.footer} ${className}`}>
+    <footer className={`${styles.footer} ${className}`} role="contentinfo">
       <div className={styles.container}>
         <div className={styles.grid}>
-          {/* Logo y Slogan */}
           <div className={styles.logoSection}>
             <img src={logo} alt="Logo" className={styles.logo} />
             <div className={styles.sucursal}>
@@ -22,13 +23,12 @@ export const Footer = ({
             </div>
           </div>
 
-          {/* Contacto */}
           <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>Contáctanos</h3>
+            <h3 className={styles.sectionTitle}>{texts.contactTitle}</h3>
             <div className={styles.infoContainer}>
               <img
-                src={asset("/images/icons/email.avif")}
-                alt="Correo electrónico"
+                src={asset("/images/brand/icons/email.avif")}
+                alt=""
                 className={styles.iconEmail}
                 width={20}
                 height={20}
@@ -37,13 +37,12 @@ export const Footer = ({
             </div>
           </div>
 
-          {/* Ubicación */}
           <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>Ubicación</h3>
+            <h3 className={styles.sectionTitle}>{texts.locationTitle}</h3>
             <div className={styles.locationContainer}>
               <img
-                src={asset("/images/icons/ubication.avif")}
-                alt="Ubicación"
+                src={asset("/images/brand/icons/ubication.avif")}
+                alt=""
                 className={styles.icon}
                 width={20}
                 height={30}
@@ -52,6 +51,11 @@ export const Footer = ({
             </div>
           </div>
         </div>
+        {credit.show && (
+          <p className={styles.credit}>
+            {credit.label} · <span className={styles.creditUrl}>{credit.url.replace(/^https?:\/\//, "")}</span>
+          </p>
+        )}
       </div>
     </footer>
   );

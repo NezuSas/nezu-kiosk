@@ -3,6 +3,7 @@ import { Card } from "@/components/common/Card/Card";
 import { CATEGORIES } from "./Categories.constants";
 import styles from "./Categories.module.css";
 import { useImagePreloader } from "@/hooks/useImagePreloader";
+import { kioskConfig } from "@/kiosk.config";
 
 const Categories = () => {
   const navigate = useNavigate();
@@ -16,10 +17,10 @@ const Categories = () => {
   return (
     <div className={styles.container}>
       <button className={styles.backButton} onClick={handleGoBack}>
-        ← Regresar
+        ← {kioskConfig.texts.back}
       </button>
       <div className={styles.categoryContainer}>
-        <h1 className={styles.title}>CATEGORIAS</h1>
+        <h1 className={styles.title}>{kioskConfig.texts.categories}</h1>
         {CATEGORIES.map((category) => (
           <Card
             key={category.id}

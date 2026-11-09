@@ -3,10 +3,10 @@ import styles from "./InteractiveCarousel.module.css";
 import { InteractiveCarouselProps } from "./InteractiveCarousel.types";
 import { useProductStore } from "@/store";
 import { useParams } from "react-router-dom";
+import { formatPrice, kioskConfig } from "@/kiosk.config";
 
 export const InteractiveCarousel: React.FC<InteractiveCarouselProps> = ({
   services,
-  type,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -133,11 +133,11 @@ export const InteractiveCarousel: React.FC<InteractiveCarouselProps> = ({
                 showDescription ? styles.hiddenTitle : styles.showTitle
               }`}
             >
-              {service.id}
+              {service.title}
             </span>
             <img
               src={service.image}
-              alt={service.id}
+              alt={service.title}
               className={styles.projectImage}
               onClick={() => setShowDescription(!showDescription)}
             />
@@ -149,8 +149,8 @@ export const InteractiveCarousel: React.FC<InteractiveCarouselProps> = ({
               }`}
               onClick={() => setShowDescription(false)}
             >
-              <h2 className={styles.productTitle}>{service.id}</h2>
-              <span className={styles.priceTag}>${service.price}</span>
+              <h2 className={styles.productTitle}>{service.title}</h2>
+              <span className={styles.priceTag}>{formatPrice(service.price)}</span>
               <p className={styles.productDescription}>{service.description}</p>
               
               <button
@@ -163,12 +163,13 @@ export const InteractiveCarousel: React.FC<InteractiveCarouselProps> = ({
                   if (!addedToCart[service.id]) {
                     const cartItem = {
                       id: service.id,
-                      price: Number(service.price),
+                      name: service.title,
+                      price: service.price,
                       image: service.image,
                       quantity: 1,
-                      category: category ?? "Unknown",
-                      subCategory: subCategory ?? "Unknown",
-                      serviceType: type,
+                      category: category ?? "unknown",
+                      subCategory: subCategory ?? "unknown",
+                      serviceType: "service",
                     };
                     addToCart(cartItem);
 
@@ -187,8 +188,8 @@ export const InteractiveCarousel: React.FC<InteractiveCarouselProps> = ({
                 >
                   {showText
                     ? addedToCart[service.id]
-                      ? "¡Agregado!"
-                      : "Adquirir"
+                      ? kioskConfig.texts.added
+                      : kioskConfig.texts.acquire
                     : ""}
                 </span>
               </button>

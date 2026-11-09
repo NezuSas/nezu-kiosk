@@ -4,21 +4,21 @@
     font-size: 1.5rem;
     font-weight: 800;
     color: white;
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    background: linear-gradient(135deg, var(--k-accent) 0%, var(--k-accent-dark) 100%);
     border: none;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     font-family: 'Rubik-Variable', sans-serif;
     text-transform: uppercase;
-    box-shadow: 0 10px 30px rgba(52, 152, 219, 0.4);
+    box-shadow: 0 10px 30px color-mix(in srgb, var(--k-accent) 40%, transparent);
     letter-spacing: 0.1em;
 }
 
 .button:hover {
     transform: scale(1.05) translateY(-5px);
-    box-shadow: 0 15px 40px rgba(52, 152, 219, 0.5);
-    background: linear-gradient(135deg, #3498db 0%, #3498db 100%);
+    box-shadow: 0 15px 40px color-mix(in srgb, var(--k-accent) 50%, transparent);
+    background: linear-gradient(135deg, var(--k-accent) 0%, var(--k-accent) 100%);
 }
 
 .modalOverlay {
@@ -44,7 +44,10 @@
     width: 90%;
     max-width: 800px;
     height: auto;
-    min-height: 50vh;
+    min-height: 0;
+    margin: auto;
+    max-height: calc(100dvh - 4rem);
+    overflow: auto;
     display: flex;
     flex-direction: column;
     align-items: center;

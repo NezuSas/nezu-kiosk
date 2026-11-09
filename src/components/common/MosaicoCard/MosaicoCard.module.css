@@ -73,6 +73,7 @@
     position: absolute;
     bottom: 12px;
     left: 12px;
+    border-left: 4px solid var(--k-accent);
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);

@@ -85,7 +85,7 @@ export const PaymentOptions: React.FC = () => {
                 }}
               >
                 <img
-                  src={asset("/images/logo_negro.avif")}
+                  src={asset("/images/brand/logo_negro.avif")}
                   alt="Nezu"
                   style={{ width: "70%", height: "auto" }}
                 />

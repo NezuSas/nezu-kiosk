@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/common/Button";
 import { PlayIcon } from "@/components/common/PlayIcon";
 import styles from "./Home.module.css";
+import { asset } from "@/utils/asset";
+import { kioskConfig } from "@/kiosk.config";
 
-import { asset } from "../../utils/asset";
-
-const LOGO_PATH = asset("/images/logo.avif");
+const { business, texts } = kioskConfig;
 
 const Home = () => {
   const navigate = useNavigate();
@@ -13,8 +13,8 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <img
-        src={LOGO_PATH}
-        alt="Nezu"
+        src={asset(business.logo)}
+        alt={business.name}
         className={styles.logo}
         width={400}
         height={400}
@@ -22,6 +22,7 @@ const Home = () => {
         decoding="async"
         sizes="(max-width: 768px) 200px, 400px"
       />
+      {business.tagline && <p className={styles.tagline}>{business.tagline}</p>}
       <div className={styles.buttonContainer}>
         <Button
           width="100%"
@@ -29,7 +30,7 @@ const Home = () => {
           onClick={() => navigate("/categories")}
         >
           <PlayIcon />
-          <span>Iniciar</span>
+          <span>{texts.start}</span>
         </Button>
       </div>
     </div>

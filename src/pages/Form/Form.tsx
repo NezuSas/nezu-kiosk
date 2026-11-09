@@ -6,6 +6,7 @@ import styles from "./Form.module.css";
 import io from "socket.io-client";
 
 import { asset } from "../../utils/asset";
+import { kioskConfig } from "@/kiosk.config";
 
 export const Form: React.FC<FormProps> = ({ className = "" }) => {
   const [searchParams] = useSearchParams();
@@ -20,7 +21,7 @@ export const Form: React.FC<FormProps> = ({ className = "" }) => {
   });
 
   const [receivedData, setReceivedData] = useState<FormData | null>(null);
-  const [socket, setSocket] = useState<any>(null);
+  const [socket, setSocket] = useState<ReturnType<typeof io> | null>(null);
 
   useEffect(() => {
     if (!sessionId) {
@@ -69,8 +70,8 @@ export const Form: React.FC<FormProps> = ({ className = "" }) => {
       <div className={styles.formCard}>
         <div className={styles.logoContainer}>
           <img
-            src={asset("/images/logo_color.avif")}
-            alt="Nezu Logo"
+            src={asset(kioskConfig.business.logoColor)}
+            alt={kioskConfig.business.name}
             className={styles.logo}
           />
         </div>
@@ -174,7 +175,7 @@ export const Form: React.FC<FormProps> = ({ className = "" }) => {
         )}
 
         <div className={styles.mobileFooter}>
-          <p>© 2026 NEZU - Experiencia Digital</p>
+          <p>© {new Date().getFullYear()} {kioskConfig.business.name}</p>
         </div>
       </div>
     </div>

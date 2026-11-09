@@ -30,7 +30,7 @@ const storageWithCompression = {
     const decompressed = LZString.decompressFromUTF16(compressed);
     return decompressed ? JSON.parse(decompressed) : null;
   },
-  setItem: (name: string, value: any) => {
+  setItem: (name: string, value: unknown) => {
     const compressed = LZString.compressToUTF16(JSON.stringify(value));
     localStorage.setItem(name, compressed);
   },

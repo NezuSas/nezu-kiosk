@@ -96,9 +96,9 @@
 
 .decreaseButton:hover,
 .increaseButton:hover {
-    background: #3498db;
+    background: var(--k-accent);
     transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(52, 152, 219, 0.4);
+    box-shadow: 0 0 15px color-mix(in srgb, var(--k-accent) 40%, transparent);
 }
 
 .removeButton {

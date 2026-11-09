@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Receipt.module.css";
 import { ReceiptData } from "../../pages/Printer/Printer.types";
 
 import { asset } from "../../utils/asset";
 
-interface ReceiptProps extends ReceiptData {}
+type ReceiptProps = ReceiptData;
 
 const Receipt: React.FC<ReceiptProps> = ({
   orderNumber,
@@ -12,13 +12,12 @@ const Receipt: React.FC<ReceiptProps> = ({
   items,
   total,
 }) => {
-  const [_qrLoaded, setQrLoaded] = useState(false);
   return (
     <div id="receipt" className={styles.receipt}>
       {/* Logo Nezu */}
       <div className={styles.logoContainer}>
         <img
-          src={asset("/images/logo_negro.avif")}
+          src={asset("/images/brand/logo_negro.avif")}
           alt="Nezu"
           className={styles.logo}
         />
@@ -37,7 +36,6 @@ const Receipt: React.FC<ReceiptProps> = ({
           src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://nezu.com"
           alt="QR Code"
           className={styles.qrCode}
-          onLoad={() => setQrLoaded(true)} // Espera a que el QR se cargue completamente
         />
       </div>
 

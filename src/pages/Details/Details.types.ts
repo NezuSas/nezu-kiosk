@@ -1,8 +1,11 @@
 export interface Service {
+  /** Stable identifier; it is the cart key. */
   id: string;
+  title: string;
   image: string;
   description: string;
-  price: string;
+  /** Price in the configured currency. */
+  price: number;
 }
 
 export interface Detail {
@@ -10,9 +13,5 @@ export interface Detail {
   title: string;
   description: string;
   projects: string[];
-  services: {
-      design: Service[];       // Ahora es un array
-      installation: Service[]; // Ahora es un array
-      equipment: Service[];    // Ahora es un array
-  };
+  services: Service[];
 }

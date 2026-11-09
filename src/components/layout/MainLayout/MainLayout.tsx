@@ -1,24 +1,45 @@
-import { useEffect, useState, useRef } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Footer } from "@/components/common/Footer";
 import styles from "./MainLayout.module.css";
 import { type MainLayoutProps } from "./MainLayout.types";
+import { asset } from "@/utils/asset";
+import { kioskConfig } from "@/kiosk.config";
 
-import { asset } from "../../../utils/asset";
+const { business, idle } = kioskConfig;
 
+/**
+ * Shell of every kiosk screen: content, footer (except on the start screen) and the idle behaviour. After
+ * `idle.returnHomeAfterSeconds` without touches the kiosk plays the attract video, if one is configured, or goes
+ * back to the start screen so the next customer never finds someone else's cart half done.
+ */
 export const MainLayout = ({ children }: MainLayoutProps) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const isHome = location.pathname === "/";
   const [isIdle, setIsIdle] = useState(false);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const timer = useRef<number | null>(null);
+
+  const armTimer = useCallback(() => {
+    if (timer.current) window.clearTimeout(timer.current);
+    if (idle.returnHomeAfterSeconds <= 0) return;
+    timer.current = window.setTimeout(() => {
+      if (idle.attractVideo) setIsIdle(true);
+      else navigate("/");
+    }, idle.returnHomeAfterSeconds * 1000);
+  }, [navigate]);
 
   useEffect(() => {
-    if (isIdle && videoRef.current) {
-      videoRef.current.volume = 0.5;
-    }
-  }, [isIdle]);
+    armTimer();
+    return () => { if (timer.current) window.clearTimeout(timer.current); };
+  }, [armTimer, location.pathname]);
+
   const handleInteraction = () => {
-    setIsIdle(false);
+    if (isIdle) {
+      setIsIdle(false);
+      navigate("/");
+    }
+    armTimer();
   };
 
   return (
@@ -27,19 +48,10 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
       onClick={handleInteraction}
       onTouchStart={handleInteraction}
     >
-      {isIdle && (
-        <div className={styles.videoContainer} style={{ display: isIdle ? "flex" : "none" }}>
-          <video
-            ref={videoRef}
-            className={styles.video}
-            autoPlay
-            loop
-            muted={false}
-            playsInline
-            preload="none"
-          >
-            <source src="/videos/inactivity.mp4" type="video/mp4" />
-            Tu navegador no soporta videos HTML5.
+      {isIdle && idle.attractVideo && (
+        <div className={`${styles.videoContainer} ${styles.active}`}>
+          <video className={styles.video} autoPlay loop muted playsInline preload="none">
+            <source src={asset(idle.attractVideo)} type="video/mp4" />
           </video>
         </div>
       )}
@@ -49,10 +61,10 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
       {!isHome && !isIdle && (
         <Footer
           className={styles.footer}
-          logo={asset("/images/logo_color.avif")}
-          slogan="Tu empresa, tu futuro"
-          contact="nezu.ec@nezuecuador.com"
-          location="Cueva de los tallos y base sur, Cuenca, Ecuador"
+          logo={asset(business.logoColor)}
+          slogan={business.slogan}
+          contact={business.contact}
+          location={business.location}
         />
       )}
     </div>

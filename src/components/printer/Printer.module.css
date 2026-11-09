@@ -1,5 +1,5 @@
 .printButton {
-    background-color: #3498DB; /* Azul eléctrico */
+    background-color: var(--k-accent); /* Azul eléctrico */
     color: white;
     font-size: 28px;
     font-weight: bold;
@@ -9,7 +9,7 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     font-family: 'Open Sans', sans-serif;
-    box-shadow: 0px 3px 10px rgba(52, 152, 219, 0.3); /* Sombra sutil */
+    box-shadow: 0px 3px 10px color-mix(in srgb, var(--k-accent) 30%, transparent); /* Sombra sutil */
 }
   
 .printButton:hover {
@@ -18,7 +18,7 @@
 }
   
 .printButton:active {
-    background-color: #2980B9; /* Azul más oscuro para efecto de presión */
+    background-color: var(--k-accent-dark); /* Azul más oscuro para efecto de presión */
     transform: scale(0.98); /* Ligera reducción cuando se presiona */
 }
 

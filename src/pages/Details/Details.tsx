@@ -6,28 +6,26 @@ import { InteractiveCarousel } from "@/components/common/InteractiveCarousel";
 import { useImagePreloader } from "@/hooks/useImagePreloader";
 import { useProductStore } from "@/store";
 import { type CartItem } from "@/store/useProductStore";
+import { kioskConfig } from "@/kiosk.config";
+
+const { texts } = kioskConfig;
 
 const Details = () => {
   const { category, subCategory } = useParams<{
     category: string;
     subCategory: string;
   }>();
-
   const navigate = useNavigate();
-
-  // Buscar los detalles de la subcategoría seleccionada
   const detailData = DETAILS.find((detail) => detail.id === subCategory);
-
-  if (!detailData) {
-    return <p className={styles.error}>❌ No se encontraron detalles.</p>;
-  }
-
-  const projectImages = detailData.projects || [];
-  const serviceImages = detailData.services.design.map((s) => s.image);
+  const projectImages = detailData?.projects ?? [];
+  const serviceImages = detailData?.services.map((service) => service.image) ?? [];
   useImagePreloader([...projectImages, ...serviceImages]);
-
   const { cart } = useProductStore();
   const cartItemsCount = cart.reduce((sum: number, item: CartItem) => sum + item.quantity, 0);
+
+  if (!detailData) {
+    return <p className={styles.error}>No encontramos esta línea de servicios.</p>;
+  }
 
   const handleGoBack = () => {
     navigate(`/categories/${category}`);
@@ -36,33 +34,24 @@ const Details = () => {
   return (
     <div className={styles.container}>
       <button className={styles.backButton} onClick={handleGoBack}>
-        ← Regresar
+        ← {texts.back}
       </button>
       <div className={styles.detailContainer}>
-        {/* Título principal */}
         <h1 className={styles.title}>{detailData.title}</h1>
+        {detailData.description && <p className={styles.lead}>{detailData.description}</p>}
 
-        {/* Sección de Proyectos */}
-        <h2 className={styles.sectionTitle}>Proyectos Realizados</h2>
-
-        {/* Carrusel de imágenes */}
+        <h2 className={styles.sectionTitle}>{texts.projects}</h2>
         <Carousel images={detailData.projects} />
 
-        {/* Sección de Servicios */}
-        <h2 className={styles.sectionTitle}>Servicios</h2>
+        <h2 className={styles.sectionTitle}>{texts.services}</h2>
+        <InteractiveCarousel services={detailData.services} />
 
-        {/* Carrusel interactivo */}
-        <InteractiveCarousel
-          services={detailData.services.design}
-          type={"design"}
-        />
-
-        <button 
-          className={`${styles.cartButton} pulse`} 
+        <button
+          className={`${styles.cartButton} pulse`}
           onClick={() => navigate("/cart")}
         >
           <div className={styles.cartContent}>
-            <span>🛒 Ir al Carrito</span>
+            <span>🛒 {texts.goToCart}</span>
             {cartItemsCount > 0 && (
               <span className={styles.cartBadge}>{cartItemsCount}</span>
             )}

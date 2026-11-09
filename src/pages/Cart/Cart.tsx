@@ -4,46 +4,36 @@ import styles from "./Cart.module.css";
 import { CartItem } from "@/components/common/CartItem";
 import { useProductStore } from "@/store";
 import { QrButton } from "@/components/common/QrButton";
+import { formatPrice, kioskConfig } from "@/kiosk.config";
 import io from "socket.io-client";
 
+const { texts } = kioskConfig;
 
 export const Cart: React.FC = () => {
   const { cart, updateQuantity, removeFromCart, total } = useProductStore();
   const [sessionId, setSessionId] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  
+  // Once the customer scans the QR, the phone sends the form data through the realtime server and the kiosk moves on.
   useEffect(() => {
     if (!sessionId) return;
-    
     const socket = io("/");
-    console.log("🔗 Registrando sesión en /cart...", sessionId);
     socket.emit("register_session", sessionId);
-
     socket.on("message", (message) => {
-      console.log("📩 Datos recibidos en /cart:", message);
       localStorage.setItem(`formData-${sessionId}`, JSON.stringify(message));
-
-      // Redirigir según el método de pago
       if (message.paymentMethod === "QR") {
         navigate(`/payment-options?session=${sessionId}`);
       } else if (message.paymentMethod === "TARJETA") {
         navigate(`/datafast-instructions?session=${sessionId}`);
       }
     });
-
-    const handlePageHide = () => {
-      console.log("🔌 Cerrando conexión WebSocket...");
-      socket.disconnect();
-    };
-
+    const handlePageHide = () => socket.disconnect();
     window.addEventListener("pagehide", handlePageHide);
-
     return () => {
-      console.log("❌ Eliminando listener en /cart...");
       socket.off("message");
+      window.removeEventListener("pagehide", handlePageHide);
     };
-  }, [sessionId]);
+  }, [sessionId, navigate]);
 
   const handleGoBack = () => {
     navigate(-1);
@@ -52,21 +42,25 @@ export const Cart: React.FC = () => {
   return (
     <div className={styles.container}>
       <button className={styles.backButton} onClick={handleGoBack}>
-        ← Regresar
+        ← {texts.back}
       </button>
       <div className={styles.cartContainer}>
-        {/* Título con icono */}
-        <h1 className={styles.title}>🛒 Carrito de Compras</h1>
+        <h1 className={styles.title}>🛒 {texts.cart}</h1>
 
-        {/* Lista de productos */}
         {cart.length === 0 ? (
-          <p className={styles.emptyCart}>Tu carrito está vacío.</p>
+          <div className={styles.emptyState}>
+            <p className={styles.emptyCart}>{texts.emptyCart}</p>
+            <button className={styles.browseButton} onClick={() => navigate("/categories")}>
+              {texts.browseCatalog}
+            </button>
+          </div>
         ) : (
           <div className={styles.cartList}>
             {cart.map((item) => (
               <CartItem
                 key={item.id}
                 id={item.id}
+                name={item.name ?? item.id}
                 price={item.price}
                 quantity={item.quantity}
                 image={item.image ?? ""}
@@ -78,14 +72,12 @@ export const Cart: React.FC = () => {
           </div>
         )}
 
-        {/* Total del Carrito */}
         {cart.length > 0 && (
           <div className={styles.totalContainer}>
-            <h2 className={styles.totalTitle}>Total: ${total.toFixed(2)}</h2>
+            <h2 className={styles.totalTitle}>{texts.total}: {formatPrice(total)}</h2>
           </div>
         )}
 
-        {/* Botón de Confirmar Pedido */}
         {cart.length > 0 && <QrButton setSessionId={setSessionId} />}
       </div>
     </div>
