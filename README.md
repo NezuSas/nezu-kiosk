@@ -4,11 +4,13 @@
 
 # NEZU Kiosk
 
-> **In English.** A self-service point-of-sale kiosk for touch screens: catalog, cart, customer form and QR payment, with real-time events over Socket.IO and optional thermal printing. React, Vite and TypeScript, with a live demo.
+> **In English.** A self-service point-of-sale kiosk for vertical touch totems (1080×1920): catalog, cart, and a QR code that hands the customer form and payment over to the shopper's phone, with real-time events over Socket.IO and optional thermal printing. React, Vite and TypeScript, with a live demo.
 
 Aplicación de **autoservicio para puntos de venta**: el cliente recorre categorías y productos en una pantalla táctil, arma su carrito, deja sus datos y paga con un código QR. Pensada para comercios que quieren atender sin fila y sin personal dedicado a tomar pedidos.
 
 Construida con React, Vite y TypeScript, con un pequeño servidor Express y Socket.IO para los eventos en tiempo real entre el kiosko y el punto de cobro.
+
+Está pensada para un **tótem táctil vertical** (1080×1920): la interfaz se diseñó en retrato y así aparece en las capturas y en la demo. El cliente arma su pedido en el tótem y termina en su propio teléfono: al continuar, el kiosko muestra un código QR que abre el formulario de datos y el pago.
 
 ## Qué hace
 
@@ -63,7 +65,7 @@ El catálogo, el carrito, el formulario y la pantalla de pago con QR corren solo
 | Pieza | Qué espera | Si no está |
 |---|---|---|
 | Impresión del ticket | Un servicio de impresión térmica escuchando en `http://127.0.0.1:5000/print` (POST con el pedido). NEZU usa un agente propio; cualquier servicio que acepte ese JSON sirve. | La app avisa que no hay impresora y el pedido continúa. |
-| Pedidos y pagos | La API indicada en `VITE_API_URL`, que recibe el pedido y confirma el pago del QR. | El QR se genera igual (con `VITE_QR_BASE_URL`), pero no hay confirmación. |
+| Datos del cliente y pago | El QR lleva al teléfono del cliente a `VITE_QR_BASE_URL` (el formulario `/form` y el pago), y la API de `VITE_API_URL` recibe el pedido y confirma el pago. | El QR se genera igual, pero al escanearlo no hay quien responda. |
 
 Para probarlo en el navegador sin instalar nada: [**demo en línea**](https://nezusas.github.io/nezu-kiosk/).
 
@@ -80,9 +82,15 @@ La aplicación se despliega en Vercel con la configuración de `vercel.json`. La
 
 ## Capturas
 
-| Inicio | Categorías | Carrito |
+Pantalla vertical de 1080×1920, como el tótem en el que corre. El flujo completo: inicio, categorías, servicios de una categoría, detalle con «Adquirir», carrito y el código QR con el que el cliente termina en su teléfono.
+
+| Inicio | Categorías | Living |
 |---|---|---|
-| ![Pantalla de inicio](.github/screenshots/inicio.jpg) | ![Categorías](.github/screenshots/categorias.jpg) | ![Carrito](.github/screenshots/carrito.jpg) |
+| ![Inicio](.github/screenshots/inicio.jpg) | ![Categorías](.github/screenshots/categorias.jpg) | ![Servicios de Living](.github/screenshots/living.jpg) |
+
+| Detalle | Carrito | Pago por QR |
+|---|---|---|
+| ![Detalle de Lumina](.github/screenshots/detalle.jpg) | ![Carrito](.github/screenshots/carrito.jpg) | ![Código QR para continuar en el teléfono](.github/screenshots/pago-qr.jpg) |
 
 ## Estructura
 
