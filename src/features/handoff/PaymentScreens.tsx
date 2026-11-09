@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useKiosk } from "@/app/kiosk";
@@ -8,11 +9,48 @@ import { Icon } from "@/ui/icons/Icon";
 import { KioskFooter } from "@/features/catalog/KioskFooter";
 import styles from "./PaymentScreens.module.css";
 
+/**
+ * Espera la confirmación del pago que el servidor emite cuando la pasarela, la caja o el mostrador la registran
+ * (`POST /api/payments/confirm`); al llegar, guarda la referencia y salta a la pantalla final.
+ */
+const usePaymentConfirmation = () => {
+  const navigate = useNavigate();
+  const { handoff, events } = useKiosk();
+  const sessionId = useHandoffStore((state) => state.sessionId);
+  const confirmPayment = useHandoffStore((state) => state.confirmPayment);
+  useEffect(() => {
+    if (!sessionId) return;
+    return handoff.listenPayment(sessionId, (confirmation) => {
+      confirmPayment(confirmation);
+      events.track({ name: "payment_confirmed", ref: confirmation.method });
+      navigate("/thanks");
+    });
+  }, [sessionId, handoff, confirmPayment, events, navigate]);
+};
+
+const WaitingNote = ({ manual, onManual }: { manual: boolean; onManual: () => void }) => {
+  const { texts } = useKiosk();
+  return (
+    <div className={styles.actions}>
+      <p className={styles.waiting} aria-live="polite">
+        <span className={styles.dot} aria-hidden="true" />
+        {texts.payment.waitingConfirmation}
+      </p>
+      {manual && (
+        <Button size="large" variant="secondary" icon="check" onClick={onManual}>
+          {texts.payment.continue}
+        </Button>
+      )}
+    </div>
+  );
+};
+
 /** Modo pago · el cliente eligió QR: los códigos de los bancos configurados. */
 export const PaymentOptionsScreen = () => {
   const navigate = useNavigate();
   const { config, texts } = useKiosk();
   const submission = useHandoffStore((state) => state.submission);
+  usePaymentConfirmation();
   if (!submission) return <Navigate to="/selection" replace />;
 
   return (
@@ -26,11 +64,7 @@ export const PaymentOptionsScreen = () => {
           </div>
         ))}
       </div>
-      <div className={styles.actions}>
-        <Button size="large" icon="check" onClick={() => navigate("/thanks")}>
-          {texts.payment.continue}
-        </Button>
-      </div>
+      <WaitingNote manual={config.payment.manualConfirmation} onManual={() => navigate("/thanks")} />
     </Screen>
   );
 };
@@ -38,8 +72,9 @@ export const PaymentOptionsScreen = () => {
 /** Modo pago · el cliente eligió tarjeta: sigue las instrucciones del datáfono. */
 export const CardInstructionsScreen = () => {
   const navigate = useNavigate();
-  const { texts } = useKiosk();
+  const { config, texts } = useKiosk();
   const submission = useHandoffStore((state) => state.submission);
+  usePaymentConfirmation();
   if (!submission) return <Navigate to="/selection" replace />;
 
   return (
@@ -47,10 +82,8 @@ export const CardInstructionsScreen = () => {
       <div className={styles.card}>
         <h2 className={styles.cardTitle}>{texts.payment.cardHelp}</h2>
         <Icon name="arrow-right" size="4rem" className={styles.arrow} style={{ transform: "rotate(90deg)" }} />
-        <Button size="large" icon="check" onClick={() => navigate("/thanks")}>
-          {texts.payment.continue}
-        </Button>
       </div>
+      <WaitingNote manual={config.payment.manualConfirmation} onManual={() => navigate("/thanks")} />
     </Screen>
   );
 };

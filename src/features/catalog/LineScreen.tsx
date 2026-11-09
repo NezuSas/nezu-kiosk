@@ -5,6 +5,7 @@ import { asset } from "@/shared/utils/asset";
 import { cn } from "@/shared/utils/cn";
 import { Screen } from "@/ui/layout";
 import { KioskFooter } from "./KioskFooter";
+import { LanguageSwitch } from "@/features/kiosk/LanguageSwitch";
 import { ServiceRow } from "./ServiceRow";
 import styles from "./LineScreen.module.css";
 
@@ -12,7 +13,7 @@ import styles from "./LineScreen.module.css";
 export const LineScreen = () => {
   const navigate = useNavigate();
   const { categoryId, lineId } = useParams<{ categoryId: string; lineId: string }>();
-  const { config, texts, catalog, formatPrice } = useKiosk();
+  const { config, texts, catalog, formatPrice, events } = useKiosk();
   const { count, selection } = useSelection();
   const add = useSelectionStore((state) => state.add);
   const remove = useSelectionStore((state) => state.remove);
@@ -31,6 +32,7 @@ export const LineScreen = () => {
       onBack={() => navigate(`/categories/${category.id}`)}
       backLabel={texts.catalog.back}
       badge={{ label: texts.catalog.selection, count, onClick: () => navigate("/selection") }}
+      tools={<LanguageSwitch />}
       flush
       footer={<KioskFooter />}
     >
@@ -54,8 +56,14 @@ export const LineScreen = () => {
             price={service.price === undefined ? undefined : formatPrice(service.price)}
             addLabel={texts.catalog.add}
             addedLabel={texts.catalog.added}
-            onAdd={() => add({ category, line, service })}
-            onRemove={() => remove(service.id)}
+            onAdd={() => {
+              add({ category, line, service });
+              events.track({ name: "service_added", ref: service.id, screen: line.id });
+            }}
+            onRemove={() => {
+              remove(service.id);
+              events.track({ name: "service_removed", ref: service.id, screen: line.id });
+            }}
           />
         ))}
       </div>

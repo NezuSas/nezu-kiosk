@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { kioskConfig, resolveTexts } from "./kiosk.config";
-import { defaultTexts } from "./texts.es";
+import { defaultTexts } from "./texts";
 
 describe("texts", () => {
   it("changes the wording with the mode", () => {

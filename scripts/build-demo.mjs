@@ -1,7 +1,8 @@
 // Construye la demo pública en docs/, que GitHub Pages sirve desde la rama main bajo /nezu-kiosk/.
-// Copia index.html como 404.html para que las rutas profundas de la SPA carguen la aplicación.
+// Copia index.html como 404.html para que las rutas profundas de la SPA carguen la aplicación y sella el
+// service worker con la marca de esta build para que la caché anterior se reemplace.
 import { build } from "vite";
-import { copyFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const base = process.env.DEMO_BASE ?? "/nezu-kiosk/";
@@ -10,4 +11,6 @@ const outDir = resolve(import.meta.dirname, "..", "docs");
 await build({ base, build: { outDir, emptyOutDir: true }, logLevel: "warn" });
 copyFileSync(resolve(outDir, "index.html"), resolve(outDir, "404.html"));
 writeFileSync(resolve(outDir, ".nojekyll"), "");
+const swPath = resolve(outDir, "sw.js");
+writeFileSync(swPath, readFileSync(swPath, "utf8").replace("__BUILD__", Date.now().toString(36)));
 console.log(`demo construida en docs/ con base ${base}`);

@@ -39,3 +39,11 @@ export interface PhoneSubmission {
   /** Cómo quiere ser contactado en modo cotización. */
   channel?: "whatsapp" | "email";
 }
+
+/** Aviso del servidor de que el pago de una sesión quedó confirmado (pasarela, caja o mostrador). */
+export interface PaymentConfirmation {
+  sessionId: string;
+  method: PaymentMethod | "other";
+  reference?: string;
+  amount?: number;
+}

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useKiosk } from "@/app/kiosk";
 import { useSelection, useSelectionStore } from "@/state/selectionStore";
 import { Screen } from "@/ui/layout";
 import { Button } from "@/ui/primitives";
 import { KioskFooter } from "@/features/catalog/KioskFooter";
+import { LanguageSwitch } from "@/features/kiosk/LanguageSwitch";
 import { HandoffDialog } from "@/features/handoff/HandoffDialog";
 import { SelectionRow } from "./SelectionRow";
 import styles from "./SelectionScreen.module.css";
@@ -12,15 +13,21 @@ import styles from "./SelectionScreen.module.css";
 /** La selección del cliente, con el total cuando hay precios y el botón que la traspasa al teléfono. */
 export const SelectionScreen = () => {
   const navigate = useNavigate();
-  const { config, texts, formatPrice } = useKiosk();
+  const { config, texts, formatPrice, events } = useKiosk();
   const { selection, total } = useSelection();
   const setQuantity = useSelectionStore((state) => state.setQuantity);
   const remove = useSelectionStore((state) => state.remove);
   const [handoffOpen, setHandoffOpen] = useState(false);
   const empty = selection.items.length === 0;
 
+  useEffect(() => {
+    events.track({ name: "selection_opened", ref: String(selection.items.length) });
+    // Solo al abrir la pantalla; el número de elementos es el del momento de entrar.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [events]);
+
   return (
-    <Screen title={texts.selection.title} onBack={() => navigate(-1)} backLabel={texts.catalog.back} footer={<KioskFooter />}>
+    <Screen title={texts.selection.title} onBack={() => navigate(-1)} backLabel={texts.catalog.back} tools={<LanguageSwitch />} footer={<KioskFooter />}>
       {empty ? (
         <div className={styles.empty}>
           <h2 className={styles.emptyTitle}>{texts.selection.emptyTitle}</h2>

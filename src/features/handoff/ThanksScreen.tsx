@@ -18,6 +18,7 @@ export const ThanksScreen = () => {
   const { selection, total } = useSelection();
   const clear = useSelectionStore((state) => state.clear);
   const submission = useHandoffStore((state) => state.submission);
+  const payment = useHandoffStore((state) => state.payment);
   const reset = useHandoffStore((state) => state.reset);
   const receiptRef = useRef<HTMLDivElement>(null);
   const [printState, setPrintState] = useState<"idle" | "printing" | "done" | "failed">("idle");
@@ -51,6 +52,13 @@ export const ThanksScreen = () => {
         <h2 className={styles.title}>{texts.thanks.title}</h2>
         <p className={styles.body}>{texts.thanks.body}</p>
         {reach && <p className={styles.contact}>{reach}</p>}
+        {payment && (
+          <p className={styles.contact}>
+            {texts.thanks.paymentReference}
+            {payment.reference ? ` · ${payment.reference}` : ""}
+            {payment.amount !== undefined ? ` · ${formatPrice(payment.amount)}` : ""}
+          </p>
+        )}
         <div className={styles.actions}>
           {config.mode === "payment" && (
             <Button variant="secondary" icon="printer" onClick={print} disabled={printState === "printing"}>

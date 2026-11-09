@@ -14,6 +14,8 @@ export interface ScreenProps {
   backLabel: string;
   /** Insignia de la selección en la esquina derecha. */
   badge?: { label: string; count: number; onClick: () => void };
+  /** Controles adicionales a la derecha, antes de la insignia (p. ej. el selector de idioma). */
+  tools?: ReactNode;
   /** El contenido sale de los márgenes laterales (bandas a sangre). */
   flush?: boolean;
   footer?: ReactNode;
@@ -21,10 +23,10 @@ export interface ScreenProps {
 }
 
 /**
- * Armazón de toda pantalla del kiosko: barra superior fija con vuelta atrás, título e insignia de la selección;
- * contenido con desplazamiento propio; pie opcional.
+ * Armazón de toda pantalla del kiosko: barra superior fija con vuelta atrás, título, herramientas e insignia de la
+ * selección; contenido con desplazamiento propio; pie opcional.
  */
-export const Screen = ({ eyebrow, title, wordmark, onBack, backLabel, badge, flush, footer, children }: ScreenProps) => (
+export const Screen = ({ eyebrow, title, wordmark, onBack, backLabel, badge, tools, flush, footer, children }: ScreenProps) => (
   <div className={styles.screen}>
     <header className={styles.topbar}>
       <div className={styles.lead}>
@@ -41,13 +43,16 @@ export const Screen = ({ eyebrow, title, wordmark, onBack, backLabel, badge, flu
           </div>
         )}
       </div>
-      {badge && (
-        <button type="button" className={cn(styles.badge, badge.count > 0 && styles.badgeOn)} onClick={badge.onClick}>
-          <Icon name="list" />
-          <span>{badge.label}</span>
-          <span className={cn(styles.count, badge.count === 0 && styles.countOff)}>{badge.count}</span>
-        </button>
-      )}
+      <div className={styles.tools}>
+        {tools}
+        {badge && (
+          <button type="button" className={cn(styles.badge, badge.count > 0 && styles.badgeOn)} onClick={badge.onClick}>
+            <Icon name="list" />
+            <span>{badge.label}</span>
+            <span className={cn(styles.count, badge.count === 0 && styles.countOff)}>{badge.count}</span>
+          </button>
+        )}
+      </div>
     </header>
     <main className={cn(styles.content, flush && styles.flush)}>{children}</main>
     {footer}

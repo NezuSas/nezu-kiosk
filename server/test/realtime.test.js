@@ -19,6 +19,7 @@ describe("realtime hand-off", () => {
   let server;
   let io;
   let url;
+  let realtime;
   const registry = new SessionRegistry({ ttlMs: 60_000 });
   const intakeCalls = [];
   const intake = { receive: async (payload) => { intakeCalls.push(payload); return { accepted: true }; } };
@@ -26,7 +27,7 @@ describe("realtime hand-off", () => {
   before(async () => {
     server = http.createServer(createApp({ corsOrigin: "*", staticDir: "", registry }));
     io = new SocketServer(server, { cors: { origin: "*" } });
-    attachRealtime(io, { registry, intake, log: silent });
+    realtime = attachRealtime(io, { registry, intake, log: silent });
     await new Promise((resolve) => server.listen(0, resolve));
     url = `http://127.0.0.1:${server.address().port}`;
   });
@@ -68,6 +69,17 @@ describe("realtime hand-off", () => {
     const health = await fetch(`${url}/health`).then((response) => response.json());
     assert.equal(health.ok, true);
     phone.disconnect();
+  });
+
+  it("notifies the registered kiosk when a payment is confirmed", async () => {
+    const kiosk = await connected(url);
+    kiosk.emit("register_session", "s-pay");
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    const confirmed = once(kiosk, "payment_confirmed");
+    assert.equal(realtime.notifyPayment({ sessionId: "s-pay", method: "qr" }), true);
+    assert.deepEqual(await confirmed, { sessionId: "s-pay", method: "qr" });
+    assert.equal(realtime.notifyPayment({ sessionId: "unknown", method: "qr" }), false);
+    kiosk.disconnect();
   });
 
   it("forgets the session when the kiosk disconnects", async () => {

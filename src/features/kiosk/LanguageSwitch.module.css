@@ -1,0 +1,23 @@
+.switch {
+  display: inline-flex;
+  min-height: var(--k-touch);
+  border: 2px solid var(--k-line-strong);
+  border-radius: var(--k-radius-s);
+  overflow: hidden;
+}
+
+.option {
+  padding: 0 var(--k-space-3);
+  color: var(--k-text-2);
+  font-size: var(--k-text-s);
+  font-weight: 600;
+}
+
+.option + .option {
+  border-left: 2px solid var(--k-line-strong);
+}
+
+.active {
+  background: var(--k-surface-2);
+  color: var(--k-text);
+}

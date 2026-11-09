@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { useKiosk } from "@/app/kiosk";
 import { asset } from "@/shared/utils/asset";
@@ -12,8 +13,12 @@ export interface HandoffDialogProps {
 
 /** El código QR que lleva la selección al teléfono del cliente; se queda esperando a que el teléfono responda. */
 export const HandoffDialog = ({ open, onClose }: HandoffDialogProps) => {
-  const { config, texts } = useKiosk();
+  const { config, texts, events } = useKiosk();
   const { url } = useHandoffSession(open);
+
+  useEffect(() => {
+    if (open) events.track({ name: "handoff_opened" });
+  }, [open, events]);
 
   return (
     <Modal open={open} onClose={onClose} labelledBy="handoff-title" closeLabel={texts.handoff.close} light>

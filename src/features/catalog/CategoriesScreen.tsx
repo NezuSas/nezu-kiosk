@@ -6,6 +6,7 @@ import { usePreloadImages } from "@/shared/hooks/usePreloadImages";
 import { Screen } from "@/ui/layout";
 import { Icon } from "@/ui/icons/Icon";
 import { KioskFooter } from "./KioskFooter";
+import { LanguageSwitch } from "@/features/kiosk/LanguageSwitch";
 import styles from "./CategoriesScreen.module.css";
 
 /** Primera pantalla del catálogo: una banda a sangre por categoría. */
@@ -21,6 +22,7 @@ export const CategoriesScreen = () => {
       onBack={() => navigate("/")}
       backLabel={texts.catalog.back}
       badge={{ label: texts.catalog.selection, count, onClick: () => navigate("/selection") }}
+      tools={<LanguageSwitch />}
       flush
       footer={<KioskFooter />}
     >

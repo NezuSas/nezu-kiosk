@@ -75,6 +75,12 @@
   padding-inline: 0;
 }
 
+.tools {
+  display: flex;
+  align-items: center;
+  gap: var(--k-space-2);
+}
+
 /* Insignia que abre la selección: cuenta en la fuente de marca */
 .badge {
   display: inline-flex;

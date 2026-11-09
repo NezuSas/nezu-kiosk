@@ -6,6 +6,7 @@ import { usePreloadImages } from "@/shared/hooks/usePreloadImages";
 import { Screen } from "@/ui/layout";
 import { Icon } from "@/ui/icons/Icon";
 import { KioskFooter } from "./KioskFooter";
+import { LanguageSwitch } from "@/features/kiosk/LanguageSwitch";
 import styles from "./LinesScreen.module.css";
 
 /** Las líneas de una categoría, una tarjeta por línea con su portada y cuántos servicios ofrece. */
@@ -25,6 +26,7 @@ export const LinesScreen = () => {
       onBack={() => navigate("/categories")}
       backLabel={texts.catalog.back}
       badge={{ label: texts.catalog.selection, count, onClick: () => navigate("/selection") }}
+      tools={<LanguageSwitch />}
       footer={<KioskFooter />}
     >
       <p className={styles.tagline}>{category.tagline}</p>

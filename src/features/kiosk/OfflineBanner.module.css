@@ -1,0 +1,14 @@
+.banner {
+  position: fixed;
+  left: var(--k-gutter);
+  right: var(--k-gutter);
+  bottom: var(--k-space-3);
+  z-index: 50;
+  padding: var(--k-space-2) var(--k-space-3);
+  border-radius: var(--k-radius-s);
+  background: var(--k-surface-2);
+  border: 1px solid var(--k-line-strong);
+  color: var(--k-text-2);
+  font-size: var(--k-text-s);
+  text-align: center;
+}

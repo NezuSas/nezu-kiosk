@@ -1,6 +1,6 @@
 import type { KioskMode } from "@/domain/request";
 import type { SelectionItem } from "@/domain/selection";
-import type { KioskTexts } from "@/config/texts.es";
+import type { KioskTexts } from "@/config/texts";
 import { asset } from "@/shared/utils/asset";
 import { IconButton, Stepper } from "@/ui/primitives";
 import styles from "./SelectionRow.module.css";

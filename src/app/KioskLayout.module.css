@@ -1,3 +1,10 @@
+/* El tótem no selecciona texto ni muestra menús contextuales; el teléfono, fuera de este envoltorio, sí. */
+.kiosk {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
 .attract {
   position: fixed;
   inset: 0;

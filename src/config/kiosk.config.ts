@@ -1,12 +1,12 @@
 /**
  * NEZU Kiosk · configuración del negocio.
  *
- * Este es el archivo que se adapta a cada empresa: modo del kiosko, marca, contacto, textos, colores, moneda y
- * comportamiento en reposo. El catálogo vive en `src/content/catalog.ts` y las URL de integración en `.env`.
+ * Este es el archivo que se adapta a cada empresa: modo del kiosko, marca, contacto, idiomas, textos, colores,
+ * moneda y comportamiento en reposo. El catálogo vive en `src/content/catalog.ts` y las URL de integración en `.env`.
  */
 import type { Currency } from "@/domain/catalog";
 import type { KioskMode } from "@/domain/request";
-import { defaultTexts, type KioskTexts } from "./texts.es";
+import { defaultTexts, type KioskTexts, type Language } from "./texts";
 
 export interface KioskTheme {
   /** Color principal: botones y acentos. */
@@ -28,6 +28,8 @@ export interface KioskTheme {
 export interface KioskConfig {
   /** `quote`: el cliente pide una evaluación; `payment`: el cliente paga desde el teléfono. */
   mode: KioskMode;
+  /** Idiomas de la interfaz; el primero es el de arranque. Con más de uno aparece el selector en pantalla. */
+  languages: Language[];
   business: {
     name: string;
     legalName: string;
@@ -48,7 +50,7 @@ export interface KioskConfig {
     website: string;
   };
   currency: Currency;
-  /** Sobrescribe cualquier texto de `defaultTexts`. */
+  /** Sobrescribe cualquier texto de `defaultTexts`, en el idioma de arranque. */
   texts?: Partial<{ [Section in keyof KioskTexts]: Partial<KioskTexts[Section]> }>;
   theme: KioskTheme;
   idle: {
@@ -57,9 +59,21 @@ export interface KioskConfig {
     /** Vídeo en bucle para el reposo, ruta dentro de `public/`. Vacío para volver a la portada sin vídeo. */
     attractVideo: string;
   };
+  kiosk: {
+    /** Identificador del tótem en las métricas, útil cuando hay varios. */
+    id: string;
+    /** Pide pantalla completa al primer toque (el navegador solo lo permite tras un gesto). */
+    fullscreen: boolean;
+    /** Registra un service worker que guarda imágenes, fuentes y la aplicación para seguir funcionando sin red. */
+    offlineCache: boolean;
+    /** Envía eventos de uso anónimos al servidor (`POST /api/events`). */
+    analytics: boolean;
+  };
   payment: {
     /** Códigos QR bancarios que se muestran en modo pago. */
     bankQrCodes: { label: string; url: string }[];
+    /** Muestra el botón «Ya pagué» además de esperar la confirmación del servidor. */
+    manualConfirmation: boolean;
   };
   credit: {
     /** Línea discreta al pie: «Kiosko creado con NEZU Kiosk». Agradecemos que se quede, pero la decisión es tuya. */
@@ -71,6 +85,7 @@ export interface KioskConfig {
 
 export const kioskConfig: KioskConfig = {
   mode: "quote",
+  languages: ["es", "en"],
   business: {
     name: "NEZU",
     legalName: "NEZU S.A.S.",
@@ -99,12 +114,19 @@ export const kioskConfig: KioskConfig = {
     returnHomeAfterSeconds: 120,
     attractVideo: "",
   },
+  kiosk: {
+    id: "kiosk-1",
+    fullscreen: true,
+    offlineCache: true,
+    analytics: true,
+  },
   payment: {
     bankQrCodes: [
       { label: "Banco Pichincha · Deuna", url: "https://www.pichincha.com/deuna" },
       { label: "Banco Internacional · +Pagos", url: "https://www.bancointernacional.com.ec/producto/qr-link-de-pagos-establecimientos/" },
       { label: "Banco Guayaquil · Bimo", url: "https://www.bancoguayaquil.com/cuentas/bimo/" },
     ],
+    manualConfirmation: true,
   },
   credit: {
     show: true,
@@ -113,10 +135,10 @@ export const kioskConfig: KioskConfig = {
   },
 };
 
-/** Textos finales: los del modo elegido con las sobrescrituras de la configuración. */
-export const resolveTexts = (config: KioskConfig): KioskTexts => {
-  const base = defaultTexts(config.mode);
-  const overrides = config.texts ?? {};
+/** Textos finales para un idioma: los del modo elegido con las sobrescrituras de la configuración (solo en el idioma de arranque). */
+export const resolveTexts = (config: KioskConfig, language: Language = config.languages[0] ?? "es"): KioskTexts => {
+  const base = defaultTexts(config.mode, language);
+  const overrides = language === (config.languages[0] ?? "es") ? (config.texts ?? {}) : {};
   return (Object.keys(base) as (keyof KioskTexts)[]).reduce(
     (texts, section) => ({ ...texts, [section]: { ...base[section], ...(overrides[section] ?? {}) } }),
     {} as KioskTexts

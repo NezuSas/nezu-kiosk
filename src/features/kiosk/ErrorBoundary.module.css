@@ -1,0 +1,23 @@
+.wrap {
+  display: grid;
+  justify-items: start;
+  align-content: center;
+  gap: var(--k-space-4);
+  min-height: 100dvh;
+  padding: var(--k-gutter);
+  background: var(--k-ink);
+  color: var(--k-text);
+}
+
+.title {
+  font-size: var(--k-display-m);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.body {
+  max-width: 40ch;
+  color: var(--k-text-2);
+  font-size: var(--k-text-xl);
+}
