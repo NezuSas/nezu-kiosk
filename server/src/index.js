@@ -5,6 +5,7 @@ import { SessionRegistry } from "./sessions.js";
 import { JsonlStore, NoopStore } from "./storage.js";
 import { createDeliveries } from "./delivery.js";
 import { createIntake } from "./intake.js";
+import { createPendingPayments } from "./pending.js";
 import { createApp } from "./app.js";
 import { attachRealtime } from "./realtime.js";
 
@@ -17,6 +18,7 @@ const stores = {
 };
 const deliveries = await createDeliveries(config);
 const intake = createIntake({ store: stores.leads, deliveries });
+const pending = createPendingPayments();
 
 const server = http.createServer();
 const io = new SocketServer(server, {
@@ -26,7 +28,7 @@ const io = new SocketServer(server, {
   pingTimeout: 60_000,
   pingInterval: 25_000,
 });
-const realtime = attachRealtime(io, { registry, intake });
+const realtime = attachRealtime(io, { registry, intake, pending });
 
 const app = createApp({
   corsOrigin: config.corsOrigin,
@@ -34,6 +36,7 @@ const app = createApp({
   registry,
   intake,
   stores,
+  pending,
   adminToken: config.adminToken,
   notifyPayment: realtime.notifyPayment,
 });
@@ -52,7 +55,8 @@ server.listen(config.port, () => {
       deliveries.map((delivery) => delivery.name).join(", ") || "ninguna"
     }; eventos y pagos en ${config.dataDir}`
   );
-  if (!config.adminToken) console.warn("ADMIN_TOKEN no configurado: /api/stats y /api/payments/confirm responden 503");
+  if (config.adminToken) console.info(`administración en http://localhost:${config.port}/admin`);
+  else console.warn("ADMIN_TOKEN no configurado: /admin, /api/stats y /api/payments/confirm no funcionan");
   if (config.corsOrigin === "*") console.warn("CORS_ORIGIN=* : acota los orígenes en producción");
   if (config.staticDir) console.info(`sirviendo el kiosko desde ${config.staticDir}`);
 });

@@ -10,7 +10,7 @@
  * Esta función recibe un servidor de Socket.IO (o cualquier objeto con la misma forma) y no sabe nada de HTTP.
  * Devuelve `notifyPayment(confirmation)`, que la capa HTTP usa para avisar al kiosko.
  */
-export const attachRealtime = (io, { registry, intake = null, log = console }) => {
+export const attachRealtime = (io, { registry, intake = null, pending = null, log = console }) => {
   io.on("connection", (socket) => {
     socket.on("register_session", (sessionId) => {
       if (registry.register(sessionId, socket.id)) {
@@ -29,6 +29,7 @@ export const attachRealtime = (io, { registry, intake = null, log = console }) =
       } else {
         log.warn(`message sin kiosko a la espera (sesión ${sessionId ?? "?"})`);
       }
+      if (pending) pending.remember(payload);
       if (intake) {
         intake.receive(payload).catch((error) => log.warn(`solicitud de la sesión ${sessionId ?? "?"}: ${error.message}`));
       }

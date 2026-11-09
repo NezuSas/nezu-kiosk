@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>NEZU Kiosk · Administración</title>
+    <link rel="stylesheet" href="./admin.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div>
+        <h1>Administración del kiosko</h1>
+        <p class="muted" id="status">Introduce el token para empezar.</p>
+      </div>
+      <form id="token-form" class="token">
+        <label for="token">Token</label>
+        <input id="token" type="password" autocomplete="off" placeholder="ADMIN_TOKEN" />
+        <button type="submit" class="button">Entrar</button>
+      </form>
+    </header>
+
+    <main id="app" hidden>
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Caja · pagos a la espera</h2>
+          <button type="button" class="button ghost" id="refresh-pending">Actualizar</button>
+        </div>
+        <p class="muted">Cada fila es un cliente que eligió pagar en el kiosko. Cuando el datáfono o el banco cobren, escribe la referencia y confirma: su pantalla avanza sola.</p>
+        <div id="pending" class="list"></div>
+        <details class="manual">
+          <summary>Confirmar una sesión a mano</summary>
+          <form id="manual-form" class="row">
+            <input name="sessionId" placeholder="Id de la sesión del QR" required />
+            <select name="method"><option value="qr">QR bancario</option><option value="card">Tarjeta</option></select>
+            <input name="reference" placeholder="Referencia" />
+            <input name="amount" type="number" step="0.01" min="0" placeholder="Importe" />
+            <button type="submit" class="button">Confirmar</button>
+          </form>
+        </details>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Últimos siete días</h2>
+          <button type="button" class="button ghost" id="refresh-stats">Actualizar</button>
+        </div>
+        <div class="tiles" id="tiles"></div>
+        <table class="table" id="days">
+          <thead><tr><th>Día</th><th>Solicitudes</th><th>Pagos</th><th>Eventos</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>Servicios más pedidos</h2>
+          <ol class="ranking" id="top"></ol>
+        </div>
+        <div class="panel">
+          <h2>Qué pasa en la pantalla</h2>
+          <table class="table" id="events"><tbody></tbody></table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot muted">Los datos salen de <code>data/</code> en el servidor. Esta página no guarda el token más allá de la pestaña.</footer>
+    <script src="./admin.js"></script>
+  </body>
+</html>

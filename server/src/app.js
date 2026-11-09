@@ -1,9 +1,13 @@
 import express from "express";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 import compression from "compression";
 import cors from "cors";
 import { createRateLimiter } from "./rateLimit.js";
 import { normalizeEvents, summarizeStats } from "./events.js";
 import { authorize, normalizePaymentConfirmation } from "./payments.js";
+
+const ADMIN_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "admin");
 
 /** Cabeceras de seguridad básicas sin dependencias: el kiosko y el teléfono son páginas propias. */
 const securityHeaders = (_request, response, next) => {
@@ -25,6 +29,7 @@ export const createApp = ({
   registry,
   intake = null,
   stores = null,
+  pending = null,
   adminToken = "",
   notifyPayment = null,
   log = console,
@@ -61,9 +66,17 @@ export const createApp = ({
       const confirmation = normalizePaymentConfirmation(request.body);
       if (!confirmation) return response.status(400).json({ ok: false, error: "invalid" });
       await stores.payments.save(confirmation);
+      if (pending) pending.settle(confirmation.sessionId);
       const delivered = notifyPayment ? notifyPayment(confirmation) : false;
       response.status(202).json({ ok: true, id: confirmation.id, kioskNotified: delivered });
     });
+
+    app.get("/api/payments/pending", authorize(adminToken), (_request, response) => {
+      response.json({ ok: true, pending: pending ? pending.list() : [] });
+    });
+
+    // Página de administración: caja y panel. Los archivos son públicos; cada dato lo pide con el token.
+    app.use("/admin", express.static(ADMIN_DIR, { index: "index.html", maxAge: 0 }));
 
     app.get("/api/stats", authorize(adminToken), async (_request, response) => {
       try {

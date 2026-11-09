@@ -1,6 +1,6 @@
 # Servidor en tiempo real
 
-Une el kiosko con el teléfono del cliente y **entrega las solicitudes al negocio**. El kiosko registra la sesión que muestra en el QR; el teléfono envía sus datos y su selección con ese mismo id; el servidor guarda la solicitud en disco, la envía por correo o webhook y avisa solo a ese kiosko. Si el socket del teléfono no conecta, la misma solicitud llega por `POST /api/leads`.
+Une el kiosko con el teléfono del cliente, **entrega las solicitudes al negocio** y ofrece en `/admin` la caja y el panel de uso. El kiosko registra la sesión que muestra en el QR; el teléfono envía sus datos y su selección con ese mismo id; el servidor guarda la solicitud en disco, la envía por correo o webhook y avisa solo a ese kiosko. Si el socket del teléfono no conecta, la misma solicitud llega por `POST /api/leads`.
 
 ```bash
 npm install
@@ -33,8 +33,10 @@ Rutas HTTP:
 | `POST /api/events` | el kiosko | Lote de eventos de uso (`{ kioskId, events: [{ name, screen, ref, at }] }`, máximo 50). Se guardan en `events/`. |
 | `POST /api/payments/confirm` | pasarela, caja o mostrador, con token | `{ sessionId, method, reference, amount }` con `method` `qr` o `card`. Guarda la confirmación y emite `payment_confirmed` al kiosko de esa sesión, que avanza solo. |
 | `GET /api/stats` | administración, con token | Solicitudes, eventos y pagos por día de la última semana, totales por tipo de evento y los diez servicios más añadidos. |
+| `GET /api/payments/pending` | administración, con token | Clientes que eligieron pagar y aún no tienen el cobro confirmado (cliente, método, servicios, importe). |
+| `GET /admin/` | administración | Página con la caja y el panel; pide el token y lo guarda solo en la pestaña. |
 
-Confirmar un pago desde la caja, por ejemplo:
+La forma normal de confirmar un cobro es la caja de `/admin`: cada cliente a la espera aparece con sus servicios y su importe, la persona escribe la referencia del datáfono o del banco y pulsa «Confirmar cobro». Por API, por ejemplo desde una pasarela:
 
 ```bash
 curl -X POST http://localhost:4000/api/payments/confirm -H "Authorization: Bearer $ADMIN_TOKEN" -H "Content-Type: application/json" -d '{"sessionId":"<id de la sesión del QR>","method":"card","reference":"AUTH-1234","amount":45.5}'
@@ -55,7 +57,10 @@ src/
   intake.js     valida, deduplica, guarda y entrega; lo usan el socket y la ruta HTTP
   events.js     eventos de uso y el resumen de estadísticas
   payments.js   confirmación de pagos y comprobación del token
+  pending.js    pagos a la espera, en memoria, para la caja
   rateLimit.js  límite de peticiones por dirección
   app.js        Express: salud, solicitudes, eventos, pagos, estadísticas y, si se pide, la build del kiosko
   index.js      arranque, limpieza periódica y apagado ordenado
+admin/
+  index.html, admin.css, admin.js   la página de administración, sin build
 ```

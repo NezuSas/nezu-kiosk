@@ -4,7 +4,7 @@
 
 # NEZU Kiosk
 
-> **In English.** A self-service kiosk for vertical touch totems (1080×1920), built as a template. The shopper browses categories → lines → services, builds a selection and hands it over to their phone through a QR code. Two modes: `quote` (no prices; the phone offers WhatsApp or a contact form) and `payment` (prices, cart, bank QR or card terminal, thermal receipt). Layered architecture (domain · infrastructure · state · UI · features), one config file for the brand, one for the catalog, tokens-based design system, Spanish and English UI with an on-screen switch, kiosk hardening (fullscreen, offline cache, error boundary), usage analytics, server-side payment confirmation and 78 tests (45 Vitest + 33 node:test). Every request is stored as JSON Lines and delivered by e-mail or webhook, with an HTTP fallback when the socket is down. The demo runs NEZU's real catalog from nezuecuador.com. React, Vite, TypeScript, Zustand, Socket.IO.
+> **In English.** A self-service kiosk for vertical touch totems (1080×1920), built as a template. The shopper browses categories → lines → services, builds a selection and hands it over to their phone through a QR code. Two modes: `quote` (no prices; the phone offers WhatsApp or a contact form) and `payment` (prices, cart, bank QR or card terminal, thermal receipt). Layered architecture (domain · infrastructure · state · UI · features), one config file for the brand, one for the catalog, tokens-based design system, Spanish and English UI with an on-screen switch, kiosk hardening (fullscreen, offline cache, error boundary), usage analytics, server-side payment confirmation, an admin page (cashier + stats) and 83 tests (45 Vitest + 38 node:test). Every request is stored as JSON Lines and delivered by e-mail or webhook, with an HTTP fallback when the socket is down. The demo runs NEZU's real catalog from nezuecuador.com. React, Vite, TypeScript, Zustand, Socket.IO.
 
 Plantilla de **autoservicio para tótems táctiles verticales**. El cliente recorre categorías, líneas y servicios, arma su selección en la pantalla y termina en su propio teléfono: el kiosko muestra un código QR que abre su selección en el móvil, donde deja sus datos, escribe por WhatsApp o paga.
 
@@ -57,7 +57,8 @@ src/
 scripts/           build-demo.mjs: la demo para GitHub Pages
 docs/              build de la demo (generada, no se edita)
 server/
-  src/             config, sesiones, protocolo Socket.IO, solicitudes (JSONL + correo o webhook), eventos y estadísticas, confirmación de pagos, Express y arranque
+  src/             config, sesiones, protocolo Socket.IO, solicitudes (JSONL + correo o webhook), eventos y estadísticas, pagos pendientes y confirmación, Express y arranque
+  admin/           página de administración: caja y panel (HTML, CSS y JS sin build)
   test/            pruebas con node:test: registro, protocolo de extremo a extremo, solicitudes, entregas, eventos, pagos y rutas HTTP
 ```
 
@@ -67,6 +68,7 @@ server/
 - **Diseño por tokens.** Rubik para todo, la fuente de marca Disket Mono solo para cifras, naranja NEZU como primario y lima únicamente para «elegido». Objetivos táctiles de 76 px, tipografía que escala con el ancho (20 px en 1080) y una sola animación por pantalla.
 - **Pensado para un tótem desatendido.** Pantalla completa al primer toque, service worker que guarda aplicación, fuentes e imágenes para seguir mostrando el catálogo sin red, aviso discreto de desconexión, límite de errores con salida a la portada, sin selección de texto ni menús contextuales, y reposo que limpia selección, sesión e idioma.
 - **Métricas sin datos personales.** Pantallas vistas, servicios añadidos, QR abiertos, cambios de idioma y errores viajan en lotes a `POST /api/events`; `GET /api/stats` (con token) resume por día y lista los servicios más pedidos.
+- **Administración en `/admin`.** Página del servidor, protegida con el token, con la **caja** (clientes a la espera de cobro, confirmación con la referencia del datáfono o del banco) y el **panel** de la última semana: solicitudes, pagos, eventos y servicios más pedidos.
 
 ## Flujo completo
 
@@ -74,7 +76,7 @@ server/
 2. **Mi solicitud** muestra lo elegido (y el total en modo pago). «Solicitar evaluación» abre el **QR**.
 3. El QR lleva al teléfono a `/phone?session=…&s=…`: la selección viaja dentro del enlace, así la página funciona aunque el servidor en tiempo real no esté.
 4. En el teléfono, el cliente escribe por **WhatsApp** (mensaje precargado con lo elegido) o envía sus datos. El servidor (`server/`) **guarda cada solicitud en disco y la entrega por correo o webhook**, y además avisa al kiosko de esa sesión. Si el socket no conecta, el teléfono la envía por HTTP a `POST /api/leads`: la solicitud no depende de que el kiosko esté encendido.
-5. El kiosko salta a **Recibimos tu solicitud**. En modo pago pasa a **pago por QR o tarjeta** y espera: cuando la pasarela, la caja o el mostrador confirman el cobro con `POST /api/payments/confirm`, el servidor avisa al kiosko y la pantalla avanza sola (el botón «Ya pagué» es opcional). Tras dos minutos sin tocar la pantalla, vuelve limpio a la portada.
+5. El kiosko salta a **Recibimos tu solicitud**. En modo pago pasa a **pago por QR o tarjeta** y espera: cuando la persona de caja confirma el cobro en `/admin` (o una pasarela llama a `POST /api/payments/confirm`), el servidor avisa al kiosko y la pantalla avanza sola (el botón «Ya pagué» es opcional). Tras dos minutos sin tocar la pantalla, vuelve limpio a la portada.
 
 ## Rutas
 
