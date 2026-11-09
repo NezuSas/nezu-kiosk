@@ -24,3 +24,10 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Artefactos de compilación y entorno local
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+nodeenv/
+activate.ps1
