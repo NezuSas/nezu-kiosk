@@ -1,124 +1,45 @@
-import { defineConfig } from "vite";
+import { configDefaults, defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
-import path from "path";
-import compression from "vite-plugin-compression";
-import dns from "node:dns";
+import path from "node:path";
 
-dns.setDefaultResultOrder('ipv4first');
-
-export default defineConfig(({ mode }) => {
-  return {
-    optimizeDeps: {
-      include: [
-        "react",
-        "react-dom",
-        "zustand",
-        "socket.io-client"
-      ],
-      exclude: ["@vite/client", "@vite/env"],
-      esbuildOptions: {
-        target: 'esnext',
-        treeShaking: true,
-        minify: true,
-        keepNames: false
-      }
-    },
-    build: {
-      minify: mode === "production" ? "terser" : "esbuild",
-      target: "esnext",
-      sourcemap: mode !== "production",
-      chunkSizeWarningLimit: 500,
-      cssCodeSplit: true,
-      modulePreload: {
-        polyfill: false
+export default defineConfig(({ mode }) => ({
+  plugins: [react()],
+  resolve: {
+    alias: { "@": path.resolve(import.meta.dirname, "./src") },
+  },
+  build: {
+    target: "es2022",
+    minify: mode === "production" ? "terser" : "esbuild",
+    sourcemap: mode !== "production",
+    reportCompressedSize: false,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          if (/[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id)) return "react";
+          if (id.includes("socket.io") || id.includes("engine.io")) return "realtime";
+          return "vendor";
+        },
+        entryFileNames: "assets/[name]-[hash].js",
+        chunkFileNames: "assets/[name]-[hash].js",
+        assetFileNames: "assets/[ext]/[name]-[hash][extname]",
       },
-      reportCompressedSize: false,
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-          pure_funcs: ["console.log", "console.warn"],
-          passes: 3,
-          unsafe: true,
-          pure_getters: true,
-          reduce_vars: true,
-          keep_fargs: false,
-        },
-        format: {
-          comments: false,
-        },
-        mangle: {
-          toplevel: true,
-        },
-        module: true,
-      },
-      rollupOptions: {
-        treeshake: {
-          moduleSideEffects: false,
-          correctVarValueBeforeDeclaration: true,
-          preset: 'recommended',
-          annotations: true,
-          propertyReadSideEffects: false,
-        },
-        output: {
-          manualChunks(id) {
-            if (id.includes('development')) return null;
-            if (id.includes("node_modules")) {
-              if (id.includes("react") || id.includes("react-dom")) return "react-core";
-              if (id.includes("zustand") || id.includes("socket.io-client")) return "state-vendor";
-              if (id.includes("lodash") || id.includes("date-fns")) return "utility-libs";
-              return "vendor";
-            }
-          },
-          entryFileNames: "assets/[name]-[hash].js",
-          chunkFileNames: "assets/[name]-[hash].js",
-          assetFileNames: "assets/[ext]/[name]-[hash][extname]"
-        }
-      }
     },
-    test: {
-      globals: true,
-      environment: 'jsdom',
-      setupFiles: './vitest.setup.ts', css: { modules: { classNameStrategy: 'non-scoped' } },
+  },
+  server: {
+    host: "127.0.0.1",
+    port: 5173,
+    // El servidor en tiempo real (server/) escucha en 4000; así el kiosko y el teléfono hablan con el mismo origen.
+    proxy: {
+      "/socket.io": { target: "http://127.0.0.1:4000", ws: true, changeOrigin: true },
     },
-    plugins: [
-      react(),
-      compression({
-        algorithm: "gzip",
-        ext: ".gz",
-        deleteOriginFile: false,
-        threshold: 10240,
-        filter: (file) => /\.(js|css)$/.test(file)
-      }),
-      compression({
-        algorithm: "brotliCompress",
-        ext: ".br",
-        deleteOriginFile: false,
-        threshold: 10240,
-        filter: (file) => /\.(js|css)$/.test(file)
-      })
-    ],
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "./src")
-      }
-    },
-    server: {
-      host: '127.0.0.1', // Forzar explícitamente IPv4 localhost
-      port: 5173,
-      proxy: {
-        "/socket.io": {
-          target: "http://127.0.0.1:4000",
-          ws: true,
-          changeOrigin: true
-        }
-      },
-      allowedHosts: [
-        "kiosk-pago.nezuecuador.com",
-        ".nezuecuador.com",
-        "localhost",
-        "127.0.0.1"
-      ]
-    }
-  };
-});
+    allowedHosts: [".nezuecuador.com", "localhost", "127.0.0.1"],
+  },
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./vitest.setup.ts",
+    css: { modules: { classNameStrategy: "non-scoped" } },
+    exclude: [...configDefaults.exclude, "server/**", "docs/**"],
+  },
+}));

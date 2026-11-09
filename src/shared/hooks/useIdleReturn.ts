@@ -10,7 +10,9 @@ export const useIdleReturn = (seconds: number, onIdle: () => void) => {
   const [idle, setIdle] = useState(false);
   const timer = useRef<number | null>(null);
   const callback = useRef(onIdle);
-  callback.current = onIdle;
+  useEffect(() => {
+    callback.current = onIdle;
+  });
 
   useEffect(() => {
     if (seconds <= 0) return;

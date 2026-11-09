@@ -1,0 +1,1 @@
+import{r as o}from"./rolldown-runtime-DcNxTHDL.js";import{i as r}from"./react-bu_KCFWQ.js";var s=o(r(),1),t=o=>{const r=o.join("|");(0,s.useEffect)(()=>{r.split("|").filter(Boolean).forEach(o=>{const r=new Image;r.decoding="async",r.src=o})},[r])};export{t};

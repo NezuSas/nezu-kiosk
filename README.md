@@ -34,7 +34,7 @@ Dos modos, una sola línea de configuración:
 3. **Catálogo** · [`src/content/catalog.ts`](src/content/catalog.ts): categorías → líneas → servicios. Añade `price` a los servicios para el modo `payment`. Los tipos viven en [`src/domain/catalog/types.ts`](src/domain/catalog/types.ts) y `npm test` comprueba que no haya identificadores repetidos ni imágenes que falten.
 4. **Imágenes** · pon las tuyas en `public/images/` y referencia la ruta desde el catálogo. Las de ejemplo (`public/images/demo/`, ver [`SOURCES.md`](public/images/demo/SOURCES.md)) son ilustraciones generadas para la demo: bórralas cuando tengas las propias. Formato recomendado: WebP 16:9 de 1400 px.
 5. **Integraciones** · copia [`.env.example`](.env.example) a `.env.production`: la URL pública de la página del teléfono y, si aplica, el servidor en tiempo real y la impresora.
-6. **Publica** · `npm run build` y sirve `dist/` donde prefieras: en Vercel con el `vercel.json` incluido (reescribe toda ruta a `index.html`), desde el propio servidor con `STATIC_DIR=../dist`, o en GitHub Pages con `npm run build -- --base=/<repo>/`.
+6. **Publica** · `npm run build` y sirve `dist/` donde prefieras: en Vercel con el `vercel.json` incluido (reescribe toda ruta a `index.html`), desde el propio servidor con `STATIC_DIR=../dist`, o en GitHub Pages con `npm run build:demo`, que deja la build en `docs/` lista para servirla desde la rama `main`.
 
 La línea «Kiosko creado con NEZU Kiosk» del pie se configura en `credit`; agradecemos que se quede, pero la decisión es tuya.
 
@@ -53,6 +53,8 @@ src/
   ui/              sistema de diseño: tokens.css, base.css, primitivas (Button, Modal, Stepper), iconos, Screen y Footer
   features/        pantallas por caso de uso: home, catalog, selection, handoff, phone
   app/             composición: KioskProvider (inyecta config, catálogo y adaptadores), router, tema, reposo
+scripts/           build-demo.mjs: la demo para GitHub Pages
+docs/              build de la demo (generada, no se edita)
 server/
   src/             servidor Socket.IO en módulos: config, registro de sesiones, protocolo, Express y arranque
   test/            pruebas con node:test, incluida una de extremo a extremo kiosko ↔ teléfono
@@ -112,7 +114,7 @@ npm run build   # tsc -b && vite build
 npm test --prefix server   # node:test: registro de sesiones y protocolo en tiempo real
 ```
 
-La demo pública se construye con `npm run build -- --base=/nezu-kiosk/` y se publica en GitHub Pages desde la rama `gh-pages`.
+La demo pública se construye con `npm run build:demo` en `docs/` y GitHub Pages la sirve desde `main`; el repositorio tiene una sola rama.
 
 ## Tecnología
 
