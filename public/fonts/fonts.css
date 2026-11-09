@@ -1,7 +1,7 @@
 /* Disket Mono Regular */
 @font-face {
     font-family: 'DisketMono-Regular';
-    src: url('/fonts/Disket/Disket-Mono-Regular.ttf') format('truetype');
+    src: url('Disket/Disket-Mono-Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
 }
@@ -9,7 +9,7 @@
 /* Disket Mono Bold */
 @font-face {
     font-family: 'DisketMono-Bold';
-    src: url('/fonts/Disket/Disket-Mono-Bold.ttf') format('truetype');
+    src: url('Disket/Disket-Mono-Bold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
 }
@@ -17,7 +17,7 @@
 /* Rubik Variable */
 @font-face {
     font-family: 'Rubik-Variable';
-    src: url('/fonts/Rubik/Rubik-VariableFont_wght.ttf') format('truetype');
+    src: url('Rubik/Rubik-VariableFont_wght.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
 }
@@ -25,7 +25,7 @@
 /* Rubik Italic Variable */
 @font-face {
     font-family: 'Rubik-Variable-Italic';
-    src: url('/fonts/Rubik/Rubik-Italic-VariableFont_wght.ttf') format('truetype');
+    src: url('Rubik/Rubik-Italic-VariableFont_wght.ttf') format('truetype');
     font-weight: 100 900;
     font-style: italic;
 }
