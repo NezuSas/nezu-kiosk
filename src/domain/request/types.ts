@@ -21,16 +21,21 @@ export interface Contact {
   taxId?: string;
 }
 
-/** Lo que el teléfono envía al kiosko a través del canal en tiempo real. */
-export interface PhoneSubmission {
-  sessionId: string;
-  contact: Contact;
-  paymentMethod?: PaymentMethod;
-  /** Cómo quiere ser contactado en modo cotización. */
-  channel?: "whatsapp" | "email";
-}
-
 /** Resumen de la selección que viaja al teléfono dentro del enlace del QR. */
 export interface SelectionSummary {
   items: Pick<SelectionItem, "serviceId" | "name" | "quantity" | "lineName" | "categoryName" | "price">[];
+}
+
+/**
+ * Lo que el teléfono envía al kiosko a través del canal en tiempo real. Lleva la selección completa para que el
+ * servidor pueda guardar la solicitud y entregarla al negocio sin depender de la pantalla del kiosko.
+ */
+export interface PhoneSubmission {
+  sessionId: string;
+  contact: Contact;
+  summary?: SelectionSummary;
+  mode?: KioskMode;
+  paymentMethod?: PaymentMethod;
+  /** Cómo quiere ser contactado en modo cotización. */
+  channel?: "whatsapp" | "email";
 }

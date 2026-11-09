@@ -30,7 +30,13 @@ describe("PhonePage", () => {
     fireEvent.change(screen.getByLabelText("Teléfono"), { target: { value: "0991234567" } });
     fireEvent.click(screen.getByRole("button", { name: /Enviar y que me contacten/ }));
     await waitFor(() => expect(screen.getByText("Listo")).toBeInTheDocument());
-    expect(handoff.submitted[0]).toMatchObject({ sessionId: "abc", contact: { name: "Ana", phone: "0991234567" }, channel: "email" });
+    expect(handoff.submitted[0]).toMatchObject({
+      sessionId: "abc",
+      contact: { name: "Ana", phone: "0991234567" },
+      channel: "email",
+      mode: "quote",
+      summary: { items: [{ serviceId: "living-escenas", quantity: 1 }] },
+    });
   });
 
   it("asks for billing data and payment method in payment mode", () => {

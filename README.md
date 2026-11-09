@@ -4,7 +4,7 @@
 
 # NEZU Kiosk
 
-> **In English.** A self-service kiosk for vertical touch totems (1080×1920), built as a template. The shopper browses categories → lines → services, builds a selection and hands it over to their phone through a QR code. Two modes: `quote` (no prices; the phone offers WhatsApp or a contact form) and `payment` (prices, cart, bank QR or card terminal, thermal receipt). Layered architecture (domain · infrastructure · state · UI · features), one config file for the brand, one for the catalog, tokens-based design system, 41 tests (33 Vitest + 8 node:test). The demo runs NEZU's real catalog from nezuecuador.com. React, Vite, TypeScript, Zustand, Socket.IO.
+> **In English.** A self-service kiosk for vertical touch totems (1080×1920), built as a template. The shopper browses categories → lines → services, builds a selection and hands it over to their phone through a QR code. Two modes: `quote` (no prices; the phone offers WhatsApp or a contact form) and `payment` (prices, cart, bank QR or card terminal, thermal receipt). Layered architecture (domain · infrastructure · state · UI · features), one config file for the brand, one for the catalog, tokens-based design system, 57 tests (33 Vitest + 24 node:test). Every request is stored as JSON Lines and delivered by e-mail or webhook, with an HTTP fallback when the socket is down. The demo runs NEZU's real catalog from nezuecuador.com. React, Vite, TypeScript, Zustand, Socket.IO.
 
 Plantilla de **autoservicio para tótems táctiles verticales**. El cliente recorre categorías, líneas y servicios, arma su selección en la pantalla y termina en su propio teléfono: el kiosko muestra un código QR que abre su selección en el móvil, donde deja sus datos, escribe por WhatsApp o paga.
 
@@ -12,7 +12,7 @@ Dos modos, una sola línea de configuración:
 
 | Modo | Para quién | Qué pasa al final |
 |---|---|---|
-| `quote` | Negocios que cotizan cada proyecto (es el modo de la demo: NEZU no publica precios) | El teléfono muestra la selección y ofrece **WhatsApp con el mensaje escrito** o un formulario; el kiosko confirma «Recibimos tu solicitud». |
+| `quote` | Negocios que cotizan cada proyecto (es el modo de la demo: NEZU no publica precios) | El teléfono muestra la selección y ofrece **WhatsApp con el mensaje escrito** o un formulario; la solicitud **llega al negocio por correo o webhook** y queda guardada; el kiosko confirma «Recibimos tu solicitud». |
 | `payment` | Negocios con precios fijos | Carrito con cantidades y total, razón social y RUC en el teléfono, **QR bancario o tarjeta en el datáfono**, comprobante térmico opcional. |
 
 [**Probar la demo**](https://nezusas.github.io/nezu-kiosk/) · ábrela en una ventana alta y estrecha, o en el modo de dispositivo del navegador a 1080×1920, para verla como en el tótem. El catálogo es el real de NEZU: Living, Elevate y Core.
@@ -56,8 +56,8 @@ src/
 scripts/           build-demo.mjs: la demo para GitHub Pages
 docs/              build de la demo (generada, no se edita)
 server/
-  src/             servidor Socket.IO en módulos: config, registro de sesiones, protocolo, Express y arranque
-  test/            pruebas con node:test, incluida una de extremo a extremo kiosko ↔ teléfono
+  src/             config, sesiones, protocolo Socket.IO, solicitudes (normalizar, guardar en JSONL, entregar por correo o webhook), Express y arranque
+  test/            pruebas con node:test: registro, protocolo de extremo a extremo, solicitudes, entregas y ruta HTTP
 ```
 
 - **El dominio no sabe de React.** `addService`, `totalOf`, `whatsAppMessage` o `validateCatalog` son funciones puras con pruebas propias.
@@ -70,7 +70,7 @@ server/
 1. Portada → **categorías** (bandas a sangre) → **líneas** de una categoría → **servicios** de una línea, con «Añadir a mi solicitud».
 2. **Mi solicitud** muestra lo elegido (y el total en modo pago). «Solicitar evaluación» abre el **QR**.
 3. El QR lleva al teléfono a `/phone?session=…&s=…`: la selección viaja dentro del enlace, así la página funciona aunque el servidor en tiempo real no esté.
-4. En el teléfono, el cliente escribe por **WhatsApp** (mensaje precargado con lo elegido) o envía sus datos; el servidor Socket.IO (`server/`) los reenvía al kiosko de esa sesión.
+4. En el teléfono, el cliente escribe por **WhatsApp** (mensaje precargado con lo elegido) o envía sus datos. El servidor (`server/`) **guarda cada solicitud en disco y la entrega por correo o webhook**, y además avisa al kiosko de esa sesión. Si el socket no conecta, el teléfono la envía por HTTP a `POST /api/leads`: la solicitud no depende de que el kiosko esté encendido.
 5. El kiosko salta a **Recibimos tu solicitud** (o a **pago por QR / tarjeta** en modo pago) y, tras dos minutos sin tocar la pantalla, vuelve limpio a la portada.
 
 ## Rutas
@@ -103,7 +103,7 @@ npm install
 npm run dev
 ```
 
-Sin el servidor, todo el recorrido del tótem funciona igual; solo falta el salto automático a la pantalla final cuando el teléfono envía. En modo pago, la impresión espera un servicio en `VITE_PRINTER_URL` que reciba `POST { image }`; si no está, la pantalla lo indica y el pedido continúa.
+Sin el servidor, todo el recorrido del tótem funciona igual y el cliente puede escribir por WhatsApp; lo que falta es el registro de solicitudes y el salto automático a la pantalla final. Para recibir las solicitudes por correo o webhook, configura `SMTP_URL`/`LEADS_EMAIL_TO` o `LEADS_WEBHOOK_URL` en el servidor (ver su README). En modo pago, la impresión espera un servicio en `VITE_PRINTER_URL` que reciba `POST { image }`; si no está, la pantalla lo indica y el pedido continúa.
 
 ## Calidad
 

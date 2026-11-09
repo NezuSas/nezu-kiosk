@@ -35,7 +35,14 @@ export const PhonePage = () => {
     if (!sessionId) return;
     setStatus("sending");
     try {
-      await handoff.submit({ sessionId, contact, paymentMethod: quote ? undefined : paymentMethod, channel: quote ? "email" : undefined });
+      await handoff.submit({
+        sessionId,
+        contact,
+        summary: summary ?? undefined,
+        mode: config.mode,
+        paymentMethod: quote ? undefined : paymentMethod,
+        channel: quote ? "email" : undefined,
+      });
       setStatus("sent");
     } catch {
       setStatus("failed");
@@ -48,7 +55,9 @@ export const PhonePage = () => {
       : null;
 
   const notifyKioskAndOpenWhatsApp = () => {
-    if (sessionId) void handoff.submit({ sessionId, contact, channel: "whatsapp" }).catch(() => undefined);
+    if (sessionId) {
+      void handoff.submit({ sessionId, contact, summary: summary ?? undefined, mode: config.mode, channel: "whatsapp" }).catch(() => undefined);
+    }
   };
 
   return (
@@ -145,7 +154,7 @@ export const PhonePage = () => {
                 <Button type="submit" variant={whatsapp ? "secondary" : "primary"} block disabled={status === "sending"}>
                   {phoneTexts.send}
                 </Button>
-                {status === "failed" && <p className={styles.error}>{phoneTexts.invalidSession}</p>}
+                {status === "failed" && <p className={styles.error}>{phoneTexts.sendFailed}</p>}
               </div>
             </form>
           </>

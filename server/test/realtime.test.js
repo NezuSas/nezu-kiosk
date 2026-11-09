@@ -20,11 +20,13 @@ describe("realtime hand-off", () => {
   let io;
   let url;
   const registry = new SessionRegistry({ ttlMs: 60_000 });
+  const intakeCalls = [];
+  const intake = { receive: async (payload) => { intakeCalls.push(payload); return { accepted: true }; } };
 
   before(async () => {
     server = http.createServer(createApp({ corsOrigin: "*", staticDir: "", registry }));
     io = new SocketServer(server, { cors: { origin: "*" } });
-    attachRealtime(io, { registry, log: silent });
+    attachRealtime(io, { registry, intake, log: silent });
     await new Promise((resolve) => server.listen(0, resolve));
     url = `http://127.0.0.1:${server.address().port}`;
   });
@@ -50,15 +52,19 @@ describe("realtime hand-off", () => {
     assert.deepEqual(payload, { sessionId: "s-1", contact: { name: "Ana" } });
     await new Promise((resolve) => setTimeout(resolve, 50));
     assert.equal(leaked, false);
+    assert.equal(intakeCalls.length, 1, "the intake receives the submission as well");
+    assert.equal(intakeCalls[0].sessionId, "s-1");
     [kiosk, otherKiosk, phone].forEach((socket) => socket.disconnect());
   });
 
   it("drops messages for unknown sessions and malformed payloads without crashing", async () => {
     const phone = await connected(url);
-    phone.emit("message", { sessionId: "nobody" });
+    const before = intakeCalls.length;
+    phone.emit("message", { sessionId: "nobody", contact: { name: "Sin kiosko" } });
     phone.emit("message", "garbage");
     phone.emit("message", null);
     await new Promise((resolve) => setTimeout(resolve, 50));
+    assert.equal(intakeCalls.length, before + 3, "every message reaches the intake, which decides what is valid");
     const health = await fetch(`${url}/health`).then((response) => response.json());
     assert.equal(health.ok, true);
     phone.disconnect();

@@ -69,6 +69,7 @@ export interface KioskTexts {
     send: string;
     sentTitle: string;
     sentBody: string;
+    sendFailed: string;
     invalidSession: string;
   };
   footer: {
@@ -147,6 +148,9 @@ export const defaultTexts = (mode: KioskMode): KioskTexts => {
       send: quote ? "Enviar y que me contacten" : "Continuar en el kiosko",
       sentTitle: "Listo",
       sentBody: quote ? "Ya tenemos tu solicitud. Te escribimos pronto." : "Ya puedes seguir en la pantalla del kiosko.",
+      sendFailed: quote
+        ? "No pudimos enviar tus datos. Prueba con WhatsApp o inténtalo de nuevo."
+        : "No pudimos avisar al kiosko. Inténtalo de nuevo o pide ayuda en el mostrador.",
       invalidSession: "Este enlace venció. Vuelve a escanear el código en el kiosko.",
     },
     footer: {
