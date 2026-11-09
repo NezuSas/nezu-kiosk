@@ -1,0 +1,33 @@
+.footer {
+  padding: var(--k-space-4) var(--k-gutter) var(--k-space-3);
+  border-top: 1px solid var(--k-line);
+  color: var(--k-text-2);
+  font-size: var(--k-text-s);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--k-space-2) var(--k-space-5);
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--k-space-1);
+  white-space: nowrap;
+}
+
+.item svg {
+  color: var(--k-text-3);
+}
+
+.credit {
+  margin-top: var(--k-space-2);
+  color: var(--k-text-3);
+}
+
+.credit a {
+  color: inherit;
+  text-decoration: none;
+}

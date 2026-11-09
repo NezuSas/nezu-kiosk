@@ -1,0 +1,64 @@
+/* Comprobante térmico: 80 mm de papel, tipografía del sistema, blanco y negro */
+.receipt {
+  width: 576px;
+  padding: 24px 28px;
+  background: #ffffff;
+  color: #111111;
+  font-family: var(--k-font);
+  font-size: 20px;
+  line-height: 1.35;
+}
+
+.logo {
+  height: 44px;
+  margin: 0 auto 16px;
+}
+
+.head {
+  text-align: center;
+  padding-bottom: 12px;
+  border-bottom: 2px dashed #111111;
+}
+
+.head strong {
+  display: block;
+  font-size: 22px;
+}
+
+.customer {
+  padding: 12px 0;
+  border-bottom: 2px dashed #111111;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+}
+
+.table th,
+.table td {
+  padding: 6px 0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th:last-child,
+.table td:last-child {
+  text-align: right;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 2px solid #111111;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.foot {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 16px;
+}

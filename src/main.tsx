@@ -1,20 +1,17 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
-import { kioskConfig } from "./kiosk.config";
-import { asset } from "./utils/asset";
+import { App } from "./app/App";
+import { applyTheme } from "./app/theme";
+import { kioskConfig } from "./config/kiosk.config";
+import { validateCatalog } from "./domain/catalog";
+import { catalog } from "./content/catalog";
 
-// The theme of kiosk.config.ts becomes CSS variables; the stylesheets only ever reference these.
-const { theme, business } = kioskConfig;
-const root = document.documentElement;
-root.style.setProperty("--k-accent", theme.accent);
-root.style.setProperty("--k-accent-dark", theme.accentDark);
-root.style.setProperty("--k-on-accent", theme.onAccent);
-root.style.setProperty("--k-highlight", theme.highlight);
-root.style.setProperty("--k-bg", theme.background);
-root.style.setProperty("--k-radius", `${theme.radius}px`);
-root.style.setProperty("--k-bg-image", theme.backgroundImage ? `url("${asset(theme.backgroundImage)}")` : "none");
-document.title = `${business.name} · Kiosk`;
+applyTheme(kioskConfig.theme);
+document.title = `${kioskConfig.business.name} · Kiosk`;
+
+if (import.meta.env.DEV) {
+  validateCatalog(catalog).forEach((problem) => console.warn(`[catálogo] ${problem}`));
+}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

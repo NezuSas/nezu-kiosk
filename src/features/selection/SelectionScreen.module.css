@@ -1,0 +1,61 @@
+.list {
+  display: grid;
+  gap: 2px;
+}
+
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: var(--k-space-3);
+  max-width: 44ch;
+  padding-top: var(--k-space-6);
+}
+
+.emptyTitle {
+  font-size: var(--k-display-s);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.emptyBody {
+  color: var(--k-text-2);
+  font-size: var(--k-text-l);
+}
+
+/* Barra de cierre fija al pie del contenido: total y acción principal */
+.summary {
+  position: sticky;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--k-space-4);
+  margin: var(--k-space-5) calc(var(--k-gutter) * -1) calc(var(--k-space-7) * -1);
+  padding: var(--k-space-4) var(--k-gutter) var(--k-space-5);
+  background: color-mix(in srgb, var(--k-ink) 92%, transparent);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid var(--k-line);
+}
+
+.totalLabel {
+  color: var(--k-text-2);
+  font-size: var(--k-text-m);
+}
+
+.total {
+  font-family: var(--k-font-mono);
+  font-size: var(--k-display-s);
+  line-height: 1;
+}
+
+.note {
+  color: var(--k-text-2);
+  font-size: var(--k-text-m);
+  max-width: 40ch;
+}
+
+@media (max-width: 640px) {
+  .summary {
+    grid-template-columns: 1fr;
+  }
+}

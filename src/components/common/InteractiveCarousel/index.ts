@@ -1,1 +1,0 @@
-export { InteractiveCarousel } from "./InteractiveCarousel";

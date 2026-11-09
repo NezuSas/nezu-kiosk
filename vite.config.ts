@@ -1,5 +1,4 @@
-import { defineConfig, loadEnv } from "vite";
-import { imagetools } from 'vite-imagetools';
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import compression from "vite-plugin-compression";
@@ -8,16 +7,7 @@ import dns from "node:dns";
 dns.setDefaultResultOrder('ipv4first');
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), "VITE_");
-
-  console.log(`🚀 Running in ${mode} mode`);
-  console.log("🔗 API URL:", env.VITE_API_URL);
-
   return {
-    define: {
-      "process.env.VITE_ENV": JSON.stringify(env.VITE_ENV),
-      "process.env.VITE_API_URL": JSON.stringify(env.VITE_API_URL)
-    },
     optimizeDeps: {
       include: [
         "react",
@@ -89,16 +79,10 @@ export default defineConfig(({ mode }) => {
     test: {
       globals: true,
       environment: 'jsdom',
-      setupFiles: './jest.setup.ts',
+      setupFiles: './vitest.setup.ts', css: { modules: { classNameStrategy: 'non-scoped' } },
     },
     plugins: [
       react(),
-      imagetools({
-        defaultDirectives: new URLSearchParams({
-          format: "webp;avif",
-          quality: "80"
-        })
-      }),
       compression({
         algorithm: "gzip",
         ext: ".gz",

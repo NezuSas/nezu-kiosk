@@ -1,0 +1,64 @@
+.intro {
+  max-width: 44ch;
+  margin-bottom: var(--k-space-5);
+  color: var(--k-text-2);
+  font-size: var(--k-text-xl);
+  line-height: 1.35;
+}
+
+.banks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--k-space-4);
+}
+
+.bank {
+  display: grid;
+  gap: var(--k-space-2);
+  padding: var(--k-space-3);
+  border-radius: var(--k-radius-m);
+  background: #ffffff;
+  color: var(--k-ink);
+  text-align: center;
+}
+
+.bank svg {
+  width: 100%;
+  height: auto;
+}
+
+.bankName {
+  font-weight: 600;
+}
+
+.card {
+  display: grid;
+  justify-items: start;
+  gap: var(--k-space-4);
+  max-width: 44ch;
+  padding-top: var(--k-space-5);
+}
+
+.cardTitle {
+  font-size: var(--k-display-m);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.arrow {
+  color: var(--k-primary);
+  animation: nudge 1.4s ease-in-out infinite;
+}
+
+@keyframes nudge {
+  50% {
+    transform: translateY(0.6rem);
+  }
+}
+
+.actions {
+  margin-top: var(--k-space-6);
+  display: flex;
+  justify-content: flex-end;
+}

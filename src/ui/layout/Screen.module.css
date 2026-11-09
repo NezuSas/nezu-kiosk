@@ -1,0 +1,123 @@
+.screen {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100dvh;
+  background: var(--k-ink);
+  color: var(--k-text);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--k-space-3);
+  min-height: var(--k-topbar);
+  padding: 0 var(--k-gutter);
+  background: color-mix(in srgb, var(--k-ink) 88%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--k-line);
+}
+
+.lead {
+  display: flex;
+  align-items: center;
+  gap: var(--k-space-3);
+  min-width: 0;
+}
+
+.back {
+  flex: none;
+}
+
+.crumbs {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.eyebrow {
+  color: var(--k-text-3);
+  font-size: var(--k-text-s);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title {
+  font-size: var(--k-text-l);
+  font-weight: 600;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: var(--k-space-2);
+  height: 2.2rem;
+}
+
+.wordmark img {
+  height: 100%;
+  width: auto;
+}
+
+.content {
+  padding: var(--k-space-5) var(--k-gutter) var(--k-space-7);
+}
+
+.flush {
+  padding-inline: 0;
+}
+
+/* Insignia que abre la selección: cuenta en la fuente de marca */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--k-space-2);
+  min-height: var(--k-touch);
+  padding: 0 var(--k-space-2) 0 var(--k-space-3);
+  border: 2px solid var(--k-line-strong);
+  border-radius: var(--k-radius-s);
+  font-weight: 600;
+  color: var(--k-text);
+  transition: border-color var(--k-fast) var(--k-ease);
+}
+
+.badge:active {
+  border-color: var(--k-text);
+}
+
+.badgeOn {
+  border-color: var(--k-primary);
+}
+
+.count {
+  display: grid;
+  place-items: center;
+  min-width: 2.2rem;
+  height: 2.2rem;
+  padding: 0 0.5rem;
+  border-radius: var(--k-radius-s);
+  background: var(--k-primary);
+  color: var(--k-on-primary);
+  font-family: var(--k-font-mono);
+  font-size: var(--k-text-m);
+  line-height: 1;
+}
+
+.countOff {
+  background: var(--k-surface-2);
+  color: var(--k-text-2);
+}
+
+@media (max-width: 640px) {
+  .badge span:not(.count) {
+    display: none;
+  }
+}

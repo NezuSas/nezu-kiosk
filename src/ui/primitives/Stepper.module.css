@@ -1,0 +1,19 @@
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--k-space-1);
+  border: 2px solid var(--k-line-strong);
+  border-radius: var(--k-radius-s);
+}
+
+.value {
+  min-width: 2.6rem;
+  text-align: center;
+  font-family: var(--k-font-mono);
+  font-size: var(--k-text-l);
+}
+
+.stepper button {
+  border-radius: 0;
+  border: 0;
+}

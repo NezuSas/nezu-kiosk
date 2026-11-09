@@ -1,0 +1,49 @@
+.wrap {
+  display: grid;
+  justify-items: start;
+  gap: var(--k-space-4);
+  max-width: 44ch;
+  padding-top: var(--k-space-6);
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 5.2rem;
+  height: 5.2rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--k-signal) 18%, transparent);
+  color: var(--k-signal);
+}
+
+.title {
+  font-size: var(--k-display-m);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.body {
+  color: var(--k-text-2);
+  font-size: var(--k-text-xl);
+  line-height: 1.35;
+}
+
+.contact {
+  font-family: var(--k-font-mono);
+  font-size: var(--k-text-l);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--k-space-3);
+  margin-top: var(--k-space-3);
+}
+
+/* El comprobante se renderiza fuera de pantalla solo para fotografiarlo */
+.hidden {
+  position: absolute;
+  left: -200vw;
+  top: 0;
+}

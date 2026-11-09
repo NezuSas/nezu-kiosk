@@ -1,0 +1,38 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: var(--k-gutter);
+  background: var(--k-scrim);
+  backdrop-filter: blur(6px);
+  animation: fade var(--k-slow) var(--k-ease);
+}
+
+.card {
+  position: relative;
+  width: min(100%, 36rem);
+  padding: var(--k-space-6) var(--k-space-5) var(--k-space-5);
+  border-radius: var(--k-radius-l);
+  animation: rise var(--k-slow) var(--k-ease);
+}
+
+.close {
+  position: absolute;
+  top: var(--k-space-3);
+  right: var(--k-space-3);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.2rem);
+  }
+}

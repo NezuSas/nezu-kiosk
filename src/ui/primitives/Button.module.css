@@ -1,0 +1,83 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--k-space-2);
+  min-height: var(--k-touch);
+  padding: 0 var(--k-space-4);
+  border-radius: var(--k-radius-s);
+  font-size: var(--k-text-m);
+  font-weight: 600;
+  line-height: 1.1;
+  text-align: center;
+  white-space: nowrap;
+  transition:
+    background-color var(--k-fast) var(--k-ease),
+    color var(--k-fast) var(--k-ease),
+    border-color var(--k-fast) var(--k-ease),
+    transform var(--k-fast) var(--k-ease);
+  border: 2px solid transparent;
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: default;
+  transform: none;
+}
+
+.primary {
+  background: var(--k-primary);
+  color: var(--k-on-primary);
+}
+
+.primary:not(:disabled):active {
+  background: var(--k-primary-strong);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--k-text);
+  border-color: var(--k-line-strong);
+}
+
+.secondary:not(:disabled):active {
+  background: var(--k-surface-2);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--k-text-2);
+  padding-inline: var(--k-space-2);
+}
+
+.ghost:not(:disabled):active {
+  color: var(--k-text);
+}
+
+/* Elegido: el color de señal, usado solo para este estado */
+.selected {
+  background: color-mix(in srgb, var(--k-signal) 16%, transparent);
+  color: var(--k-signal);
+  border-color: var(--k-signal);
+}
+
+.large {
+  min-height: calc(var(--k-touch) * 1.2);
+  padding-inline: var(--k-space-5);
+  font-size: var(--k-text-l);
+  border-radius: var(--k-radius-m);
+}
+
+.block {
+  width: 100%;
+}
+
+.iconOnly {
+  width: var(--k-touch);
+  padding: 0;
+  border-radius: 50%;
+}

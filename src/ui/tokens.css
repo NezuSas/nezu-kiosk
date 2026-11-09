@@ -1,0 +1,72 @@
+/*
+ * Sistema de diseño del kiosko · tokens.
+ *
+ * Los seis colores de marca llegan desde `kiosk.config.ts` (ver `app/theme.ts`); todo lo demás se deriva aquí con
+ * color-mix, así un cambio de marca no obliga a tocar ninguna hoja de estilo. Las medidas van en rem y el tamaño
+ * base crece con el ancho de la pantalla: 20 px en un tótem de 1080 px, 15 px en un teléfono.
+ */
+:root {
+  --k-primary: #d9542b;
+  --k-primary-strong: #c2461f;
+  --k-on-primary: #ffffff;
+  --k-signal: #c9df38;
+  --k-ink: #111a16;
+  --k-paper: #f3f4ee;
+  --k-home-image: none;
+
+  /* Superficies y líneas sobre el fondo oscuro */
+  --k-surface: color-mix(in srgb, var(--k-paper) 6%, var(--k-ink));
+  --k-surface-2: color-mix(in srgb, var(--k-paper) 11%, var(--k-ink));
+  --k-line: color-mix(in srgb, var(--k-paper) 14%, transparent);
+  --k-line-strong: color-mix(in srgb, var(--k-paper) 28%, transparent);
+  --k-text: var(--k-paper);
+  --k-text-2: color-mix(in srgb, var(--k-paper) 68%, transparent);
+  --k-text-3: color-mix(in srgb, var(--k-paper) 44%, transparent);
+  --k-scrim: color-mix(in srgb, var(--k-ink) 72%, transparent);
+
+  /* Tipografía: Rubik para todo; Disket Mono, la fuente de marca, solo para cifras */
+  --k-font: "Rubik-Variable", system-ui, sans-serif;
+  --k-font-mono: "DisketMono-Bold", ui-monospace, monospace;
+  --k-text-s: 0.9rem;
+  --k-text-m: 1.1rem;
+  --k-text-l: 1.3rem;
+  --k-text-xl: 1.65rem;
+  --k-display-s: 2.2rem;
+  --k-display-m: 3rem;
+  --k-display-l: 4.4rem;
+  --k-leading: 1.45;
+
+  /* Ritmo de 8 px */
+  --k-space-1: 0.4rem;
+  --k-space-2: 0.8rem;
+  --k-space-3: 1.2rem;
+  --k-space-4: 1.6rem;
+  --k-space-5: 2.4rem;
+  --k-space-6: 3.2rem;
+  --k-space-7: 4.8rem;
+  --k-gutter: 2.8rem;
+
+  --k-radius-s: 0.6rem;
+  --k-radius-m: 1rem;
+  --k-radius-l: 1.4rem;
+  /* Objetivo táctil mínimo para una pantalla que se usa de pie */
+  --k-touch: 3.8rem;
+  --k-topbar: 5.6rem;
+
+  --k-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --k-fast: 160ms;
+  --k-slow: 420ms;
+}
+
+/* Páginas claras (el teléfono del cliente, el comprobante) */
+.light {
+  --k-surface: #ffffff;
+  --k-surface-2: color-mix(in srgb, var(--k-ink) 5%, var(--k-paper));
+  --k-line: color-mix(in srgb, var(--k-ink) 12%, transparent);
+  --k-line-strong: color-mix(in srgb, var(--k-ink) 26%, transparent);
+  --k-text: var(--k-ink);
+  --k-text-2: color-mix(in srgb, var(--k-ink) 66%, transparent);
+  --k-text-3: color-mix(in srgb, var(--k-ink) 44%, transparent);
+  background: var(--k-paper);
+  color: var(--k-text);
+}
