@@ -5,7 +5,7 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  { ignores: ["dist", "docs", "server", "vite.config.js", "vite.config.d.ts"] },
+  { ignores: ["dist", "docs", "server", ".e2e", "vite.config.js", "vite.config.d.ts"] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   reactHooks.configs.flat.recommended,
@@ -18,7 +18,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ["scripts/**/*.mjs"],
+    files: ["scripts/**/*.mjs", "e2e/**/*.ts"],
     languageOptions: { globals: globals.node },
   },
   {

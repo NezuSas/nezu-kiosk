@@ -26,7 +26,7 @@ export const HandoffDialog = ({ open, onClose }: HandoffDialogProps) => {
         {texts.handoff.title}
       </h2>
       <p className={styles.help}>{texts.handoff.help}</p>
-      <div className={styles.qr}>
+      <div className={styles.qr} data-phone-url={url ?? undefined}>
         {url && <QRCodeSVG value={url} level="H" marginSize={0} />}
         <span className={styles.logo}>
           <img src={asset(config.business.logoDark)} alt="" />

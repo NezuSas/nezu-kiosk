@@ -40,6 +40,6 @@ export default defineConfig(({ mode }) => ({
     environment: "jsdom",
     setupFiles: "./vitest.setup.ts",
     css: { modules: { classNameStrategy: "non-scoped" } },
-    exclude: [...configDefaults.exclude, "server/**", "docs/**"],
+    exclude: [...configDefaults.exclude, "server/**", "docs/**", "e2e/**"],
   },
 }));

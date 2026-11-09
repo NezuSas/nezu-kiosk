@@ -153,13 +153,21 @@
       .catch((error) => setStatus(error.message, true));
 
   // ── Arranque ────────────────────────────────────────────────────────────────────────────────────────────────
+  // Primero comprueba el token con las estadísticas; solo si responde se muestra el resto.
   const start = () =>
-    Promise.all([loadPending(), loadStats()]).then(() => {
-      $("#app").hidden = false;
-      setStatus("Conectado. La caja se actualiza sola cada 15 segundos.");
-      clearInterval(start.timer);
-      start.timer = setInterval(loadPending, 15000);
-    });
+    api("/api/stats")
+      .then((stats) => {
+        renderStats(stats);
+        $("#app").hidden = false;
+        setStatus("Conectado. La caja se actualiza sola cada 15 segundos.");
+        clearInterval(start.timer);
+        start.timer = setInterval(loadPending, 15000);
+        return loadPending();
+      })
+      .catch((error) => {
+        $("#app").hidden = true;
+        setStatus(error.message, true);
+      });
 
   $("#token-form").addEventListener("submit", (event) => {
     event.preventDefault();

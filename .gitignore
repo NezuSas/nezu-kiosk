@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+.e2e/
+data/
 
 # Editor directories and files
 .vscode/*
@@ -31,3 +33,9 @@ vite.config.js
 vite.config.d.ts
 nodeenv/
 activate.ps1
+
+# Entornos locales: solo se versionan los ejemplos
+.env
+.env.*
+!.env.example
+!.env.docker.example

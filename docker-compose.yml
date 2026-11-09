@@ -1,0 +1,28 @@
+# NEZU Kiosk · despliegue en un comando.
+#
+#   cp .env.docker.example .env      # y rellena PUBLIC_URL y ADMIN_TOKEN como mínimo
+#   docker compose up -d --build
+#
+# Queda en http://<equipo>:4000 el kiosko (tótem), en /phone la página del teléfono, en /admin la caja y el panel.
+# Publica el puerto 4000 hacia internet (por ejemplo con un túnel de Cloudflare) en la misma PUBLIC_URL para que el
+# QR funcione desde la red móvil del cliente. Las solicitudes, eventos y pagos quedan en ./data.
+
+services:
+  kiosk:
+    build:
+      context: .
+      args:
+        VITE_PHONE_URL: ${PUBLIC_URL:-http://localhost:4000}/phone
+    image: nezu-kiosk:local
+    restart: unless-stopped
+    ports:
+      - "${PORT:-4000}:4000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      PORT: "4000"
+      STATIC_DIR: /app/dist
+      DATA_DIR: /app/data
+    volumes:
+      - ./data:/app/data

@@ -1,0 +1,13 @@
+node_modules
+server/node_modules
+dist
+docs
+data
+.e2e
+.git
+.github
+.vscode
+*.log
+.env
+.env.*
+!.env.docker.example

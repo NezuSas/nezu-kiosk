@@ -9,6 +9,8 @@ npm start        # producción
 npm test         # node --test
 ```
 
+En producción lo normal es no arrancarlo a mano: el `docker-compose.yml` de la raíz construye el kiosko y lo sirve desde este servidor (`STATIC_DIR`), con los datos en `./data`.
+
 | Variable | Por defecto | Qué hace |
 |---|---|---|
 | `PORT` | `4000` | Puerto HTTP y de Socket.IO. |

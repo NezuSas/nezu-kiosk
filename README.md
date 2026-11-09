@@ -4,7 +4,7 @@
 
 # NEZU Kiosk
 
-> **In English.** A self-service kiosk for vertical touch totems (1080×1920), built as a template. The shopper browses categories → lines → services, builds a selection and hands it over to their phone through a QR code. Two modes: `quote` (no prices; the phone offers WhatsApp or a contact form) and `payment` (prices, cart, bank QR or card terminal, thermal receipt). Layered architecture (domain · infrastructure · state · UI · features), one config file for the brand, one for the catalog, tokens-based design system, Spanish and English UI with an on-screen switch, kiosk hardening (fullscreen, offline cache, error boundary), usage analytics, server-side payment confirmation, an admin page (cashier + stats) and 83 tests (45 Vitest + 38 node:test). Every request is stored as JSON Lines and delivered by e-mail or webhook, with an HTTP fallback when the socket is down. The demo runs NEZU's real catalog from nezuecuador.com. React, Vite, TypeScript, Zustand, Socket.IO.
+> **In English.** A self-service kiosk for vertical touch totems (1080×1920), built as a template. The shopper browses categories → lines → services, builds a selection and hands it over to their phone through a QR code. Two modes: `quote` (no prices; the phone offers WhatsApp or a contact form) and `payment` (prices, cart, bank QR or card terminal, thermal receipt). Layered architecture (domain · infrastructure · state · UI · features), one config file for the brand, one for the catalog, tokens-based design system, Spanish and English UI with an on-screen switch, kiosk hardening (fullscreen, offline cache, error boundary), usage analytics, server-side payment confirmation, an admin page (cashier + stats), one-command Docker deployment, an operations guide and 91 tests (45 Vitest + 38 node:test + 8 Playwright end-to-end). Every request is stored as JSON Lines and delivered by e-mail or webhook, with an HTTP fallback when the socket is down. The demo runs NEZU's real catalog from nezuecuador.com. React, Vite, TypeScript, Zustand, Socket.IO.
 
 Plantilla de **autoservicio para tótems táctiles verticales**. El cliente recorre categorías, líneas y servicios, arma su selección en la pantalla y termina en su propio teléfono: el kiosko muestra un código QR que abre su selección en el móvil, donde deja sus datos, escribe por WhatsApp o paga.
 
@@ -34,7 +34,7 @@ Dos modos, una sola línea de configuración:
 3. **Catálogo** · [`src/content/catalog.ts`](src/content/catalog.ts): categorías → líneas → servicios. Añade `price` a los servicios para el modo `payment`. Los tipos viven en [`src/domain/catalog/types.ts`](src/domain/catalog/types.ts) y `npm test` comprueba que no haya identificadores repetidos ni imágenes que falten.
 4. **Imágenes** · pon las tuyas en `public/images/` y referencia la ruta desde el catálogo. Las de ejemplo (`public/images/demo/`, ver [`SOURCES.md`](public/images/demo/SOURCES.md)) son ilustraciones generadas para la demo: bórralas cuando tengas las propias. Formato recomendado: WebP 16:9 de 1400 px.
 5. **Integraciones** · copia [`.env.example`](.env.example) a `.env.production`: la URL pública de la página del teléfono y, si aplica, el servidor en tiempo real y la impresora.
-6. **Publica** · `npm run build` y sirve `dist/` donde prefieras: en Vercel con el `vercel.json` incluido (reescribe toda ruta a `index.html`), desde el propio servidor con `STATIC_DIR=../dist`, o en GitHub Pages con `npm run build:demo`, que deja la build en `docs/` lista para servirla desde la rama `main`.
+6. **Publica** · lo más simple es Docker: `cp .env.docker.example .env`, rellena la URL pública y el token, y `docker compose up -d --build` levanta servidor y kiosko juntos en el puerto 4000 (ver [OPERACION.md](OPERACION.md)). También puedes hacer `npm run build` y servir `dist/` en Vercel con el `vercel.json` incluido, desde el propio servidor con `STATIC_DIR`, o en GitHub Pages con `npm run build:demo`, que deja la build en `docs/`.
 
 La línea «Kiosko creado con NEZU Kiosk» del pie se configura en `credit`; agradecemos que se quede, pero la decisión es tuya.
 
@@ -56,6 +56,9 @@ src/
   app/             composición: KioskProvider (inyecta config, catálogo y adaptadores), router, tema, reposo
 scripts/           build-demo.mjs: la demo para GitHub Pages
 docs/              build de la demo (generada, no se edita)
+e2e/               pruebas de extremo a extremo con Playwright
+Dockerfile, docker-compose.yml, .env.docker.example   despliegue en un comando
+OPERACION.md       guía de operación del tótem
 server/
   src/             config, sesiones, protocolo Socket.IO, solicitudes (JSONL + correo o webhook), eventos y estadísticas, pagos pendientes y confirmación, Express y arranque
   admin/           página de administración: caja y panel (HTML, CSS y JS sin build)
@@ -69,6 +72,15 @@ server/
 - **Pensado para un tótem desatendido.** Pantalla completa al primer toque, service worker que guarda aplicación, fuentes e imágenes para seguir mostrando el catálogo sin red, aviso discreto de desconexión, límite de errores con salida a la portada, sin selección de texto ni menús contextuales, y reposo que limpia selección, sesión e idioma.
 - **Métricas sin datos personales.** Pantallas vistas, servicios añadidos, QR abiertos, cambios de idioma y errores viajan en lotes a `POST /api/events`; `GET /api/stats` (con token) resume por día y lista los servicios más pedidos.
 - **Administración en `/admin`.** Página del servidor, protegida con el token, con la **caja** (clientes a la espera de cobro, confirmación con la referencia del datáfono o del banco) y el **panel** de la última semana: solicitudes, pagos, eventos y servicios más pedidos.
+
+## Instalarlo en un local
+
+La [guía de operación](OPERACION.md) explica qué hace falta (tótem, un equipo con Docker, una URL pública y un correo o webhook), cómo arrancar el navegador en modo kiosko en Windows, Linux o Android, qué revisar cada día, qué hacer si algo falla y cómo actualizar. En resumen:
+
+```bash
+cp .env.docker.example .env   # PUBLIC_URL, ADMIN_TOKEN, correo o webhook
+docker compose up -d --build  # kiosko en :4000, teléfono en /phone, administración en /admin
+```
 
 ## Flujo completo
 
@@ -117,7 +129,11 @@ npm run lint    # ESLint, sin errores
 npm test        # Vitest: dominio, configuración, catálogo publicado y pantallas
 npm run build   # tsc -b && vite build
 npm test --prefix server   # node:test: sesiones, protocolo, solicitudes, entregas, eventos, pagos y rutas HTTP
+npm run e2e:install        # una vez: el Chromium de Playwright
+npm run e2e                # Playwright: construye, arranca el servidor sirviendo el kiosko y recorre tótem, teléfono y administración
 ```
+
+Las pruebas de extremo a extremo (`e2e/`) usan el despliegue real: el servidor de `server/` sirve la build y atiende el socket, las solicitudes y la administración en un solo origen, igual que en Docker. Recorren el kiosko completo con dos páginas a la vez (tótem y teléfono), comprueban que la solicitud llega al servidor sin tótem y que la caja confirma cobros.
 
 La demo pública se construye con `npm run build:demo` en `docs/` y GitHub Pages la sirve desde `main`; el repositorio tiene una sola rama.
 

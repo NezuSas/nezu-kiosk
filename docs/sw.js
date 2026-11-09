@@ -4,7 +4,7 @@
  * El nombre de la caché cambia con cada build (lo sustituye scripts/build-demo.mjs o el despliegue) para que una
  * versión nueva reemplace a la anterior.
  */
-const CACHE = "nezu-kiosk-mw9velwn";
+const CACHE = "nezu-kiosk-mw9wb00n";
 const SCOPE = self.registration.scope;
 
 const isBypassed = (url) => url.pathname.includes("/api/") || url.pathname.includes("/socket.io/");
