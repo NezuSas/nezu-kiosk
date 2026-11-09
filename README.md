@@ -4,7 +4,7 @@
 
 # NEZU Kiosk
 
-> **In English.** A self-service kiosk for vertical touch totems (1080×1920), built as a template. The shopper browses categories → lines → services, builds a selection and hands it over to their phone through a QR code. Two modes: `quote` (no prices; the phone offers WhatsApp or a contact form) and `payment` (prices, cart, bank QR or card terminal, thermal receipt). Layered architecture (domain · infrastructure · state · UI · features), one config file for the brand, one for the catalog, tokens-based design system, 33 tests. The demo runs NEZU's real catalog from nezuecuador.com. React, Vite, TypeScript, Zustand, Socket.IO.
+> **In English.** A self-service kiosk for vertical touch totems (1080×1920), built as a template. The shopper browses categories → lines → services, builds a selection and hands it over to their phone through a QR code. Two modes: `quote` (no prices; the phone offers WhatsApp or a contact form) and `payment` (prices, cart, bank QR or card terminal, thermal receipt). Layered architecture (domain · infrastructure · state · UI · features), one config file for the brand, one for the catalog, tokens-based design system, 41 tests (33 Vitest + 8 node:test). The demo runs NEZU's real catalog from nezuecuador.com. React, Vite, TypeScript, Zustand, Socket.IO.
 
 Plantilla de **autoservicio para tótems táctiles verticales**. El cliente recorre categorías, líneas y servicios, arma su selección en la pantalla y termina en su propio teléfono: el kiosko muestra un código QR que abre su selección en el móvil, donde deja sus datos, escribe por WhatsApp o paga.
 
@@ -34,7 +34,7 @@ Dos modos, una sola línea de configuración:
 3. **Catálogo** · [`src/content/catalog.ts`](src/content/catalog.ts): categorías → líneas → servicios. Añade `price` a los servicios para el modo `payment`. Los tipos viven en [`src/domain/catalog/types.ts`](src/domain/catalog/types.ts) y `npm test` comprueba que no haya identificadores repetidos ni imágenes que falten.
 4. **Imágenes** · pon las tuyas en `public/images/` y referencia la ruta desde el catálogo. Las de ejemplo (`public/images/demo/`, ver [`SOURCES.md`](public/images/demo/SOURCES.md)) son ilustraciones generadas para la demo: bórralas cuando tengas las propias. Formato recomendado: WebP 16:9 de 1400 px.
 5. **Integraciones** · copia [`.env.example`](.env.example) a `.env.production`: la URL pública de la página del teléfono y, si aplica, el servidor en tiempo real y la impresora.
-6. **Publica** · `npm run build` y sirve `dist/` donde prefieras; para GitHub Pages, `npm run build -- --base=/<repo>/`.
+6. **Publica** · `npm run build` y sirve `dist/` donde prefieras: en Vercel con el `vercel.json` incluido (reescribe toda ruta a `index.html`), desde el propio servidor con `STATIC_DIR=../dist`, o en GitHub Pages con `npm run build -- --base=/<repo>/`.
 
 La línea «Kiosko creado con NEZU Kiosk» del pie se configura en `credit`; agradecemos que se quede, pero la decisión es tuya.
 
@@ -70,6 +70,21 @@ server/
 3. El QR lleva al teléfono a `/phone?session=…&s=…`: la selección viaja dentro del enlace, así la página funciona aunque el servidor en tiempo real no esté.
 4. En el teléfono, el cliente escribe por **WhatsApp** (mensaje precargado con lo elegido) o envía sus datos; el servidor Socket.IO (`server/`) los reenvía al kiosko de esa sesión.
 5. El kiosko salta a **Recibimos tu solicitud** (o a **pago por QR / tarjeta** en modo pago) y, tras dos minutos sin tocar la pantalla, vuelve limpio a la portada.
+
+## Rutas
+
+| Ruta | Pantalla |
+|---|---|
+| `/` | Portada |
+| `/categories` | Categorías |
+| `/categories/:categoryId` | Líneas de una categoría |
+| `/categories/:categoryId/:lineId` | Servicios de una línea |
+| `/selection` | Mi solicitud o mi pedido, con el código QR |
+| `/phone` | Página del teléfono del cliente (sin armazón del tótem ni reposo) |
+| `/payment` · `/card` | Modo pago: QR bancario o instrucciones del datáfono |
+| `/thanks` | Confirmación y vuelta a la portada |
+
+Las rutas de la versión anterior (`/cart`, `/form`, `/payment-options`, `/datafast-instructions`, `/thankyou`) redirigen a las nuevas conservando la consulta, así los QR ya impresos siguen funcionando.
 
 ## Ejecutar en desarrollo
 
