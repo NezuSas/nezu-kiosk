@@ -4,6 +4,8 @@
 
 # NEZU Kiosk
 
+> **In English.** A self-service point-of-sale kiosk for touch screens: catalog, cart, customer form and QR payment, with real-time events over Socket.IO and optional thermal printing. React, Vite and TypeScript, with a live demo.
+
 Aplicación de **autoservicio para puntos de venta**: el cliente recorre categorías y productos en una pantalla táctil, arma su carrito, deja sus datos y paga con un código QR. Pensada para comercios que quieren atender sin fila y sin personal dedicado a tomar pedidos.
 
 Construida con React, Vite y TypeScript, con un pequeño servidor Express y Socket.IO para los eventos en tiempo real entre el kiosko y el punto de cobro.
@@ -54,6 +56,17 @@ npm install
 npm run dev
 ```
 
+### Qué funciona sin nada más
+
+El catálogo, el carrito, el formulario y la pantalla de pago con QR corren solos: con `npm run dev` ya se puede recorrer todo el flujo. Dos piezas dependen de servicios externos que **no** están en este repositorio:
+
+| Pieza | Qué espera | Si no está |
+|---|---|---|
+| Impresión del ticket | Un servicio de impresión térmica escuchando en `http://127.0.0.1:5000/print` (POST con el pedido). NEZU usa un agente propio; cualquier servicio que acepte ese JSON sirve. | La app avisa que no hay impresora y el pedido continúa. |
+| Pedidos y pagos | La API indicada en `VITE_API_URL`, que recibe el pedido y confirma el pago del QR. | El QR se genera igual (con `VITE_QR_BASE_URL`), pero no hay confirmación. |
+
+Para probarlo en el navegador sin instalar nada: [**demo en línea**](https://nezusas.github.io/nezu-kiosk/).
+
 ## Calidad y construcción
 
 ```bash
@@ -63,7 +76,13 @@ npm run build      # tsc -b && vite build
 npm run preview    # sirve la build localmente
 ```
 
-La aplicación se despliega en Vercel con la configuración de `vercel.json`.
+La aplicación se despliega en Vercel con la configuración de `vercel.json`. La demo pública se construye con `npm run build -- --base=/nezu-kiosk/` y se publica en GitHub Pages.
+
+## Capturas
+
+| Inicio | Categorías | Carrito |
+|---|---|---|
+| ![Pantalla de inicio](.github/screenshots/inicio.jpg) | ![Categorías](.github/screenshots/categorias.jpg) | ![Carrito](.github/screenshots/carrito.jpg) |
 
 ## Estructura
 
