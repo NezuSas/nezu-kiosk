@@ -1,23 +1,25 @@
 {
-  "name": "server",
+  "name": "nezu-kiosk-server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Servidor en tiempo real que une el kiosko con el teléfono del cliente (Socket.IO).",
+  "private": true,
   "type": "module",
-  "scripts": {
-    "dev": "nodemon server/index.js"
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "test": "node --test \"test/**/*.test.js\""
+  },
   "dependencies": {
     "compression": "^1.7.5",
     "cors": "^2.8.5",
     "express": "^4.21.2",
-    "morgan": "^1.10.0",
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "socket.io-client": "^4.8.1"
   }
 }

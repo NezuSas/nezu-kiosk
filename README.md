@@ -53,6 +53,9 @@ src/
   ui/              sistema de diseño: tokens.css, base.css, primitivas (Button, Modal, Stepper), iconos, Screen y Footer
   features/        pantallas por caso de uso: home, catalog, selection, handoff, phone
   app/             composición: KioskProvider (inyecta config, catálogo y adaptadores), router, tema, reposo
+server/
+  src/             servidor Socket.IO en módulos: config, registro de sesiones, protocolo, Express y arranque
+  test/            pruebas con node:test, incluida una de extremo a extremo kiosko ↔ teléfono
 ```
 
 - **El dominio no sabe de React.** `addService`, `totalOf`, `whatsAppMessage` o `validateCatalog` son funciones puras con pruebas propias.
@@ -75,7 +78,7 @@ npm install
 npm run dev
 ```
 
-Servidor en tiempo real, en otra terminal (une el teléfono con el kiosko; Vite lo proxea en desarrollo):
+Servidor en tiempo real, en otra terminal (une el teléfono con el kiosko; Vite lo proxea en desarrollo; detalles en [`server/README.md`](server/README.md)):
 
 ```bash
 cd server
@@ -91,6 +94,7 @@ Sin el servidor, todo el recorrido del tótem funciona igual; solo falta el salt
 npm run lint    # ESLint, sin errores
 npm test        # Vitest: dominio, configuración, catálogo publicado y pantallas
 npm run build   # tsc -b && vite build
+npm test --prefix server   # node:test: registro de sesiones y protocolo en tiempo real
 ```
 
 La demo pública se construye con `npm run build -- --base=/nezu-kiosk/` y se publica en GitHub Pages desde la rama `gh-pages`.
